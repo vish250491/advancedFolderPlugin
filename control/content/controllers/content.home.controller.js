@@ -7,6 +7,21 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
+                ContentHome.list=[{title : 'a',items:[{title:'aa'}]},{title : 'b'},{title : 'c'}];
+                ContentHome.treeOptions = {
+                    accept: function(sourceNodeScope, destNodesScope, destIndex) {
+                        return true;
+                     },
+                    removed : function(node){
+
+                    },
+                    dropped : function(event) {
+
+                    }
+
+                    }
+
+
                 var timerDelay, masterInfo;
                 ContentHome.advanceFolder = new DB(COLLECTIONS.advancedFolder);
 

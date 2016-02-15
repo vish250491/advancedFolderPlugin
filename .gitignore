@@ -35,5 +35,6 @@ node_modules
 # Optional .idea/ directory
 .idea/
 
-/
+# Optional .idea/ directory
+test/ftest
 
