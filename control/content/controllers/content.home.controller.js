@@ -8,7 +8,7 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var timerDelay, masterInfo;
-                ContentHome.soundCloud = new DB(COLLECTIONS.advancedFolderInfo);
+                ContentHome.advanceFolder = new DB(COLLECTIONS.advancedFolder);
 
                 //option for wysiwyg
                 ContentHome.bodyWYSIWYGOptions = {
@@ -17,8 +17,6 @@
                     trusted: true,
                     theme: 'modern'
                 };
-
-                ContentHome.soundcloudLinksInvalid = null;
 
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
@@ -49,7 +47,9 @@
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
-
+                ContentHome.addNewFolderToRootPopup = function () {
+                    ContentHome.showAddFolderPopup =true;
+                };
 
 
                 function init() {
@@ -62,14 +62,14 @@
                             }
                         }
                         else {
-                            updateMasterInfo(DEFAULT_DATA.SOUND_CLOUD_INFO);
-                            ContentHome.info = DEFAULT_DATA.SOUND_CLOUD_INFO;
+                            updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
+                            ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                         }
                     };
                     var error = function (err) {
                         console.error('Error while getting data from db-------', err);
                     };
-                    ContentHome.soundCloud.get().then(success, error);
+                    ContentHome.advanceFolder.get().then(success, error);
                 }
 
                 init();
@@ -92,7 +92,7 @@
                         console.error('Error while saving data------------------------------', err);
                     };
                     if (_info && _info.data)
-                        ContentHome.soundCloud.save(_info.data).then(saveSuccess, saveError);
+                        ContentHome.advanceFolder.save(_info.data).then(saveSuccess, saveError);
                 }
 
                 function updateInfoData(_info) {

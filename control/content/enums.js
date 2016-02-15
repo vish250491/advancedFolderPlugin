@@ -16,20 +16,24 @@
             }
         })
         .constant('COLLECTIONS', {
-            advancedFolderInfo: "advancedFolderInfo"
+            advancedFolder: "advancedFolder"
         })
         .constant('DEFAULT_DATA', {
             ADVANCED_FOLDER_INFO: {
                 data: {
                     content: {
-                        images: [],
-                        description: '',
-                        advancedFolderClientID: '',
+                        carouselImages: [],
+                        body: '',
+                        dataEntity: [{}],
                         link: ''
                     },
                     design: {
-                        itemListLayout: "list-layout1",
-                        bgImage: ""
+                        itemListLayout : "",
+                        bgImageMostDevices : "",
+                        bgImageIphone : "",
+                        bgImageIpad : "",
+                        bgImageTablet : ""
+
                     }
                 }
             }
