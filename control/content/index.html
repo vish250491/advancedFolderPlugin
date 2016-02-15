@@ -30,7 +30,7 @@
     <hr class="none">
     <div class="item clearfix row">
         <div class="labels col-md-3 padding-right-zero pull-left">
-            <span>Description</span>
+            <span>Body</span>
         </div>
     </div>
     <hr class="none">
@@ -40,43 +40,7 @@
         </div>
     </div>
     <hr class="none">
-    <div class="item clearfix row">
-        <div class="labels col-md-9 padding-right-zero pull-right">
-            <span>Don't have a advancedFolder account? Sign up <a onclick="window.open('https://advancedFolder.com/', '_blank')">here</a>.</span>
-        </div>
 
-    </div>
-    <hr class="none">
-    <div class="item clearfix row">
-        <div class="labels col-md-3 padding-right-zero pull-left">
-            <span>advancedFolder Client ID</span>
-        </div>
-        <div class="main pull-right col-md-9">
-            <input type="text" class="form-control" placeholder="Client ID" ng-model="ContentHome.info.data.content.advancedFolderClientID">
-            <span style="font-size: 11px">Note: advancedFolder Client ID is mandatory. Click <a onclick="window.open('http://advancedFolder.com/you/apps', '_blank')">here</a> for more info.</span>
-        </div>
-    </div>
-    <hr class="none">
-    <div class="item clearfix row">
-        <div class="labels col-md-3 padding-right-zero pull-left">
-            <span>Link</span>
-        </div>
-        <div class="main pull-right col-md-9">
-            <input type="text" class="form-control" placeholder="Link" ng-model="ContentHome.info.data.content.link">
-        </div>
-    </div>
-    <div class="item clearfix row margin-top-ten" ng-show="ContentHome.advancedFolderLinksInvalid != null">
-        <div class="main pull-right col-md-9">
-            <div class="alert alert-success alert-sm text-center ng-hide" ng-show="ContentHome.advancedFolderLinksInvalid == false">Link successfully validated.</div>
-            <div class="alert alert-danger alert-sm text-center" ng-show="ContentHome.advancedFolderLinksInvalid">The {{ContentHome.advancedFolderLinksInvalid}} appears to be invalid.</div>
-        </div>
-    </div>
-    <hr class="none">
-    <div class="item clearfix row">
-        <div class="col-md-3 pull-right">
-            <a class="btn btn-primary stretch" ng-click="ContentHome.verifyadvancedFolderLinks()">Verify</a>
-        </div>
-    </div>
 </div>
 </body>
 </html>
