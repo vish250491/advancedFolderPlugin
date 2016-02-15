@@ -1,0 +1,35 @@
+<div class="holder padding-zero">
+    <div class="media-center-plugin layout3 text-overlay">
+        <div class="plugin-banner clearfix border-bottom-grey text-overlay">
+            <div id="carousel" build-fire-carousel=""></div>
+        </div>
+        <div class="padded text-left text-overlay" ng-if="WidgetHome.showDescription()">
+            <p class="margin-bottom-zero"
+               ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
+            </p>
+        </div><div class="noTracksMsg" ng-show="WidgetHome.noTracks">
+        <span>No tracks to display!</span>
+    </div>
+        <div  infinite-scroll="WidgetHome.loadMore()"
+              infinite-scroll-distance="1"
+              data-infinite-container=".infinite-scroll-parent"
+              infinite-scroll-disabled="WidgetHome.noMore">
+            <div ng-class="track.isPlaying ? 'bold':''" class="clickable text-overlay" ng-repeat="track in WidgetHome.tracks"
+                 ng-click="WidgetHome.goToTrack(track)">
+                <div class="plugin-banner clearfix text-overlay">
+                    <div class="text-overlay" ng-if="track.artwork_url">
+                        <img ng-src="{{track.artwork_url | cropImage:340:190}}">
+                    </div>
+                </div>
+                <div class="padded padding-bottom-ten text-left text-overlay">
+                    <p class="text-primary ellipsis margin-zero">
+                        <a class="text-primary">{{track.title}}</a>
+                    </p>
+                    <p class="margin-bottom-zero">{{track.user.username}}</p>
+                    <span class="list-item-date duration-ui">{{track.duration | millisecondsToDateTime | date:'mm:ss'}}</span>
+                    <span class="list-item-date playcount-ui" >{{track.playback_count | number}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

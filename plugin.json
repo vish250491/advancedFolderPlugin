@@ -1,0 +1,24 @@
+{
+  "author": "BuildFire",
+  "pluginName": "advancedFolderPlugin",
+  "pluginDescription": " advancedFolderPlugin Description",
+  "supportEmail": "support@buildfire.com",
+  "pluginIcon": "icon.png",
+  "control": {
+    "content": {
+      "enabled": true
+    },
+    "design": {
+      "enabled": true
+    },
+    "settings": {
+      "enabled": false
+    }
+  },
+  "widget": {
+  },
+  "features": [],
+  "languages": [
+    "en"
+  ]
+}
