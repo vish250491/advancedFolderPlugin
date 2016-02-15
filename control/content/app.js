@@ -8,7 +8,8 @@
             'ui.bootstrap',
             'advancedFolderContentServices',
             'advancedFolderContentEnums',
-            'ui.tinymce'
+            'ui.tinymce',
+            'ui.tree'
         ])
         //injected ui.bootstrap for angular bootstrap component
         .config(['$httpProvider', function ($httpProvider) {

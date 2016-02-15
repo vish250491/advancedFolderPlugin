@@ -4,7 +4,7 @@
     <!-- CSS -->
     <link href="../../../../styles/helper.css" rel="stylesheet">
     <link href="../../../../styles/siteIcons.css" rel="stylesheet">
-
+    <link href="assets/angular-ui-tree.css" rel="stylesheet">
     <!--SDK js-->
     <script src="../../../../scripts/buildfire.js"></script>
     <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
@@ -17,6 +17,8 @@
     <script src="../../../../scripts/sortable.min.js"></script>
     <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
     <script src="../../../../scripts/buildfire/components/actionItems/sortableList.js"></script>
+
+    <script src="assets/angular-ui-tree.js"></script>
     <script src="enums.js"></script>
     <script src="app.js"></script>
     <script src="app.services.js"></script>
@@ -40,6 +42,22 @@
         </div>
     </div>
     <hr class="none">
+    <div ui-tree="ContentHome.treeOptions">
+        <ol ui-tree-nodes="" ng-model="ContentHome.list">
+            <li ng-repeat="item in ContentHome.list" ui-tree-node>
+                <div ui-tree-handle>
+                    {{item.title}}
+                </div>
+                <ol ui-tree-nodes="" ng-model="item.items">
+                    <li ng-repeat="subItem in item.items" ui-tree-node>
+                        <div ui-tree-handle>
+                            {{subItem.title}}
+                        </div>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </div>
 
 </div>
 </body>
