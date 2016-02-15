@@ -1,6 +1,6 @@
 (function (angular) {
     angular
-        .module('soundCloudPluginWidget')
+        .module('advancedFolderPluginWidget')
         .directive("buildFireCarousel", ["$rootScope", '$timeout', function ($rootScope, $timeout) {
             return {
                 restrict: 'A',

@@ -2,7 +2,7 @@
 
 (function (angular) {
     angular
-        .module('soundcloudPluginDesign')
+        .module('advancedFolderPluginDesign')
         .controller('DesignHomeCtrl', ['$scope', '$timeout','COLLECTIONS','DB','DEFAULT_DATA','Buildfire',
             function ($scope, $timeout,COLLECTIONS,DB,DEFAULT_DATA,Buildfire) {
                 console.log('DesignHome Controller Loaded-------------------------------------');

@@ -2,16 +2,15 @@
     "use strict";
     //created soundCloudWidget module
     angular
-        .module('soundCloudPluginWidget',
+        .module('advancedFolderPluginWidget',
         [
             'ngAnimate',
             'ngRoute',
             'ui.bootstrap',
-            'soundCloudWidgetEnums',
-            'soundCloudPluginWidgetFilters',
-            'soundCloudWidgetServices',
+            'advancedFolderWidgetEnums',
+            'advancedFolderPluginWidgetFilters',
+            'advancedFolderWidgetServices',
             'infinite-scroll',
-            'soundCloudModals',
             'ngTouch'
         ])
         //injected ngRoute for routing
@@ -58,20 +57,5 @@
             $httpProvider.interceptors.push(interceptor);
 
         }])
-        .run(['$location', '$rootScope','$timeout', function ($location, $rootScope,$timeout) {
-            buildfire.navigation.onBackButtonClick = function () {
-                if($rootScope.playTrack){
-                    $timeout(function () {
-                        $rootScope.playTrack=false;
-                        $rootScope.$broadcast("destroy currentTrack");
-                    }, 100);
-                    if($rootScope.$$phase){$rootScope.$digest();}
-                }
-                else{
-                    buildfire.navigation.navigateHome();
-                }
-            };
-
-        }]);
 })
 (window.angular, window.buildfire);

@@ -23,7 +23,7 @@
 
 
                 var timerDelay, masterInfo;
-                ContentHome.advanceFolder = new DB(COLLECTIONS.advancedFolder);
+                ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
                 //option for wysiwyg
                 ContentHome.bodyWYSIWYGOptions = {
@@ -91,7 +91,7 @@
                     var error = function (err) {
                         console.error('Error while getting data from db-------', err);
                     };
-                    ContentHome.advanceFolder.get().then(success, error);
+                    ContentHome.advancedFolderInfo.get().then(success, error);
                 }
 
                 init();
@@ -114,7 +114,7 @@
                         console.error('Error while saving data------------------------------', err);
                     };
                     if (_info && _info.data)
-                        ContentHome.advanceFolder.save(_info.data).then(saveSuccess, saveError);
+                        ContentHome.advancedFolderInfo.save(_info.data).then(saveSuccess, saveError);
                 }
 
                 function updateInfoData(_info) {

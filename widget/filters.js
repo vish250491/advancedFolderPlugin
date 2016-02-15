@@ -1,8 +1,8 @@
 (function (angular, buildfire) {
     "use strict";
-    //created mediaCenterWidget module
+    //created advancedFolder module
     angular
-        .module('soundCloudPluginWidgetFilters', [])
+        .module('advancedFolderPluginWidgetFilters', [])
         .filter('resizeImage', [function () {
             return function (url, width, height, type) {
                 return buildfire.imageLib.resizeImage(url, {

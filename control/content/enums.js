@@ -16,7 +16,7 @@
             }
         })
         .constant('COLLECTIONS', {
-            advancedFolder: "advancedFolder"
+            advancedFolderInfo: "advancedFolderInfo"
         })
         .constant('DEFAULT_DATA', {
             ADVANCED_FOLDER_INFO: {

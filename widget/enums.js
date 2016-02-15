@@ -1,7 +1,7 @@
 (function (angular) {
     "use strict";
     angular
-        .module('soundCloudWidgetEnums', [])
+        .module('advancedFolderWidgetEnums', [])
         .constant('CODES', {
             NOT_FOUND: 'NOTFOUND',
             SUCCESS: 'SUCCESS'
@@ -16,15 +16,14 @@
             }
         })
         .constant('COLLECTIONS', {
-            SoundCloudInfo: "soundCloudInfo"
+            advancedFolderInfo: "advancedFolderInfo"
         })
         .constant('DEFAULT_DATA', {
-            SOUND_CLOUD_INFO: {
+            ADVANCED_FOLDER_INFO: {
                 data: {
                     content: {
                         images: [],
                         description: '',
-                        soundcloudClientID: '',
                         link: ''
                     },
                     design: {

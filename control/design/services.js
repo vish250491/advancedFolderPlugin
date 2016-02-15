@@ -1,7 +1,7 @@
 (function (angular, buildfire) {
     'use strict';
     angular
-        .module('SoundCloudDesignServices', ['soundCloudDesignEnums'])
+        .module('advancedFolderPluginDesignServices', ['advancedFolderPluginDesignEnums'])
         .provider('Buildfire', [function () {
             this.$get = function () {
                 return buildfire;
