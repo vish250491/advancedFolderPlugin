@@ -84,7 +84,7 @@
                     var error = function (err) {
                         console.error('Error while getting data from db-------', err);
                     };
-                    ContentHome.advanceFolder.get().then(success, error);
+                    ContentHome.advancedFolderInfo.get().then(success, error);
                 }
 
                 init();
