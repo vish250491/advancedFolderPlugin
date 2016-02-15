@@ -3,23 +3,23 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-                ContentHome.list=[{title : 'a',items:[{title:'aa'}]},{title : 'b'},{title : 'c'}];
+                ContentHome.list = [{title: 'a', items: [{title: 'aa'}]}, {title: 'b'}, {title: 'c'}];
                 ContentHome.treeOptions = {
-                    accept: function(sourceNodeScope, destNodesScope, destIndex) {
+                    accept: function (sourceNodeScope, destNodesScope, destIndex) {
                         return true;
-                     },
-                    removed : function(node){
+                    },
+                    removed: function (node) {
 
                     },
-                    dropped : function(event) {
+                    dropped: function (event) {
 
                     }
 
-                    }
+                }
 
 
                 var timerDelay, masterInfo;
@@ -63,9 +63,16 @@
                 };
 
                 ContentHome.addNewFolderToRootPopup = function () {
-                    ContentHome.showAddFolderPopup =true;
+                    Modals.addFolderModal().then(function (title) {
+                        ContentHome.info.data.content.entity.push({title:title,items:[]});
+                    }, function (err) {
+
+                    });
                 };
 
+                ContentHome.deleteRootFolder = function(ind){
+                    ContentHome.info.data.content.entity.splice(ind, 1);
+                };
 
                 function init() {
                     var success = function (data) {

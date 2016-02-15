@@ -23,6 +23,13 @@
     padding-left: 20px;
 }
 
+.angular-ui-tree-node{
+    border: 1px solid #ddd !important;
+    padding: 10px !important;
+    margin-top: 1px !important;
+    border-radius:5px;
+}
+
 .angular-ui-tree-node, .angular-ui-tree-placeholder {
     position: relative;
     margin: 0;

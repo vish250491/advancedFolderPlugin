@@ -9,7 +9,8 @@
             'advancedFolderContentServices',
             'advancedFolderContentEnums',
             'ui.tinymce',
-            'ui.tree'
+            'ui.tree',
+            'advancedFolderModals'
         ])
         //injected ui.bootstrap for angular bootstrap component
         .config(['$httpProvider', function ($httpProvider) {

@@ -24,7 +24,7 @@
                     content: {
                         carouselImages: [],
                         body: '',
-                        dataEntity: [{}],
+                        entity: [],
                         link: ''
                     },
                     design: {
