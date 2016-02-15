@@ -2,25 +2,13 @@
     'use strict';
     //created mediaCenterWidget module
     angular
-        .module('soundCloudContentServices', ['soundCloudContentEnums'])
+        .module('advancedFolderContentServices', ['advancedFolderContentEnums'])
         .provider('Buildfire', [function () {
             this.$get = function () {
                 return buildfire;
             };
         }])
-        .service('soundCloudAPI', ['$http', '$q', function ($http, $q) {
-            var that = this;
 
-            that.verify = function (clientId,link) {
-                    SC.initialize({
-                        client_id: clientId
-                    });
-
-                    return SC.resolve(link);
-            };
-
-
-        }])
         .factory("DB", ['Buildfire', '$q', 'MESSAGES', 'CODES', function (Buildfire, $q, MESSAGES, CODES) {
             function DB(tagName) {
                 this._tagName = tagName;

@@ -1,13 +1,13 @@
 (function (angular, buildfire) {
     "use strict";
-    //created soundCloudContent module
+    //created advancedFolderContent module
     angular
-        .module('soundCloudPluginContent',
+        .module('advancedFolderPluginContent',
         [
             'ngAnimate',
             'ui.bootstrap',
-            'soundCloudContentServices',
-            'soundCloudContentEnums',
+            'advancedFolderContentServices',
+            'advancedFolderContentEnums',
             'ui.tinymce'
         ])
         //injected ui.bootstrap for angular bootstrap component

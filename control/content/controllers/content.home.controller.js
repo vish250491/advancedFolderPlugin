@@ -2,13 +2,13 @@
 
 (function (angular) {
     angular
-        .module('soundCloudPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'soundCloudAPI',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, soundCloudAPI) {
+        .module('advancedFolderPluginContent')
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var timerDelay, masterInfo;
-                ContentHome.soundCloud = new DB(COLLECTIONS.SoundCloudInfo);
+                ContentHome.soundCloud = new DB(COLLECTIONS.advancedFolderInfo);
 
                 //option for wysiwyg
                 ContentHome.bodyWYSIWYGOptions = {
@@ -50,34 +50,7 @@
                 };
 
 
-                ContentHome.verifySoundcloudLinks = function () {
-                    if (ContentHome.info.data.content.soundcloudClientID && ContentHome.info.data.content.link) {
-                        var method_return = soundCloudAPI.verify(ContentHome.info.data.content.soundcloudClientID, ContentHome.info.data.content.link);
 
-                        method_return.then(function (d) {
-                            console.log('verify d',d);
-                            if (angular.isArray(d) || ['playlist', 'track', 'user'].indexOf(d.kind) != -1)
-                                ContentHome.soundcloudLinksInvalid = false;
-                            else
-                                ContentHome.soundcloudLinksInvalid = 'link';
-                            $timeout(function () {
-                                ContentHome.soundcloudLinksInvalid = null;
-                            }, 2000);
-                            $scope.$digest();
-                        }, function (e) {
-                            if (e.status === 401)
-                                ContentHome.soundcloudLinksInvalid = 'Client ID';
-                            else
-                                ContentHome.soundcloudLinksInvalid = 'link';
-
-                            $timeout(function () {
-                                ContentHome.soundcloudLinksInvalid = null;
-                            }, 2000);
-
-                            $scope.$digest();
-                        });
-                    }
-                };
 
                 function init() {
                     var success = function (data) {

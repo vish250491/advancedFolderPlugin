@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="soundCloudPluginContent">
+<html ng-app="advancedFolderPluginContent">
 <head lang="en">
     <!-- CSS -->
     <link href="../../../../styles/helper.css" rel="stylesheet">
@@ -22,7 +22,6 @@
     <script src="app.services.js"></script>
     <script src="controllers/content.home.controller.js"></script>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
-    <script src="//connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <meta charset="UTF-8">
 </head>
 <body>
@@ -43,18 +42,18 @@
     <hr class="none">
     <div class="item clearfix row">
         <div class="labels col-md-9 padding-right-zero pull-right">
-            <span>Don't have a SoundCloud account? Sign up <a onclick="window.open('https://soundcloud.com/', '_blank')">here</a>.</span>
+            <span>Don't have a advancedFolder account? Sign up <a onclick="window.open('https://advancedFolder.com/', '_blank')">here</a>.</span>
         </div>
 
     </div>
     <hr class="none">
     <div class="item clearfix row">
         <div class="labels col-md-3 padding-right-zero pull-left">
-            <span>SoundCloud Client ID</span>
+            <span>advancedFolder Client ID</span>
         </div>
         <div class="main pull-right col-md-9">
-            <input type="text" class="form-control" placeholder="Client ID" ng-model="ContentHome.info.data.content.soundcloudClientID">
-            <span style="font-size: 11px">Note: SoundCloud Client ID is mandatory. Click <a onclick="window.open('http://soundcloud.com/you/apps', '_blank')">here</a> for more info.</span>
+            <input type="text" class="form-control" placeholder="Client ID" ng-model="ContentHome.info.data.content.advancedFolderClientID">
+            <span style="font-size: 11px">Note: advancedFolder Client ID is mandatory. Click <a onclick="window.open('http://advancedFolder.com/you/apps', '_blank')">here</a> for more info.</span>
         </div>
     </div>
     <hr class="none">
@@ -66,16 +65,16 @@
             <input type="text" class="form-control" placeholder="Link" ng-model="ContentHome.info.data.content.link">
         </div>
     </div>
-    <div class="item clearfix row margin-top-ten" ng-show="ContentHome.soundcloudLinksInvalid != null">
+    <div class="item clearfix row margin-top-ten" ng-show="ContentHome.advancedFolderLinksInvalid != null">
         <div class="main pull-right col-md-9">
-            <div class="alert alert-success alert-sm text-center ng-hide" ng-show="ContentHome.soundcloudLinksInvalid == false">Link successfully validated.</div>
-            <div class="alert alert-danger alert-sm text-center" ng-show="ContentHome.soundcloudLinksInvalid">The {{ContentHome.soundcloudLinksInvalid}} appears to be invalid.</div>
+            <div class="alert alert-success alert-sm text-center ng-hide" ng-show="ContentHome.advancedFolderLinksInvalid == false">Link successfully validated.</div>
+            <div class="alert alert-danger alert-sm text-center" ng-show="ContentHome.advancedFolderLinksInvalid">The {{ContentHome.advancedFolderLinksInvalid}} appears to be invalid.</div>
         </div>
     </div>
     <hr class="none">
     <div class="item clearfix row">
         <div class="col-md-3 pull-right">
-            <a class="btn btn-primary stretch" ng-click="ContentHome.verifySoundcloudLinks()">Verify</a>
+            <a class="btn btn-primary stretch" ng-click="ContentHome.verifyadvancedFolderLinks()">Verify</a>
         </div>
     </div>
 </div>
