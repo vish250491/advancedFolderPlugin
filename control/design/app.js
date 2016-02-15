@@ -2,12 +2,12 @@
     "use strict";
     //created soundCloudDesign module
     angular
-        .module('soundcloudPluginDesign',
+        .module('advancedFolderPluginDesign',
         [
             'ngAnimate',
             'ui.bootstrap',
-            'SoundCloudDesignServices',
-            'soundCloudDesignEnums'
+            'advancedFolderPluginDesignServices',
+            'advancedFolderPluginDesignEnums'
 
         ])
         //injected ui.bootstrap for angular bootstrap component

@@ -23,7 +23,7 @@
 
 
                 var timerDelay, masterInfo;
-                ContentHome.advanceFolder = new DB(COLLECTIONS.advancedFolder);
+                ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
                 //option for wysiwyg
                 ContentHome.bodyWYSIWYGOptions = {
