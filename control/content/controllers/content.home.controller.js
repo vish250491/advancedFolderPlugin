@@ -107,7 +107,7 @@
                         console.error('Error while saving data------------------------------', err);
                     };
                     if (_info && _info.data)
-                        ContentHome.advanceFolder.save(_info.data).then(saveSuccess, saveError);
+                        ContentHome.advancedFolderInfo.save(_info.data).then(saveSuccess, saveError);
                 }
 
                 function updateInfoData(_info) {
