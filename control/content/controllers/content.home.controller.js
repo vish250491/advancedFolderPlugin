@@ -71,9 +71,10 @@
                 };
 
                 ContentHome.addPluginInstancePopup = function () {
-                    Buildfire.pluginInstance.showDialog({
-                    },function(instances){
-                        console.log('<<<<<<<<< PLUGIN INSTACE >>>>>>>>>>',instances);
+                    Buildfire.pluginInstance.showDialog(function(instances){
+                        console.log('<<<<<<<<< PLUGIN INSTANCE >>>>>>>>>>',instances);
+                        console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
+                        console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
                     });
                 };
 
