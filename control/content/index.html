@@ -24,6 +24,15 @@
     <script src="app.services.js"></script>
     <script src="modals.js"></script>
     <script src="controllers/content.home.controller.js"></script>
+    <script>
+        function clickMe(e){
+            setTimeout(function () {
+                var top =  e.pageY-50;
+                $('.modal-dialog.modal-sm').offset({top: top, left: 0});
+            }, 30);
+
+        };
+    </script>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
 </head>
@@ -49,7 +58,7 @@
             <span>Plugins</span>
         </div>
         <div class="labels col-md-9 padding-right-zero pull-left">
-            <a class="btn btn-primary" ng-click="ContentHome.verifySoundcloudLinks()">Add plugin instance</a>&nbsp;<a
+            <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;<a
                 class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup()">Create a new folder</a>
         </div>
     </div>

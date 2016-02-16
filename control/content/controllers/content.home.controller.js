@@ -70,6 +70,14 @@
                     });
                 };
 
+                ContentHome.addPluginInstancePopup = function () {
+                    Buildfire.pluginInstance.showDialog({
+                    },function(instances){
+                        console.log('<<<<<<<<< PLUGIN INSTACE >>>>>>>>>>',instances);
+                    });
+                };
+
+
                 ContentHome.deleteRootFolder = function(ind){
                     ContentHome.info.data.content.entity.splice(ind, 1);
                 };
