@@ -71,7 +71,9 @@
                 };
 
                 ContentHome.addPluginInstancePopup = function () {
-                    Buildfire.pluginInstance.showDialog(function(instances){
+                    Buildfire.pluginInstance.showDialog({
+                        prop1:""
+                    },function(instances){
                         console.log('<<<<<<<<< PLUGIN INSTANCE >>>>>>>>>>',instances);
                         console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
                         console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
