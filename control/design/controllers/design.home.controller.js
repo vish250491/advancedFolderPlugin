@@ -9,7 +9,7 @@
                 var DesignHome = this;
                 var timerDelay,masterInfo;
                 DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}];
-                var soundCloud=new DB(COLLECTIONS.SoundCloudInfo);
+                var soundCloud=new DB(COLLECTIONS.advancedFolderInfo);
 
                 DesignHome.changeLayout = function (layoutName) {
                     if (layoutName && DesignHome.info.data.design) {
@@ -44,8 +44,8 @@
                             }
                         }
                         else{
-                            updateMasterInfo(DEFAULT_DATA.SOUND_CLOUD_INFO);
-                            DesignHome.info=DEFAULT_DATA.SOUND_CLOUD_INFO;
+                            updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
+                            DesignHome.info=DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                         }
                         //console.log('Got soundcloud info successfully-----------------',data.data);
                     };
