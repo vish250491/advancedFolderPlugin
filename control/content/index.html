@@ -27,7 +27,7 @@
     <script>
         function clickMe(e){
             setTimeout(function () {
-                var top =  e.pageY-50;
+                var top =  e.pageY;
                 $('.modal-dialog.modal-sm').offset({top: top, left: 0});
             }, 30);
 
@@ -59,7 +59,7 @@
         </div>
         <div class="labels col-md-9 padding-right-zero pull-left">
             <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;<a
-                class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup()">Create a new folder</a>
+                class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup()" onclick="clickMe(event)">Create a new folder</a>
         </div>
     </div>
     <hr class="none">
