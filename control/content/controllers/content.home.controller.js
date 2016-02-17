@@ -7,7 +7,7 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-                ContentHome.list = [{title: 'a', items: [{title: 'aa'}]}, {title: 'b'}, {title: 'c'}];
+              /*  ContentHome.list = [{title: 'a', items: [{title: 'aa'}]}, {title: 'b'}, {title: 'c'}];
                 ContentHome.treeOptions = {
                     accept: function (sourceNodeScope, destNodesScope, destIndex) {
                         return true;
@@ -19,7 +19,7 @@
 
                     }
 
-                }
+                }*/
 
 
                 var timerDelay, masterInfo;
@@ -69,6 +69,17 @@
 
                     });
                 };
+
+                ContentHome.addPluginInstancePopup = function () {
+                    Buildfire.pluginInstance.showDialog({
+                        prop1:""
+                    },function(instances){
+                        console.log('<<<<<<<<< PLUGIN INSTANCE >>>>>>>>>>',instances);
+                      //  console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
+                       // console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
+                    });
+                };
+
 
                 ContentHome.deleteRootFolder = function(ind){
                     ContentHome.info.data.content.entity.splice(ind, 1);

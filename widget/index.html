@@ -45,13 +45,9 @@
         : 'background: white'
 }}" class="infinite-scroll-parent">
 <div ng-controller="WidgetHomeCtrl as WidgetHome">
-    <div ng-hide="playTrack" style="display:none;" id="listDiv">
+    <div id="carousel" build-fire-carousel=""></div>
         <div ng-include="'templates/home.html'">
         </div>
-    </div>
-    <div style="overflow-y: hidden" class="slide" ng-if="playTrack">
-        <div ng-include="'templates/nowPlaying.html'"></div>
-    </div>
 </div>
 </body>
 <script>
