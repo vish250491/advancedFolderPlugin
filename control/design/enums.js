@@ -19,13 +19,12 @@
             advancedFolderInfo: "advancedFolderInfo"
         })
         .constant('DEFAULT_DATA', {
-            SOUND_CLOUD_INFO: {
+            ADVANCED_FOLDER_INFO: {
                 data: {
                     content: {
                         images: [],
                         description: '',
-                        soundcloudClientID: '9a09ee0e50798267cb7644fb5c238ade',
-                        link: 'https://soundcloud.com/laraparkerkent/tracks'
+                        link: ''
                     },
                     design: {
                         itemListLayout: "list-layout1",
