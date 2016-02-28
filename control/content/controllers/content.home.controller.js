@@ -73,14 +73,10 @@
                 ContentHome.addPluginInstancePopup = function () {
                     Buildfire.pluginInstance.showDialog({
                         prop1:""
-                    },function(instances){
+                    },function(error ,instances){
                         console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instances);
                       //  console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
                        // console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
-                    },function(instances){
-                        console.log('<<<<<<<<< PLUGIN INSTANCE INSTACE CALLBACK>>>>>>>>>>',instances);
-                        //  console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
-                        // console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
                     });
                 };
 
