@@ -74,9 +74,13 @@
                     Buildfire.pluginInstance.showDialog({
                         prop1:""
                     },function(error ,instances){
-                        console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instances);
-                      //  console.log('<<<<<<<<< PLUGIN INSTANCE TITLE>>>>>>>>>>',instances.title);
-                       // console.log('<<<<<<<<< PLUGIN INSTANCE iconUrl>>>>>>>>>>',instances.iconUrl);
+                        console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instance);
+                        //iconUrl title
+                        instances.forEach(function(instance){
+                            ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
+                        })
+
+
                     });
                 };
 
