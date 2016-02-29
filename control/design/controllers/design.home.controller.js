@@ -9,7 +9,7 @@
                 var DesignHome = this;
                 var timerDelay,masterInfo;
                 DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}];
-                var soundCloud=new DB(COLLECTIONS.advancedFolderInfo);
+                var advanceFolder=new DB(COLLECTIONS.advancedFolderInfo);
 
                 DesignHome.changeLayout = function (layoutName) {
                     if (layoutName && DesignHome.info.data.design) {
@@ -17,21 +17,49 @@
                     }
                 };
 
-                var background = new Buildfire.components.images.thumbnail("#background");
+                /*
+                 * Open a dailog to change the background image
+                 * */
+                DesignHome.changeBackground = function (imageName) {
+                    buildfire.imageLib.showDialog({showIcons: false, multiSelection: false}, function (err, result) {
+                        if (err) {
+                            return console.err('Error:', error);
+                        }
+                        if (result.selectedFiles && result.selectedFiles.length) {
+                            DesignHome.info.data.design =  DesignHome.info.data.design || {};
+                            DesignHome.info.data.design.bgImage =  DesignHome.info.data.design.bgImage || {};
+                            DesignHome.info.data.design.bgImage[imageName] = result.selectedFiles[0];
+                            if (!$scope.$$phase && !$scope.$root.$$phase) {
+                                $scope.$apply();
+                            }
+                        }
+                    });
+                };
 
-                background.onChange = function (url) {
-                    DesignHome.info.data.design.bgImage = url;
+                /*
+                 * Delete the background and back to the default white background
+                 * */
+                DesignHome.deleteBackground = function (imageName) {
+                    DesignHome.info.data.design =  DesignHome.info.data.design || {};
+                    DesignHome.info.data.design.bgImage =  DesignHome.info.data.design.bgImage || {};
+                    DesignHome.info.data.design.bgImage[imageName] = undefined;
                     if (!$scope.$$phase && !$scope.$root.$$phase) {
                         $scope.$apply();
                     }
                 };
 
-                background.onDelete = function () {
-                    DesignHome.info.data.design.bgImage = "";
-                    if (!$scope.$$phase && !$scope.$root.$$phase) {
-                        $scope.$apply();
+                /*
+                 * Get background image thumbnail
+                 * */
+                DesignHome.resizeImage = function (url) {
+                    if (!url) {
+                        return "";
+                    }
+                    else {
+                        return buildfire.imageLib.resizeImage(url, {width: 88});
                     }
                 };
+
 
                 function init(){
                     var success=function(data){
@@ -40,20 +68,21 @@
                             updateMasterInfo(data.data);
                             DesignHome.info=data;
                             if(data.data.design && data.data.design.bgImage){
-                                background.loadbackground(DesignHome.info.data.design.bgImage);
+                            //    background.loadbackground(DesignHome.info.data.design.bgImage);
                             }
                         }
                         else{
                             updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
                             DesignHome.info=DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                         }
-                        //console.log('Got soundcloud info successfully-----------------',data.data);
+                        console.log('Got soundcloud info successfully-----------------',data.data);
                     };
                     var error=function(err){
-                        //console.error('Error while getting data from db-------',err);
+                        console.error('Error while getting data from db-------',err);
                     };
-                    soundCloud.get().then(success,error);
+                    advanceFolder.get().then(success,error);
                 }
+
                 init();
 
                 function isUnchanged(info) {
@@ -73,7 +102,7 @@
                        /* console.error('Error while saving data------------------------------',err);*/
                     };
                     if(_info && _info.data)
-                        soundCloud.save(_info.data).then(saveSuccess,saveError);
+                        advanceFolder.save(_info.data).then(saveSuccess,saveError);
                 }
 
                 function updateInfoData(_info){
