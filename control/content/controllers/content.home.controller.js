@@ -80,8 +80,6 @@
                             ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
                             if (!$scope.$$phase)$scope.$digest();
                         })
-
-
                     });
                 };
 

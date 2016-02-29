@@ -41,6 +41,58 @@
     </div>
 </div>
 <hr>
-<div id="background"></div>
+<hr class="none">
+<div class="item clearfix row margin-bottom-twenty">
+    <div class="labels col-md-3 padding-right-zero pull-left">
+        <span>Background Image</span>
+    </div>
+    <div class="main col-md-9 pull-right">
+        <div class="screens clearfix">
+            <div class="screens flexalign clearfix">
+                <div class="screen mostdevices pull-left text-center">
+                    <a class="border-radius-three default-background-hover" ng-click="DesignHome.changeBackground('i3x2')">
+                        <span ng-hide="DesignHome.info.data.design.bgImage.i3x2" class="add-icon">+</span>
+                        <img ng-show="DesignHome.info.data.design.bgImage.i3x2" ng-src="{{DesignHome.resizeImage(DesignHome.info.data.design.bgImage.i3x2)}}">
+                    </a>
+                    <label>3:2</label>
+                    <label class="secondary">640x960</label>
+                    <span class="tip btn-info-icon btn-primary transition-third" tooltip="iPhone 3, 4, and some Android devices will fall into this category." tooltip-placement="top"></span>
+                    <span class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="DesignHome.deleteBackground('i3x2')" ng-show="DesignHome.info.data.design.bgImage.i3x2"></span>
+                </div>
+                <div class="screen iphone pull-left text-center">
+                    <a class="border-radius-three default-background-hover" ng-click="DesignHome.changeBackground('i16x9')">
+                        <span ng-hide="DesignHome.info.data.design.bgImage.i16x9" class="add-icon">+</span>
+                        <img ng-show="DesignHome.info.data.design.bgImage.i16x9" ng-src="{{DesignHome.resizeImage(DesignHome.info.data.design.bgImage.i16x9)}}">
+                    </a>
+                    <label>16:9</label>
+                    <label class="secondary">1242x2208</label>
+                        <span class="tip btn-info-icon btn-primary transition-third" tooltip="iPhone 5, 6, 6 Plus, and some Android devices will fall into this category."
+                              tooltip-placement="top"></span>
+                    <span class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="DesignHome.deleteBackground('i16x9')" ng-show="DesignHome.info.data.design.backgroundImage.i16x9"></span>
+                </div>
+                <div class="screen ipads pull-left text-center">
+                    <a class="border-radius-three default-background-hover" ng-click="DesignHome.changeBackground('i4x3')">
+                        <span ng-hide="DesignHome.info.data.design.bgImage.i4x3" class="add-icon">+</span>
+                        <img ng-show="DesignHome.info.data.design.bgImage.i4x3" ng-src="{{DesignHome.resizeImage(DesignHome.info.data.design.bgImage.i4x3)}}">
+                    </a>
+                    <label>4:3</label>
+                    <label class="secondary">1536x2048</label>
+                    <span class="tip btn-info-icon btn-primary transition-third" tooltip="iPads and some Android devices will fall into this category." tooltip-placement="top"></span>
+                    <span class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="DesignHome.deleteBackground('i4x3')" ng-show="data.design.backgroundImage.i4x3"></span>
+                </div>
+                <div class="screen tablets pull-left text-center">
+                    <a class="border-radius-three default-background-hover" ng-click="DesignHome.changeBackground('i16x10')">
+                        <span ng-hide="DesignHome.info.data.design.bgImage.i16x10" class="add-icon">+</span>
+                        <img ng-show="DesignHome.info.data.design.bgImage.i16x10" ng-src="{{DesignHome.resizeImage(DesignHome.info.data.design.bgImage.i16x10)}}">
+                    </a>
+                    <label>16:10</label>
+                    <label class="secondary">1600x2560</label>
+                    <span class="tip btn-info-icon btn-primary transition-third" tooltip="Some Android devices and tablets will fall into this category." tooltip-placement="top"></span>
+                    <span class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="DesignHome.deleteBackground('i16x10')" ng-show="DesignHome.info.data.design.bgImage.i16x10"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
