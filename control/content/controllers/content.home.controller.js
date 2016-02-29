@@ -7,19 +7,19 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-              /*  ContentHome.list = [{title: 'a', items: [{title: 'aa'}]}, {title: 'b'}, {title: 'c'}];
+
                 ContentHome.treeOptions = {
                     accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                        return true;
+                       console.log()
                     },
                     removed: function (node) {
-
+                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
                     },
                     dropped: function (event) {
-
+                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
                     }
 
-                }*/
+                }
 
 
                 var timerDelay, masterInfo;
@@ -76,10 +76,12 @@
                     },function(error ,instances){
                         console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instances);
                         //iconUrl title
-                        instances.forEach(function(instance){
-                            ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
-                            if (!$scope.$$phase)$scope.$digest();
-                        })
+                        if(instances){
+                            instances.forEach(function(instance){
+                                ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
+                                if (!$scope.$$phase)$scope.$digest();
+                            })
+                        }
                     });
                 };
 

@@ -41,7 +41,7 @@
                         WidgetHome.view = new Buildfire.components.carousel.view("#carousel", []);  ///create new instance of buildfire carousel viewer
                         console.log('came heer');
                     }
-                    if (WidgetHome.info && WidgetHome.info.data.content.images.length) {
+                    if (WidgetHome.info && WidgetHome.info.data && WidgetHome.info.data.content && WidgetHome.info.data.content.images && WidgetHome.info.data.content.images.length) {
                         WidgetHome.view.loadItems(WidgetHome.info.data.content.images);
                     } else {
                         WidgetHome.view.loadItems([]);
@@ -193,6 +193,27 @@
                     return (b == 0) ? a : gcd(b, a % b);
                 }
 
+                /*
+                 * Go pull saved data
+                 * */
+                function loadData() {
+                    buildfire.datastore.getWithDynamicData(function (err, result) {
+                        if (err) {
+                            console.error("Error: ", err);
+                            return;
+                        }
+                      //  dataLoadedHandler(result);
+                    });
+                }
+
+                loadData();
+
+                /**
+                 * when a refresh is triggered get reload data
+                 */
+
+                buildfire.datastore.onRefresh(loadData);
+
                 /**
                  * Buildfire.datastore.onUpdate method calls when Data is changed.
                  */
@@ -202,10 +223,10 @@
                         WidgetHome.info = event;
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
-                        setBackgroundImage();
+                            setBackgroundImage();
                         $timeout(function () {
                             WidgetHome.initCarousel();
-                        }, 1500);
+                        }, 500);
                         $scope.$apply();
                     }
 
