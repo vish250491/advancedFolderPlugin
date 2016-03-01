@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../../../styles/helper.css">
     <link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../styles/transitionAnimation.css">
-    <link rel="stylesheet" href="assets/css/widget.app.css">
+   <!-- <link rel="stylesheet" href="assets/css/widget.app.css">-->
+    <link href="assets/css/style.css" rel="stylesheet">
     <!-- jS -->
     <script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
@@ -39,12 +40,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome">
+<body ng-cloak class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome">
 <style>
     body.gridLayout {
         background-color: {{}} !important;
         background-image: url({{bgImage}}) !important;
         background-size:cover !important;
+    }
+</style>
+<style>
+    .layout-6 .list-item-media {
+        background-color: transparent !important;
+    }
+    .folder-plugin-text:empty + div .layout3 .list-layout {
+        border-top: 0;
+    }
+    #mainContainer {
+        position: relative;
+    }
+    .icon3, .icon4 {
+        font-size: 140px;
+    }
+    .icon5 {
+        font-size: 130px;
+        position:relative;
+        top:22px;
+    }
+    .icon6 {
+        font-size: 120px;
+        position:relative;
+        top:15px;
     }
 </style>
 <div>

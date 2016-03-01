@@ -8,7 +8,7 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
-                ContentHome.treeOptions = {
+             /*   ContentHome.treeOptions = {
                     accept: function (sourceNodeScope, destNodesScope, destIndex) {
                        console.log()
                     },
@@ -20,7 +20,7 @@
                     }
 
                 }
-
+*/
 
                 var timerDelay, masterInfo;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
@@ -62,9 +62,25 @@
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
-                ContentHome.addNewFolderToRootPopup = function () {
+                ContentHome.addNewFolderToRootPopup = function (object) {
                     Modals.addFolderModal().then(function (title) {
                         ContentHome.info.data.content.entity.push({title:title,items:[]});
+                      var nodeData = object.$modelValue;
+                        if(nodeData && nodeData.nodes){
+                            nodeData.nodes.push({
+                                id: nodeData.id * 10 + nodeData.nodes.length,
+                                title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+                                nodes: []
+                            });
+                        }else{
+                            nodeData={};
+                            nodeData.nodes={
+                                title:title,
+                                id:1,
+                                nodes :[]
+                            }
+                        }
+
                     }, function (err) {
 
                     });

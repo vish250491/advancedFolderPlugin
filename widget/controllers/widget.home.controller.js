@@ -86,6 +86,16 @@
                     }
                 };
 
+                WidgetHome.navigateToPlugin = function (plugin) {
+
+                    buildfire.navigation.navigateTo({
+                        pluginId: plugin.pluginTypeId,
+                        instanceId: plugin.instanceId,
+                        title: plugin.title,
+                        folderName: plugin.folderName
+                    });
+                };
+
                 function setBackgroundImage() {
                     var backgroundImages =WidgetHome.info.data.design.bgImage;
                     var backgroundImage = undefined;
