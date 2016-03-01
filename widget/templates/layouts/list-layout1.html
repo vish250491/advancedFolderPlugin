@@ -8,30 +8,15 @@
             </p>
         </div>
         <div class="padded padding-top-zero text-overlay">
-            <div class="list-layout">
-                <div class="noTracksMsg" ng-show="WidgetHome.noTracks">
-                    <span>No tracks to display!</span>
-                </div>
-                <div class="row" infinite-scroll="WidgetHome.loadMore()"
-                     infinite-scroll-distance="1"
-                     data-infinite-container=".infinite-scroll-parent"
-                     infinite-scroll-disabled="WidgetHome.noMore">
-                    <div ng-class="track.isPlaying ? 'bold':''" class="clickable col-xs-6 pull-left text-overlay" ng-repeat="track in WidgetHome.tracks"
-                         ng-click="WidgetHome.goToTrack(track)" ng-class-odd="list-item-odd"
-                         ng-class-even="list-item-even">
-                        <div class="list-item-media text-center border-radius-three overflow-hidden text-overlay">
-                            <div class="list-media-holder text-overlay">
-                                <img ng-if="track.artwork_url" ng-src="{{track.artwork_url | cropImage:240:135}}">
-                                <img ng-if="!track.artwork_url" src="assets/images/placeholder16x9.png">
-                            </div>
+            <div class=" list-layout">
+                <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
+                    <div class="list-item-media text-left overflow-hidden">
+                        <div class="list-media-holder square-icon pull-left">
+                            <img ng-src="{{ cropImage(plugin.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.iconUrl">
+                            <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
                         </div>
-                        <div class="list-item-copy text-left">
-                            <p class="ellipsis margin-zero text-primary"><a class="text-primary">{{track.title}}</a>
-                            </p>
-
-                            <p class="summary ellipsis margin-zero">{{ track.user.username }}</p>
-                            <span class="list-item-date duration-ui">{{track.duration | millisecondsToDateTime | date:'mm:ss'}}</span>
-                            <span class="list-item-date playcount-ui">{{track.playback_count | number}}</span>
+                        <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+                            <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.title }}</p>
                         </div>
                     </div>
                 </div>

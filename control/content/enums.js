@@ -22,18 +22,13 @@
             ADVANCED_FOLDER_INFO: {
                 data: {
                     content: {
-                        carouselImages: [],
-                        body: '',
-                        entity: [],
-                        link: ''
+                        images: [],
+                        description: '',
+                        entity:[]
                     },
                     design: {
-                        itemListLayout : "",
-                        bgImageMostDevices : "",
-                        bgImageIphone : "",
-                        bgImageIpad : "",
-                        bgImageTablet : ""
-
+                        itemListLayout: "list-layout1",
+                        bgImage: ""
                     }
                 }
             }

@@ -58,12 +58,13 @@
             <span>Plugins</span>
         </div>
         <div class="labels col-md-9 padding-right-zero pull-left">
-            <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;<a
-                class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup()" onclick="clickMe(event)">Create a new folder</a>
+            <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;
+            <a class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>&nbsp;
+            <a class="btn btn-success" ng-click="ContentHome.addPluginInstancePopup()">Create new Plugin</a>
         </div>
     </div>
     <hr class="none">
-    <div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions">
+    <div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions" data-max-depth="2">
         <ol ui-tree-nodes="" ng-model="ContentHome.info.data.content.entity">
             <li class="" ng-repeat="item in ContentHome.info.data.content.entity" ui-tree-node>
                 <div ui-tree-handle>
@@ -77,7 +78,7 @@
                     </div>
                 </div>
                 <ol ui-tree-nodes="" ng-model="item.items">
-                    <li ng-repeat="subItem in item.items" ui-tree-node>
+                    <li ng-repeat="subItem in item.items" ui-tree-node ng-click="ContentHome.deleteRootFolder($index)">
                         <div ui-tree-handle>
                             {{subItem.title}}
                         </div>
