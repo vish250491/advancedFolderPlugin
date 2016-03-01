@@ -48,8 +48,7 @@
     <hr class="none">
     <div class="item clearfix row">
         <div class="main col-md-12 pull-right">
-            <textarea class="form-control" placeholder="WYSIWYG" ui-tinymce="ContentHome.bodyWYSIWYGOptions"
-                      ng-model="ContentHome.info.data.content.description"></textarea>
+            <textarea class="form-control" placeholder="WYSIWYG" ui-tinymce="ContentHome.bodyWYSIWYGOptions" ng-model="ContentHome.info.data.content.description"></textarea>
         </div>
     </div>
     <hr class="none">
@@ -57,24 +56,32 @@
         <div class="labels col-md-3 padding-right-zero pull-left">
             <span>Plugins</span>
         </div>
-        <div class="labels col-md-9 padding-right-zero pull-left">
-            <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;
-            <a class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>&nbsp;
-            <a class="btn btn-success" ng-click="ContentHome.addPluginInstancePopup()">Create new Plugin</a>
-        </div>
     </div>
     <hr class="none">
+	<div class="item clearfix row">
+		<div class="labels col-md-12 padding-right-zero pull-left row">
+			<div class="col-md-4 pull-left padding-right-zero">
+            	<a class="btn btn-primary stretch" ng-click="ContentHome.addPluginInstancePopup()">Add Plugin Instance</a>
+			</div>
+			<div class="col-md-4 pull-left padding-right-zero">
+				<a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>
+			</div>
+			<div class="col-md-4 pull-left padding-right-zero">
+				<a class="btn btn-success stretch" ng-click="ContentHome.addPluginInstancePopup()">Create New Plugin</a>
+			</div>
+        </div>
+	</div>
+	<hr class="none">
     <div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions" data-max-depth="2">
         <ol ui-tree-nodes="" ng-model="ContentHome.info.data.content.entity">
             <li class="" ng-repeat="item in ContentHome.info.data.content.entity" ui-tree-node>
                 <div ui-tree-handle>
                     <span class="icon icon-menu pull-left"></span>
-                    <span class="title ellipsis pull-left" style="margin-left:15px" >{{item.title}}</span>
+                    <span class="title ellipsis pull-left">{{item.title}}</span>
                     <div class="copy pull-right">
-
-                        <div class="pull-right"><span
-                                data-nodrag ng-click="ContentHome.deleteRootFolder($index)"
-                                class="btn-icon btn-delete-icon btn-danger transition-third"></span></div>
+                        <div class="pull-right">
+							<span data-nodrag ng-click="ContentHome.deleteRootFolder($index)" class="btn-icon btn-delete-icon btn-danger transition-third"></span>
+						</div>
                     </div>
                 </div>
                 <ol ui-tree-nodes="" ng-model="item.items">
@@ -87,7 +94,6 @@
             </li>
         </ol>
     </div>
-
 </div>
 </body>
 </html>
