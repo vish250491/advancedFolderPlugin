@@ -24,7 +24,7 @@
                     content: {
                         images: [],
                         description: '',
-                        link: ''
+                        entity:[]
                     },
                     design: {
                         itemListLayout: "list-layout1",

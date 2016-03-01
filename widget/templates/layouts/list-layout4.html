@@ -8,7 +8,7 @@
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div>
-                <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in data.plugins" ng-click="navigateToPlugin(plugin)" ng-if="data.design.selectedLayout == 4">
+                <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in  WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
                     <div class="plugin-slide text-center">
                         <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.iconUrl" />
                         <span class="main-icon text-primary {{ plugin.iconClassName }} icon4" ng-if="plugin.iconClassName"></span>
