@@ -39,12 +39,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body data-ng-attr-style="{{
-    bgImage
-        ? 'background: url(' + (bgImage | cropImage:deviceWidth:deviceHeight:true) + ') !important; background-size: cover;'
-        : 'background: white'
-}}" class="infinite-scroll-parent">
-<div ng-controller="WidgetHomeCtrl as WidgetHome">
+<body class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome">
+<style>
+    body.gridLayout {
+        background-color: {{}} !important;
+        background-image: url({{bgImage}}) !important;
+        background-size:cover !important;
+    }
+</style>
+<div>
     <div id="carousel" build-fire-carousel=""></div>
         <div ng-include="'templates/home.html'">
         </div>
