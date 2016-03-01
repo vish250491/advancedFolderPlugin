@@ -1,0 +1,29 @@
+<div class="holder padding-zero">
+    <div class="media-center-plugin list-layout layout4 text-overlay">
+        <div class="media-center-banner clearfix border-bottom-grey text-overlay">
+            <div id="carousel" build-fire-carousel=""></div>
+        </div>
+        <div class="text-left padded padding-bottom-zero clearfix text-overlay" >
+            <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
+        </div>
+        <div class="padded padding-top-zero text-overlay">
+            <div class="list-layout layout5">
+                <div ng-repeat="pluginRow in data.plugins" class="row">
+                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in pluginRow" ng-click="navigateToPlugin(plugin)">
+                        <div class="list-item-media text-center">
+                            <div class="list-media-holder">
+                                <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.iconUrl" />
+                                <span class="main-icon text-primary {{ plugin.iconClassName }} icon5" ng-if="plugin.iconClassName"></span>
+                            </div>
+                            <div class="info-bar titleBarBackgroundTheme">
+                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
+                                    {{ plugin.title }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,27 +7,17 @@
             <p class="margin-bottom-zero"
                ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
-        </div><div class="noTracksMsg" ng-show="WidgetHome.noTracks">
-        <span>No tracks to display!</span>
-    </div>
-        <div  infinite-scroll="WidgetHome.loadMore()"
-              infinite-scroll-distance="1"
-              data-infinite-container=".infinite-scroll-parent"
-              infinite-scroll-disabled="WidgetHome.noMore">
-            <div ng-class="track.isPlaying ? 'bold':''" class="clickable text-overlay" ng-repeat="track in WidgetHome.tracks"
-                 ng-click="WidgetHome.goToTrack(track)">
-                <div class="plugin-banner clearfix text-overlay">
-                    <div class="text-overlay" ng-if="track.artwork_url">
-                        <img ng-src="{{track.artwork_url | cropImage:340:190}}">
+        </div>
+        <div>
+            <div ng-repeat="plugin in data.plugins" ng-click="navigateToPlugin(plugin)" ng-if="data.design.selectedLayout == 3">
+                <div class="plugin-banner clearfix border-bottom-grey">
+                    <div class="plugin-slide text-center">
+                        <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.iconUrl" />
+                        <span class="main-icon text-primary {{ plugin.iconClassName }} icon3" ng-if="plugin.iconClassName"></span>
                     </div>
                 </div>
-                <div class="padded padding-bottom-ten text-left text-overlay">
-                    <p class="text-primary ellipsis margin-zero">
-                        <a class="text-primary">{{track.title}}</a>
-                    </p>
-                    <p class="margin-bottom-zero">{{track.user.username}}</p>
-                    <span class="list-item-date duration-ui">{{track.duration | millisecondsToDateTime | date:'mm:ss'}}</span>
-                    <span class="list-item-date playcount-ui" >{{track.playback_count | number}}</span>
+                <div class="padded text-left">
+                    <a class="text-primary">{{ plugin.title }}</a>
                 </div>
             </div>
         </div>

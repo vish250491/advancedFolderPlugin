@@ -7,25 +7,16 @@
             <p ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
         </div>
-        <div class="noTracksMsg" ng-show="WidgetHome.noTracks">
-            <span>No tracks to display!</span>
-        </div>
-        <div class="list-layout" infinite-scroll="WidgetHome.loadMore()"
-             infinite-scroll-distance="1"
-             data-infinite-container=".infinite-scroll-parent"
-             infinite-scroll-disabled="WidgetHome.noMore">
-            <div ng-class="track.isPlaying ? 'bold':''" class="clickable list-item text-overlay" ng-repeat="track in WidgetHome.tracks"
-                 ng-click="WidgetHome.goToTrack(track)">
+
+        <div class="list-layout">
+            <div class="list-item" ng-repeat="plugin in data.plugins" ng-click="navigateToPlugin(plugin)">
                 <div class="list-item-media text-left overflow-hidden">
-                    <div class="list-media-holder pull-left text-overlay" ng-if="track.artwork_url">
-                        <img ng-src="{{track.artwork_url | cropImage:110:60}}">
+                    <div class="list-media-holder pull-left">
+                        <img ng-src="{{ cropImage(plugin.iconUrl, {width: 220, height: 120}) }}" ng-if="plugin.iconUrl">
+                        <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
                     </div>
-                    <div class="list-item-copy text-left padding-left-ten padding-right-ten text-overlay">
-                        <p class="track-title ellipsis margin-zero text-primary"><a class="text-primary">{{track.title}}</a></p>
-                        <p class="summary ellipsis margin-zero">{{track.user.username}}</p>
-                        <!--<span class="list-item-date">{{track.duration | millisecondsToDateTime | date:'mm:ss'}}</span>-->
-                        <span class="list-item-date playcount-ui">{{track.playback_count | number}}</span>
-						<span class="duration-ui">{{track.duration | millisecondsToDateTime | date:'mm:ss'}}</span>
+                    <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+                        <p class="ellipsis margin-zero bodyTextTheme margin-top-twenty">{{ plugin.title }}</p>
                     </div>
                 </div>
             </div>

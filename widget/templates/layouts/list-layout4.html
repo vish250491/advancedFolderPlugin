@@ -7,57 +7,18 @@
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
         <div class="padded padding-top-zero text-overlay">
-            <div class="noTracksMsg" ng-show="WidgetHome.noTracks">
-                <span>No tracks to display!</span>
-            </div>
-            <div class="list-layout"  infinite-scroll="WidgetHome.loadMore()"
-                 infinite-scroll-distance="1"
-                 data-infinite-container=".infinite-scroll-parent"
-                 infinite-scroll-disabled="WidgetHome.noMore">
-                <div ng-repeat="track in WidgetHome.tracks" ng-if="$index % 2 == 0" class="row text-overlay"
-                    >
-                    <div ng-class="WidgetHome.tracks[$index].isPlaying ? 'bold':''"  class="list-item-odd col-xs-6 pull-left clickable "  ng-click="WidgetHome.goToTrack(WidgetHome.tracks[$index])">
-                        <div class="list-item-media text-center overflow-hidden text-overlay">
-                            <div class="list-media-holder text-overlay">
-                                <img ng-if="WidgetHome.tracks[$index].artwork_url"
-                                     ng-src="{{WidgetHome.tracks[$index].artwork_url | cropImage:200:200}}">
-                                <img ng-if="!WidgetHome.tracks[$index].artwork_url"
-                                     src="assets/images/placeholder200x200.png">
-                            </div>
-                        </div>
-                        <div class="list-item-copy text-left text-overlay">
-                            <p class="text-primary ellipsis margin-bottom-five">
-                                <a class="ellipsis margin-zero text-primary">{{WidgetHome.tracks[$index].title}}</a>
-                            </p>
-
-                            <p class="summary ellipsis margin-zero">{{WidgetHome.tracks[$index].user.username}}</p>
-                            <span class="list-item-date duration-ui">{{WidgetHome.tracks[$index].duration | millisecondsToDateTime | date:'mm:ss'}}</span>
-                            <span class="list-item-date playcount-ui">{{WidgetHome.tracks[$index].playback_count | number}}</span>
-                        </div>
+            <div>
+                <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in data.plugins" ng-click="navigateToPlugin(plugin)" ng-if="data.design.selectedLayout == 4">
+                    <div class="plugin-slide text-center">
+                        <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.iconUrl" />
+                        <span class="main-icon text-primary {{ plugin.iconClassName }} icon4" ng-if="plugin.iconClassName"></span>
                     </div>
-                    <div ng-class="WidgetHome.tracks[$index + 1].isPlaying ? 'bold':''"  class="list-item-even col-xs-6 pull-left clickable text-overlay "  ng-click="WidgetHome.goToTrack(WidgetHome.tracks[$index+1])"
-                         ng-if="WidgetHome.tracks[$index + 1]">
-                        <div class="list-item-media text-center overflow-hidden text-overlay">
-                            <div class="list-media-holder text-overlay">
-                                <img ng-if="WidgetHome.tracks[$index + 1].artwork_url"
-                                     ng-src="{{WidgetHome.tracks[$index + 1].artwork_url | cropImage:200:200}}">
-                                <img ng-if="!WidgetHome.tracks[$index + 1].artwork_url"
-                                     src="assets/images/placeholder200x200.png">
-                            </div>
-                        </div>
-                        <div class="list-item-copy text-left text-overlay">
-                            <p class="text-primary ellipsis margin-bottom-five">
-                                <a class="ellipsis margin-zero text-primary">{{WidgetHome.tracks[$index +
-                                    1].title}}</a>
-                            </p>
-                            <p class="summary ellipsis margin-zero">{{WidgetHome.tracks[$index + 1].user.username}}</p>
-                            <span class="duration-ui list-item-date">{{WidgetHome.tracks[$index + 1].duration | millisecondsToDateTime | date:'mm:ss'}}</span>
-                            <span class="list-item-date playcount-ui" >{{WidgetHome.tracks[$index + 1].playback_count | number}}</span>
-                        </div>
+                    <div class="info-bar titleBarBackgroundTheme">
+                        <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">{{ plugin.title }}</p>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 </div>
