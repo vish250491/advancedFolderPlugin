@@ -8,7 +8,7 @@
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout-6">
-                <div ng-repeat="pluginRow in WidgetHome.info.data.content.entity" class="row">
+                <div ng-repeat="plugin in WidgetHome.info.data.content.entity" class="row">
                     <div class="list-item col-xs-6 pull-left" ng-repeat="plugin in pluginRow" ng-click="WidgetHome.navigateToPlugin(plugin)">
                         <div class="list-item-media text-center overflow-hidden">
                             <div class="list-media-holder">
@@ -18,7 +18,7 @@
                             <div class="list-item-copy text-center" style="min-height: 42px;">
                                 <p class="ellipsis margin-zero text-primary">
                                     <a class="text-primary">
-                                        {{ plugin.title }}
+                                        plugin.title }}
                                     </a>
                                 </p>
                             </div>

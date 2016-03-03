@@ -8,20 +8,6 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
-             /*   ContentHome.treeOptions = {
-                    accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                       console.log()
-                    },
-                    removed: function (node) {
-                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
-                    },
-                    dropped: function (event) {
-                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
-                    }
-
-                }
-*/
-
                 var timerDelay, masterInfo;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
@@ -64,20 +50,20 @@
 
                 ContentHome.addNewFolderToRootPopup = function (object) {
                     Modals.addFolderModal().then(function (title) {
-                        ContentHome.info.data.content.entity.push({title:title,items:[]});
-                      var nodeData = object.$modelValue;
-                        if(nodeData && nodeData.nodes){
+                        ContentHome.info.data.content.entity.push({title: title, items: []});
+                        var nodeData = object.$modelValue;
+                        if (nodeData && nodeData.nodes) {
                             nodeData.nodes.push({
                                 id: nodeData.id * 10 + nodeData.nodes.length,
                                 title: nodeData.title + '.' + (nodeData.nodes.length + 1),
                                 nodes: []
                             });
-                        }else{
-                            nodeData={};
-                            nodeData.nodes={
-                                title:title,
-                                id:1,
-                                nodes :[]
+                        } else {
+                            nodeData = {};
+                            nodeData.nodes = {
+                                title: title,
+                                id: 1,
+                                nodes: []
                             }
                         }
 
@@ -88,27 +74,45 @@
 
                 ContentHome.addPluginInstancePopup = function () {
                     Buildfire.pluginInstance.showDialog({
-                        prop1:""
-                    },function(error ,instances){
-                        console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instances);
+                        prop1: ""
+                    }, function (error, instances) {
+                        console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>', instances);
                         //iconUrl title
-                        if(instances){
-                            instances.forEach(function(instance){
-                                ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
+                        if (instances) {
+                            instances.forEach(function (instance) {
+                                ContentHome.info.data.content.entity.push({
+                                    title: instance.title,
+                                    iconUrl: instance.iconUrl
+                                });
                                 if (!$scope.$$phase)$scope.$digest();
                             })
                         }
                     });
                 };
 
+                ContentHome.deleteEntity = function (obj) {
+                    Modals.removePopupModal().then(function (result) {
+                        if (result) {
+                            //ContentHome.info.data.content.entity.splice(ind, 1);
+                            obj.remove();
+                        }
+                    });
+                };
 
-                ContentHome.deleteRootFolder = function(ind){
-                    ContentHome.info.data.content.entity.splice(ind, 1);
+
+                ContentHome.editFolder = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    Modals.addFolderModal(nodeData.title).then(function (title) {
+                        nodeData.title = title;
+                    }, function (err) {
+
+                    });
                 };
 
                 function init() {
                     var success = function (data) {
                         if (data && data.data && (data.data.content || data.data.design)) {
+                            console.log('lakshaylakshay', data);
                             updateMasterInfo(data.data);
                             ContentHome.info = data;
                             if (data.data.content && data.data.content.images) {
@@ -163,6 +167,38 @@
                 $scope.$watch(function () {
                     return ContentHome.info;
                 }, updateInfoData, true);
+
+                /* $scope.remove = function (scope) {
+                 scope.remove();
+                 };*/
+
+                $scope.toggle = function (scope) {
+                    scope.toggle();
+                };
+
+                /*     $scope.moveLastToTheBeginning = function () {
+                 var a = $scope.data.pop();
+                 $scope.data.splice(0, 0, a);
+                 };*/
+
+
+                ContentHome.newSubFolder = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    console.log('nodeData', nodeData);
+                    nodeData.items.push({
+
+                        title: 'Unnamed Folder',
+                        items: []
+                    });
+                };
+                $scope.collapseAll = function () {
+                    $scope.$broadcast('angular-ui-tree:collapse-all');
+                };
+
+                $scope.expandAll = function () {
+                    $scope.$broadcast('angular-ui-tree:expand-all');
+                };
+
 
             }]);
 })(window.angular);

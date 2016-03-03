@@ -25,13 +25,14 @@
     <script src="modals.js"></script>
     <script src="controllers/content.home.controller.js"></script>
     <script>
-        function clickMe(e){
+        function clickMe(e) {
             setTimeout(function () {
-                var top =  e.pageY;
+                var top = e.pageY;
                 $('.modal-dialog.modal-sm').offset({top: top, left: 0});
             }, 30);
 
-        };
+        }
+        ;
     </script>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
@@ -59,22 +60,55 @@
         </div>
         <div class="labels col-md-9 padding-right-zero pull-left">
             <a class="btn btn-primary" ng-click="ContentHome.addPluginInstancePopup()">Add plugin instance</a>&nbsp;
-            <a class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>&nbsp;
+            <a class="btn btn-success" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New
+                Container</a>&nbsp;
             <a class="btn btn-success" ng-click="ContentHome.addPluginInstancePopup()">Create new Plugin</a>
         </div>
     </div>
     <hr class="none">
-    <div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions" data-max-depth="2">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <button ng-click="expandAll()">Expand all</button>
+            <button ng-click="collapseAll()">Collapse all</button>
+        </div>
+    </div>
+    <hr class="none">
+    <div class="row">
+        <div class="col-sm-12">
+            <div ui-tree="" data-max-depth="3" id="tree-root">
+                <ol ui-tree-nodes ng-model="ContentHome.info.data.content.entity">
+                    <li ng-repeat="node in ContentHome.info.data.content.entity" ui-tree-node
+                        ng-include="'nodes_renderer.html'"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!--<div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions" data-max-depth="2">
         <ol ui-tree-nodes="" ng-model="ContentHome.info.data.content.entity">
             <li class="" ng-repeat="item in ContentHome.info.data.content.entity" ui-tree-node>
                 <div ui-tree-handle>
-                    <span class="icon icon-menu pull-left"></span>
-                    <span class="title ellipsis pull-left" style="margin-left:15px" >{{item.title}}</span>
-                    <div class="copy pull-right">
+                    <div ng-if="item.items">
+                        <span class="icon icon-menu pull-left"></span>
+                        <span class="title ellipsis pull-left" style="margin-left:15px">{{item.title}}</span>
 
-                        <div class="pull-right"><span
-                                data-nodrag ng-click="ContentHome.deleteRootFolder($index)"
-                                class="btn-icon btn-delete-icon btn-danger transition-third"></span></div>
+                        <div class="copy pull-right">
+
+                            <div class="pull-right"><span
+                                    data-nodrag ng-click="ContentHome.deleteRootFolder($index)"
+                                    class="btn-icon btn-delete-icon btn-danger transition-third"></span></div>
+                        </div>
+                    </div>
+                    <div ng-if="!item.items">
+                        <span class="icon icon-menu pull-left"></span>
+                        <span class="title ellipsis pull-left" style="margin-left:15px"> Instance &#45;&#45; {{item.title}}</span>
+
+                        <div class="copy pull-right">
+
+                            <div class="pull-right"><span
+                                    data-nodrag ng-click=""
+                                    class="btn-icon btn-delete-icon btn-danger transition-third"></span></div>
+                        </div>
                     </div>
                 </div>
                 <ol ui-tree-nodes="" ng-model="item.items">
@@ -86,8 +120,36 @@
                 </ol>
             </li>
         </ol>
-    </div>
+    </div>-->
 
 </div>
 </body>
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content">
+        <div ng-if="node.items">
+            <a class="btn btn-success btn-xs" ng-if="node.items && node.items.length > 0" data-nodrag
+               ng-click="toggle(this)"><span
+                    class="glyphicon"
+                    ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+          <span data-nodrag ng-click="ContentHome.editFolder(this)">{{node.title}}</span>
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
+                    class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.newSubFolder(this)"
+               style="margin-right: 8px;"><span
+                    class="glyphicon glyphicon-plus"></span></a>
+        </div>
+        <div class="nodrop" ng-if="!node.items">
+          PI - <span data-nodrag>{{node.title}}</span>
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
+                    class="glyphicon glyphicon-remove"></span></a>
+        </div>
+    </div>
+    <ol ng-if="node.items" ui-tree-nodes="" ng-model="node.items" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.items" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+</script>
 </html>
