@@ -9,15 +9,15 @@
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout5">
                 <div ng-repeat="pluginRow in WidgetHome.info.data.content.entity" class="row">
-                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in pluginRow" ng-click="WidgetHome.navigateToPlugin(plugin)">
+                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in pluginRow" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
                         <div class="list-item-media text-center">
                             <div class="list-media-holder">
-                                <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.iconUrl" />
-                                <span class="main-icon text-primary {{ plugin.iconClassName }} icon5" ng-if="plugin.iconClassName"></span>
+                                <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
+                                <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
-                                    {{ plugin.title }}
+                                    {{ plugin.data.title }}
                                 </p>
                             </div>
                         </div>

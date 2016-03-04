@@ -1,5 +1,5 @@
 <div class="holder padding-zero ">
-    <div class="media-center-plugin layout1 text-overlay">
+    <div class="media-center-plugin layout3 text-overlay">
         <div class="plugin-banner clearfix border-bottom-grey">
             <div id="carousel" build-fire-carousel=""></div>
         </div>
@@ -9,14 +9,14 @@
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div class=" list-layout">
-                <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
+                <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
                     <div class="list-item-media text-left overflow-hidden">
                         <div class="list-media-holder square-icon pull-left">
-                            <img ng-src="{{ cropImage(plugin.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.iconUrl">
-                            <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
+                            <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl">
+                            <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
-                            <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.title }}</p>
+                            <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.data.title }}</p>
                         </div>
                     </div>
                 </div>

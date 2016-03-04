@@ -10,10 +10,13 @@
 
                 var WidgetHome = this;
                 var matchedBackgroundName = undefined;
-                var deviceHeight = window.innerHeight;;
+                var deviceHeight = window.innerHeight;
+                ;
                 var deviceWidth = window.innerWidth;
 
                 WidgetHome.view = null;
+                //Default initialise
+                WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
 
                 /*declare the device width heights*/
                 $rootScope.deviceHeight = window.innerHeight;
@@ -97,13 +100,16 @@
                 };
 
                 function setBackgroundImage() {
-                    var backgroundImages =WidgetHome.info.data.design.bgImage;
+                    var backgroundImages = WidgetHome.info.data.design.bgImage;
                     var backgroundImage = undefined;
 
                     if (!backgroundImages) return;
 
                     if (typeof(WidgetHome.info.data.design.bgImage) === "string") {
-                        backgroundImage = WidgetHome.cropImage(WidgetHome.info.data.design.bgImage, {width: deviceWidth, height: deviceHeight});
+                        backgroundImage = WidgetHome.cropImage(WidgetHome.info.data.design.bgImage, {
+                            width: deviceWidth,
+                            height: deviceHeight
+                        });
                     }
                     else {
                         if (!matchedBackgroundName) {
@@ -115,7 +121,7 @@
                         }
                         console.log('matchedBackgroundName: ', matchedBackgroundName);
 
-                        if(matchedBackgroundName){
+                        if (matchedBackgroundName) {
                             backgroundImage = WidgetHome.cropImage(backgroundImages[matchedBackgroundName], {
                                 width: deviceWidth,
                                 height: deviceHeight
@@ -127,7 +133,7 @@
                 }
 
 
-                function getByMediaQuery(){
+                function getByMediaQuery() {
                     var devicesAspectRatios = [
                         {
                             mediaQueries: ['screen and (device-aspect-ratio:3/2)'],
@@ -165,7 +171,7 @@
                     return backgroundImage;
                 }
 
-                function calcMatchedBackgroundImage(){
+                function calcMatchedBackgroundImage() {
                     console.log('calc best aspect ratio');
                     var aspectRatios = [
                         {w: 4, h: 3},
@@ -207,12 +213,12 @@
                  * Go pull saved data
                  * */
                 function loadData() {
-                    buildfire.datastore.getWithDynamicData(function (err, result) {
+                    buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                         if (err) {
                             console.error("Error: ", err);
                             return;
                         }
-                      //  dataLoadedHandler(result);
+                        dataLoadedHandler(result);
                     });
                 }
 
@@ -233,14 +239,64 @@
                         WidgetHome.info = event;
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
-                            setBackgroundImage();
+                        setBackgroundImage();
                         $timeout(function () {
                             WidgetHome.initCarousel();
                         }, 500);
                         $scope.$apply();
                     }
+                    loadData();
 
                 };
+
+
+                function dataLoadedHandler(result) {
+
+                    var pluginsList = null;
+                    if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result){
+                        pluginsList = result.data._buildfire.plugins;
+
+                    if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
+                        result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
+                    }
+                    WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
+                }
+             }
+
+
+        function getPluginDetails (pluginsInfo, pluginIds) {
+              var returnPlugins = [];
+              var tempPlugin = null;
+            for (var id = 0; id < pluginIds.length; id++) {
+            for (var i = 0; i < pluginsInfo.length; i++) {
+                tempPlugin = {};
+                var obj = pluginsInfo[i].data ? pluginsInfo[i].data : pluginsInfo[i];
+                if (pluginIds[id] == obj.instanceId) {
+                    tempPlugin.instanceId = obj.instanceId;
+                    if (obj) {
+                        tempPlugin.iconUrl = obj.iconUrl;
+                        tempPlugin.iconClassName = obj.iconClassName;
+                        tempPlugin.title = obj.title;
+                        if(obj.pluginType) {
+                            tempPlugin.pluginTypeId = obj.pluginType.token ;
+                            tempPlugin.folderName = obj.pluginType.folderName;
+                        }
+                        else{
+                            tempPlugin.pluginTypeId = obj.pluginTypeId;
+                            tempPlugin.folderName = obj.folderName ;
+                        }
+                    } else {
+                        tempPlugin.iconUrl = "";
+                        tempPlugin.title = "[No title]";
+                    }
+                    returnPlugins.push(tempPlugin);
+                }
+                tempPlugin = null;
+            }
+        }
+        return returnPlugins;
+    };
+
 
                 var listener = Buildfire.datastore.onUpdate(WidgetHome.onUpdateCallback);
 
