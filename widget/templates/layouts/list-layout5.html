@@ -8,8 +8,8 @@
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout5">
-                <div ng-repeat="pluginRow in WidgetHome.info.data.content.entity" class="row">
-                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in pluginRow" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
+                <div  class="row">
+                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
                         <div class="list-item-media text-center">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />

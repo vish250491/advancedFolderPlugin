@@ -70,7 +70,7 @@
                 ContentHome.addNewFolderToRootPopup = function (object) {
                     Modals.addFolderModal().then(function (title) {
                         ContentHome.info.data.content.entity.push({title:title,items:[]});
-                        var nodeData = object.$modelValue;
+                       /* var nodeData = object.$modelValue;
                         if(nodeData && nodeData.nodes){
                             nodeData.nodes.push({
                                 id: nodeData.id * 10 + nodeData.nodes.length,
@@ -84,7 +84,7 @@
                                 id:1,
                                 nodes :[]
                             }
-                        }
+                        }*/
 
                     }, function (err) {
 
@@ -98,6 +98,7 @@
                         if(instances){
                             instances.forEach(function(instance){
                                 ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                ContentHome.info.data.content.entity.push({instanceId:instance.instanceId});
                                 if (!$scope.$$phase)$scope.$digest();
                             })
                         }
