@@ -16,18 +16,18 @@
 
 
                 /*   ContentHome.treeOptions = {
-                       accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                          console.log()
-                       },
-                       removed: function (node) {
-                           console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
-                       },
-                       dropped: function (event) {
-                           console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
-                       }
+                 accept: function (sourceNodeScope, destNodesScope, destIndex) {
+                 console.log()
+                 },
+                 removed: function (node) {
+                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
+                 },
+                 dropped: function (event) {
+                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
+                 }
 
-                   }
-             */
+                 }
+                 */
 
                 var timerDelay, masterInfo;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
@@ -70,7 +70,7 @@
                 ContentHome.addNewFolderToRootPopup = function (object) {
                     Modals.addFolderModal().then(function (title) {
                         ContentHome.info.data.content.entity.push({title:title,items:[]});
-                      var nodeData = object.$modelValue;
+                        var nodeData = object.$modelValue;
                         if(nodeData && nodeData.nodes){
                             nodeData.nodes.push({
                                 id: nodeData.id * 10 + nodeData.nodes.length,
@@ -104,6 +104,24 @@
                     });
                 };
 
+                ContentHome.deleteEntity = function (obj) {
+                    Modals.removePopupModal().then(function (result) {
+                        if (result) {
+                            //ContentHome.info.data.content.entity.splice(ind, 1);
+                            obj.remove();
+                        }
+                    });
+                };
+
+
+                ContentHome.editFolder = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    Modals.addFolderModal(nodeData.title).then(function (title) {
+                        nodeData.title = title;
+                    }, function (err) {
+
+                    });
+                };
 
                 ContentHome.pluginExist=function(instanceId){
                     //forEach(ContentHome.info.data._buildfire.plugins.data)
@@ -158,7 +176,7 @@
 
                 });
 
-                 function getPluginDetails(pluginsInfo, pluginIds) {
+                function getPluginDetails(pluginsInfo, pluginIds) {
                     var returnPlugins = [];
                     var tempPlugin = null;
                     for (var id = 0; id < pluginIds.length; id++) {
@@ -243,6 +261,33 @@
                 $scope.$watch(function () {
                     return ContentHome.info;
                 }, updateInfoData, true);
+
+                $scope.toggle = function (scope) {
+                    scope.toggle();
+                };
+
+                /*     $scope.moveLastToTheBeginning = function () {
+                 var a = $scope.data.pop();
+                 $scope.data.splice(0, 0, a);
+                 };*/
+
+
+                ContentHome.newSubFolder = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    console.log('nodeData', nodeData);
+                    nodeData.items.push({
+
+                        title: 'Unnamed Folder',
+                        items: []
+                    });
+                };
+                $scope.collapseAll = function () {
+                    $scope.$broadcast('angular-ui-tree:collapse-all');
+                };
+
+                $scope.expandAll = function () {
+                    $scope.$broadcast('angular-ui-tree:expand-all');
+                };
 
             }]);
 })(window.angular);
