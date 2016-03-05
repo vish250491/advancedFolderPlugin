@@ -10,7 +10,7 @@
             <div class="list-layout layout5">
                 <div  class="row">
                     <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
-                        <div class="list-item-media text-center">
+                        <div class="list-item-media text-center" ng-if="plugin.data">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
@@ -18,6 +18,17 @@
                             <div class="info-bar titleBarBackgroundTheme">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
                                     {{ plugin.data.title }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="list-item-media text-center" ng-if="plugin.items">
+                            <div class="list-media-holder">
+                                <img ng-src="{{ WidgetHome.cropImage('http://s7obnu.cloudimage.io/s/resizenp/180X180/http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/3e49a249-4693-46a8-ad4c-862414e8cb35/resources/icon.png', {width: 320, height: 320}) }}">
+                                <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
+                            </div>
+                            <div class="info-bar titleBarBackgroundTheme">
+                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
+                                    {{ plugin.title }}
                                 </p>
                             </div>
                         </div>

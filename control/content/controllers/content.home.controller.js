@@ -97,13 +97,26 @@
                     },function(error ,instances){
                         if(instances){
                             instances.forEach(function(instance){
-                                ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                ContentHome.info.data.content.entity.push({instanceId:instance.instanceId});
-                                if (!$scope.$$phase)$scope.$digest();
+                                if(!ContentHome.pluginExist(instance.instanceId)){
+                                    ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                    ContentHome.info.data.content.entity.push({title:instance.title,instanceId:instance.instanceId});
+                                    if (!$scope.$$phase)$scope.$digest();
+                                }
+
                             })
                         }
                     });
                 };
+
+                ContentHome.pluginExist=function(instanceId){
+                    var pluginFound=false;
+                    ContentHome.info.data._buildfire.plugins.data.forEach(function(pluginId){
+                    if(pluginId==instanceId){
+                        pluginFound= true;
+                    }
+                   });
+                    return pluginFound;
+                }
 
                 ContentHome.deleteEntity = function (obj) {
                     Modals.removePopupModal().then(function (result) {
@@ -124,9 +137,7 @@
                     });
                 };
 
-                ContentHome.pluginExist=function(instanceId){
-                    //forEach(ContentHome.info.data._buildfire.plugins.data)
-                }
+
 
                 ContentHome.deleteRootFolder = function(ind){
                     ContentHome.info.data.content.entity.splice(ind, 1);

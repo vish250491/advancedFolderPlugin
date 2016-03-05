@@ -259,43 +259,86 @@
                     if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
                         result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
                     }
-                    WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
+                        if(WidgetHome.info.data.content.entity.length){
+                            result.data._buildfire.plugins.result.forEach(function(pluginDetailData){
+                                traverse(WidgetHome.info.data.content.entity,1,pluginDetailData);
+                            })
+                        }
+
+
+                   // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
                 }
              }
 
+                function traverse(x, level,pluginDetailData) {
+                    if (isArray(x)) {
+                        traverseArray(x, level,pluginDetailData);
+                    } else if ((typeof x === 'object') && (x !== null)) {
+                        traverseObject(x, level,pluginDetailData);
+                    } else {
+                        console.log(level + x);
+                    }
+                }
 
-        function getPluginDetails (pluginsInfo, pluginIds) {
-              var returnPlugins = [];
-              var tempPlugin = null;
-            for (var id = 0; id < pluginIds.length; id++) {
-            for (var i = 0; i < pluginsInfo.length; i++) {
-                tempPlugin = {};
-                var obj = pluginsInfo[i].data ? pluginsInfo[i].data : pluginsInfo[i];
-                if (pluginIds[id] == obj.instanceId) {
-                    tempPlugin.instanceId = obj.instanceId;
-                    if (obj) {
-                        tempPlugin.iconUrl = obj.iconUrl;
-                        tempPlugin.iconClassName = obj.iconClassName;
-                        tempPlugin.title = obj.title;
-                        if(obj.pluginType) {
-                            tempPlugin.pluginTypeId = obj.pluginType.token ;
-                            tempPlugin.folderName = obj.pluginType.folderName;
+                function isArray(o) {
+                    return Object.prototype.toString.call(o) === '[object Array]';
+                }
+
+                function traverseArray(arr, level,pluginDetailData) {
+                    console.log(level + "<array>");
+                    arr.forEach(function(x) {
+                        traverse(x, level + "  ",pluginDetailData);
+                    });
+                }
+
+                function traverseObject(obj, level,pluginDetailData) {
+                    console.log(level + "<object>");
+
+                        if (obj.hasOwnProperty('items')) {
+                            if(obj.items.length){
+                                console.log(level + "  " + key + ":");
+                                traverse(obj['items'], level + "    ",pluginDetailData);
+                            }
                         }
                         else{
-                            tempPlugin.pluginTypeId = obj.pluginTypeId;
-                            tempPlugin.folderName = obj.folderName ;
-                        }
-                    } else {
-                        tempPlugin.iconUrl = "";
-                        tempPlugin.title = "[No title]";
-                    }
-                    returnPlugins.push(tempPlugin);
+                            if(obj.instanceId==pluginDetailData.data.instanceId)
+                                obj.data= pluginDetailData.data;
+                            }
+
                 }
-                tempPlugin = null;
-            }
-        }
-        return returnPlugins;
-    };
+
+                function getPluginDetails(pluginsInfo, pluginIds) {
+                    var returnPlugins = [];
+                    var tempPlugin = null;
+                    for (var id = 0; id < pluginIds.length; id++) {
+                        for (var i = 0; i < pluginsInfo.length; i++) {
+                            tempPlugin = {};
+                            var obj = pluginsInfo[i].data ? pluginsInfo[i].data : pluginsInfo[i];
+                            if (pluginIds[id] == obj.instanceId) {
+                                tempPlugin.instanceId = obj.instanceId;
+                                if (obj) {
+                                    tempPlugin.iconUrl = obj.iconUrl;
+                                    tempPlugin.iconClassName = obj.iconClassName;
+                                    tempPlugin.title = obj.title;
+                                    if (obj.pluginType) {
+                                        tempPlugin.pluginTypeId = obj.pluginType.token;
+                                        tempPlugin.folderName = obj.pluginType.folderName;
+                                    }
+                                    else {
+                                        tempPlugin.pluginTypeId = obj.pluginTypeId;
+                                        tempPlugin.folderName = obj.folderName;
+                                    }
+                                } else {
+                                    tempPlugin.iconUrl = "";
+                                    tempPlugin.title = "[No title]";
+                                }
+                                returnPlugins.push(tempPlugin);
+                            }
+                            tempPlugin = null;
+                        }
+                    }
+                    return returnPlugins;
+                };
 
 
                 var listener = Buildfire.datastore.onUpdate(WidgetHome.onUpdateCallback);

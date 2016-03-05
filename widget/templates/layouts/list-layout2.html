@@ -10,13 +10,22 @@
 
         <div class="list-layout">
             <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
-                <div class="list-item-media text-left overflow-hidden">
+                <div class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
                     <div class="list-media-holder pull-left">
                         <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 220, height: 120}) }}" ng-if="plugin.data.iconUrl">
                         <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                     </div>
                     <div class="list-item-copy text-left padding-left-ten padding-right-ten">
                         <p class="ellipsis margin-zero bodyTextTheme margin-top-twenty">{{ plugin.data.title }}</p>
+                    </div>
+                </div>
+                <div class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
+                    <div class="list-media-holder pull-left">
+                        <img ng-src="{{ WidgetHome.cropImage('http://s7obnu.cloudimage.io/s/resizenp/180X180/http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/3e49a249-4693-46a8-ad4c-862414e8cb35/resources/icon.png', {width: 220, height: 120}) }}">
+                        <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
+                    </div>
+                    <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+                        <p class="ellipsis margin-zero bodyTextTheme margin-top-twenty">{{ plugin.title }}</p>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@
         </div>
         <div>
             <div ng-repeat="plugin in  WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
+                <div ng-if="plugin.data">
                 <div class="plugin-banner clearfix border-bottom-grey">
                     <div class="plugin-slide text-center">
                         <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
@@ -18,6 +19,18 @@
                 </div>
                 <div class="padded text-left">
                     <a class="text-primary">{{ plugin.data.title }}</a>
+                </div>
+                </div>
+                <div ng-if="plugin.items">
+                    <div class="plugin-banner clearfix border-bottom-grey">
+                        <div class="plugin-slide text-center">
+                            <img ng-src="{{ WidgetHome.cropImage('http://s7obnu.cloudimage.io/s/resizenp/180X180/http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/3e49a249-4693-46a8-ad4c-862414e8cb35/resources/icon.png', {width: 450, height: 254}) }}">
+                            <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon3" ng-if="plugin.data.iconClassName"></span>
+                        </div>
+                    </div>
+                    <div class="padded text-left">
+                        <a class="text-primary">{{ plugin.title }}</a>
+                    </div>
                 </div>
             </div>
         </div>
