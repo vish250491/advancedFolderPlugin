@@ -94,8 +94,7 @@
                     buildfire.navigation.navigateTo({
                         pluginId: plugin.pluginTypeId,
                         instanceId: plugin.instanceId,
-                        title: plugin.title,
-                        folderName: plugin.folderName
+                        title: plugin.title
                     });
                 };
 
