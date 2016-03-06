@@ -137,13 +137,23 @@
                     });
                 };
 
+                ContentHome.editPlugin = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    Modals.addFolderModal(nodeData.title).then(function (title) {
+                        nodeData.title = title;
+                    }, function (err) {
+
+                    });
+                };
+
+
 
 
                 ContentHome.deleteRootFolder = function(ind){
                     ContentHome.info.data.content.entity.splice(ind, 1);
                 };
 
-
+                ContentHome.datastoreInitialized = false;
                 /*
                  * Go pull any previously saved data
                  * */
@@ -164,8 +174,14 @@
                         }
 
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
-                            var pluginsData = getPluginDetails(ContentHome.info.data._buildfire.plugins.result,ContentHome.info.data._buildfire.plugins.result);
+                            var pluginsDetailDataArray=[];
+                            pluginsDetailDataArray = getPluginDetails(ContentHome.info.data._buildfire.plugins.result,ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
+                            if(pluginsDetailDataArray && pluginsDetailDataArray.length){
+                                pluginsDetailDataArray.forEach(function(pluginDetailDataObject){
+                                    traverse(ContentHome.info.data.content.entity,1,pluginDetailDataObject);
+                                })
+                            }
                         }
 
                         if (!ContentHome.info.data._buildfire) {
@@ -187,6 +203,44 @@
                     }
 
                 });
+
+                function traverse(x, level,pluginDetailData) {
+                    if (isArray(x)) {
+                        traverseArray(x, level,pluginDetailData);
+                    } else if ((typeof x === 'object') && (x !== null)) {
+                        traverseObject(x, level,pluginDetailData);
+                    } else {
+                        console.log(level + x);
+                    }
+                }
+
+                function isArray(o) {
+                    return Object.prototype.toString.call(o) === '[object Array]';
+                }
+
+                function traverseArray(arr, level,pluginDetailData) {
+                    console.log(level + "<array>");
+                    arr.forEach(function(x) {
+                        traverse(x, level + "  ",pluginDetailData);
+                    });
+                }
+
+                function traverseObject(obj, level,pluginDetailData) {
+                    console.log(level + "<object>");
+
+                    if (obj.hasOwnProperty('items')) {
+                        if(obj.items.length){
+                            //   console.log(level + "  " + key + ":");
+                            traverse(obj['items'], level + "    ",pluginDetailData);
+                        }
+                    }
+                    else{
+                        if(obj.instanceId==pluginDetailData.instanceId)
+                            obj.title= pluginDetailData.title;
+                            obj.iconUrl= pluginDetailData.iconUrl;
+                    }
+
+                }
 
                 function getPluginDetails(pluginsInfo, pluginIds) {
                     var returnPlugins = [];
@@ -249,6 +303,12 @@
                 }
 
                 function saveData(_info) {
+
+                    if (!ContentHome.datastoreInitialized) {
+                        console.error("Error with datastore didn't get called");
+                        return;
+                    }
+
                     var saveSuccess = function (data) {
                         console.log('Data saved successfully---------------from content-----------', data);
                     };
@@ -284,7 +344,7 @@
                  };*/
 
 
-                ContentHome.newSubFolder = function (scope) {
+                /*ContentHome.newSubFolder = function (scope) {
                     var nodeData = scope.$modelValue;
                     console.log('nodeData', nodeData);
                     nodeData.items.push({
@@ -299,7 +359,7 @@
 
                 $scope.expandAll = function () {
                     $scope.$broadcast('angular-ui-tree:expand-all');
-                };
+                };*/
 
             }]);
 })(window.angular);

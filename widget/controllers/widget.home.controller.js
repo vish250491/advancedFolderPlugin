@@ -94,7 +94,8 @@
                     buildfire.navigation.navigateTo({
                         pluginId: plugin.pluginTypeId,
                         instanceId: plugin.instanceId,
-                        title: plugin.title
+                        title: plugin.title,
+                        folderName: plugin.pluginType.folderName
                     });
                 };
 
@@ -295,7 +296,7 @@
 
                         if (obj.hasOwnProperty('items')) {
                             if(obj.items.length){
-                                console.log(level + "  " + key + ":");
+                             //   console.log(level + "  " + key + ":");
                                 traverse(obj['items'], level + "    ",pluginDetailData);
                             }
                         }
