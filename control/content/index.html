@@ -129,14 +129,13 @@
           <span data-nodrag ng-click="ContentHome.editFolder(this)">{{node.title}}</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.newSubFolder(this)"
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.editFolder(this)"
                style="margin-right: 8px;"><span
-                    class="glyphicon glyphicon-plus"></span></a>
+                    class="glyphicon glyphicon-plus">Edit</span></a>
         </div>
         <div class="nodrop" ng-if="!node.items">
           PI - <span data-nodrag>{{node.title}}</span>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag="" ng-click="ContentHome.editPlugin(this)" style="margin-right: 8px;">Edit</a>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
+           <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>

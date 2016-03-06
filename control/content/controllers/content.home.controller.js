@@ -15,20 +15,6 @@
                 ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
 
 
-                /*   ContentHome.treeOptions = {
-                 accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                 console.log()
-                 },
-                 removed: function (node) {
-                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
-                 },
-                 dropped: function (event) {
-                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
-                 }
-
-                 }
-                 */
-
                 var timerDelay, masterInfo;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
@@ -70,24 +56,9 @@
                 ContentHome.addNewFolderToRootPopup = function (object) {
                     Modals.addFolderModal().then(function (title) {
                         ContentHome.info.data.content.entity.push({title:title,items:[]});
-                       /* var nodeData = object.$modelValue;
-                        if(nodeData && nodeData.nodes){
-                            nodeData.nodes.push({
-                                id: nodeData.id * 10 + nodeData.nodes.length,
-                                title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-                                nodes: []
-                            });
-                        }else{
-                            nodeData={};
-                            nodeData.nodes={
-                                title:title,
-                                id:1,
-                                nodes :[]
-                            }
-                        }*/
-
+                        if (!$scope.$$phase)$scope.$digest();
                     }, function (err) {
-
+                        console.log('Error while adding folder to Angular tree');
                     });
                 };
 
@@ -130,23 +101,13 @@
 
                 ContentHome.editFolder = function (scope) {
                     var nodeData = scope.$modelValue;
-                    Modals.addFolderModal(nodeData.title).then(function (title) {
-                        nodeData.title = title;
+                    Modals.addFolderModal({title : nodeData.title, iconUrl: nodeData.iconUrl}).then(function (response) {
+                        nodeData.title = response.title;
+                        nodeData.iconUrl = response.iconUrl;
                     }, function (err) {
 
                     });
                 };
-
-                ContentHome.editPlugin = function (scope) {
-                    var nodeData = scope.$modelValue;
-                    Modals.addFolderModal(nodeData.title).then(function (title) {
-                        nodeData.title = title;
-                    }, function (err) {
-
-                    });
-                };
-
-
 
 
                 ContentHome.deleteRootFolder = function(ind){

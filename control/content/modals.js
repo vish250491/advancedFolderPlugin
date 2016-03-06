@@ -7,7 +7,7 @@
         .module('advancedFolderModals', ['ui.bootstrap'])
         .factory('Modals', ['$modal', '$q', function ($modal, $q) {
             return {
-                addFolderModal: function (title) {
+                addFolderModal: function (info) {
                     var addFolderDeferred = $q.defer();
                     var addFolderPopupModal = $modal
                         .open({
@@ -16,11 +16,12 @@
                             controllerAs: 'AddFolderPopup',
                             size: 'sm',
                             resolve:{
-                                title:function(){return title;}
+                                Info:function(){return info;},
+
                             }
                         });
-                    addFolderPopupModal.result.then(function (imageInfo) {
-                        addFolderDeferred.resolve(imageInfo);
+                    addFolderPopupModal.result.then(function (folderInfo) {
+                        addFolderDeferred.resolve(folderInfo);
                     }, function (err) {
                         //do something on cancel
                         addFolderDeferred.reject(err);
@@ -47,17 +48,40 @@
 
             };
         }])
-        .controller('AddFolderPopupCtrl', ['$scope', '$modalInstance','title', function ($scope, $modalInstance,title) {
-            if(title)
-                $scope.folderTitle = title;
+        .controller('AddFolderPopupCtrl', ['$scope', '$modalInstance','Info', function ($scope, $modalInstance,Info) {
+            if(Info && Info.title)
+                $scope.folderTitle = Info.title;
             else
-            $scope.folderTitle = '';
+                $scope.folderTitle = '';
+
+            if(Info && Info.iconUrl)
+                $scope.folderIconUrl = Info.iconUrl;
+            else
+                $scope.folderIconUrl = '';
+
             $scope.ok = function () {
-                $modalInstance.close($scope.folderTitle);
+                $modalInstance.close({title : $scope.folderTitle,iconUrl : $scope.folderIconUrl});
             };
             $scope.cancel = function () {
                 $modalInstance.dismiss('no');
             };
+
+            $scope.selectIcon = function () {
+                buildfire.imageLib.showDialog ( {showIcons:true, multiSelection:false } , function(err,result){
+                    if (result && result.selectedIcons && result.selectedIcons.length > 0) {
+                        $scope.folderIconUrl = result.selectedFiles[0];
+                        $scope.$apply();
+                    }
+                    if (result && result.selectedFiles && result.selectedFiles.length > 0) {
+                        $scope.folderIconUrl = result.selectedFiles[0];
+                        $scope.$apply();
+                    }
+                });
+            };
+
+            $scope.removeIcon = function () {
+                $scope.folderIconUrl='';
+            }
         }])
         .controller('RemovePopupCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {
             var RemovePopup = this;
