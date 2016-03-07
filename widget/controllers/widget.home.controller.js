@@ -4,11 +4,12 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope) {
+            '$rootScope','ViewStack',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope,ViewStack) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
+                WidgetHome.noCarouselBody = false;
                 var matchedBackgroundName = undefined;
                 var deviceHeight = window.innerHeight;
                 ;
@@ -97,6 +98,13 @@
                         title: plugin.title,
                         folderName: plugin.pluginType.folderName
                     });
+                };
+
+                WidgetHome.goToFolder = function (ind) {
+                    ViewStack.push({
+                        template: "folder",
+                        folderIndex: ind,
+                        info: WidgetHome.info});
                 };
 
                 function setBackgroundImage() {

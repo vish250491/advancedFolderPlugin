@@ -57,5 +57,14 @@
             $httpProvider.interceptors.push(interceptor);
 
         }])
+        .run(['ViewStack', function (ViewStack) {
+            buildfire.navigation.onBackButtonClick = function () {
+                if (ViewStack.hasViews()) {
+                    ViewStack.pop();
+                } else {
+                    buildfire.navigation._goBackOne();
+                }
+            };
+        }])
 })
 (window.angular, window.buildfire);

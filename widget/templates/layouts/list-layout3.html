@@ -9,8 +9,8 @@
             </p>
         </div>
         <div>
-            <div ng-repeat="plugin in  WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
-                <div ng-if="plugin.data">
+            <div ng-repeat="plugin in  WidgetHome.info.data.content.entity">
+                <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                 <div class="plugin-banner clearfix border-bottom-grey">
                     <div class="plugin-slide text-center">
                         <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
@@ -21,7 +21,7 @@
                     <a class="text-primary">{{ plugin.data.title }}</a>
                 </div>
                 </div>
-                <div ng-if="plugin.items">
+                <div  ng-click="WidgetHome.goToFolder($index)" ng-if="plugin.items">
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
                             <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 450, height: 254}) }}">

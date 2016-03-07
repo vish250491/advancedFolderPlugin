@@ -310,3 +310,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	display:block;
 	padding:10px 0;
 }
+
+.clickable{
+	cursor: pointer !important;
+}

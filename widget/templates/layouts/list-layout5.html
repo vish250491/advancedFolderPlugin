@@ -9,8 +9,8 @@
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout5">
                 <div  class="row">
-                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
-                        <div class="list-item-media text-center" ng-if="plugin.data">
+                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
+                        <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
@@ -21,7 +21,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="list-item-media text-center" ng-if="plugin.items">
+                        <div  ng-click="WidgetHome.goToFolder($index)" class="list-item-media text-center" ng-if="plugin.items">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 320, height: 320}) }}">
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
