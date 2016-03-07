@@ -89,8 +89,12 @@
                 }
 
                 ContentHome.deleteEntity = function (obj) {
+                    var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
+                            var index =  ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                            ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+
                             //ContentHome.info.data.content.entity.splice(ind, 1);
                             obj.remove();
                         }
