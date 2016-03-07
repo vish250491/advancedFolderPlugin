@@ -268,10 +268,10 @@
 
                 function saveData(_info) {
 
-                    if (!ContentHome.datastoreInitialized) {
+                   /* if (!ContentHome.datastoreInitialized) {
                         console.error("Error with datastore didn't get called");
                         return;
-                    }
+                    }*/
 
                     var saveSuccess = function (data) {
                         console.log('Data saved successfully---------------from content-----------', data);
