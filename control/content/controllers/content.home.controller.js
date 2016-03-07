@@ -3,8 +3,8 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals','Messaging',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals,Messaging) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
@@ -118,6 +118,17 @@
                 };
 
                 ContentHome.datastoreInitialized = false;
+
+
+                ContentHome.openFolderInWidget = function (obj) {
+                    Messaging.sendMessageToWidget({
+                        name: 'OPEN_FOLDER',
+                        message: {
+                            selectedFolder: obj
+                        }
+                    });
+                };
+
                 /*
                  * Go pull any previously saved data
                  * */

@@ -126,7 +126,7 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-          <span data-nodrag ng-click="ContentHome.editFolder(this)">{{node.title}}</span>
+          <span style="cursor: pointer" data-nodrag ng-click="ContentHome.openFolderInWidget(node)">{{node.title}}</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
                 <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.editFolder(this)"

@@ -4,8 +4,8 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope','ViewStack',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope,ViewStack) {
+            '$rootScope', 'ViewStack', 'Messaging',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
@@ -101,7 +101,7 @@
                 };
 
                 WidgetHome.goToFolder = function (obj) {
-                    console.log('selected folder',obj);
+                    console.log('selected folder', obj);
                     ViewStack.push({
                         template: "folder",
                         folderItems: obj.items,
@@ -265,28 +265,28 @@
                 function dataLoadedHandler(result) {
 
                     var pluginsList = null;
-                    if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result){
+                    if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
 
-                    if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
-                        result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
-                    }
-                        if(WidgetHome.info.data.content.entity.length){
-                            result.data._buildfire.plugins.result.forEach(function(pluginDetailData){
-                                traverse(WidgetHome.info.data.content.entity,1,pluginDetailData);
+                        if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
+                            result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
+                        }
+                        if (WidgetHome.info.data.content.entity.length) {
+                            result.data._buildfire.plugins.result.forEach(function (pluginDetailData) {
+                                traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
                             })
                         }
 
 
-                   // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
+                        // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
+                    }
                 }
-             }
 
-                function traverse(x, level,pluginDetailData) {
+                function traverse(x, level, pluginDetailData) {
                     if (isArray(x)) {
-                        traverseArray(x, level,pluginDetailData);
+                        traverseArray(x, level, pluginDetailData);
                     } else if ((typeof x === 'object') && (x !== null)) {
-                        traverseObject(x, level,pluginDetailData);
+                        traverseObject(x, level, pluginDetailData);
                     } else {
                         console.log(level + x);
                     }
@@ -296,26 +296,26 @@
                     return Object.prototype.toString.call(o) === '[object Array]';
                 }
 
-                function traverseArray(arr, level,pluginDetailData) {
+                function traverseArray(arr, level, pluginDetailData) {
                     console.log(level + "<array>");
-                    arr.forEach(function(x) {
-                        traverse(x, level + "  ",pluginDetailData);
+                    arr.forEach(function (x) {
+                        traverse(x, level + "  ", pluginDetailData);
                     });
                 }
 
-                function traverseObject(obj, level,pluginDetailData) {
+                function traverseObject(obj, level, pluginDetailData) {
                     console.log(level + "<object>");
 
-                        if (obj.hasOwnProperty('items')) {
-                            if(obj.items.length){
-                             //   console.log(level + "  " + key + ":");
-                                traverse(obj['items'], level + "    ",pluginDetailData);
-                            }
+                    if (obj.hasOwnProperty('items')) {
+                        if (obj.items.length) {
+                            //   console.log(level + "  " + key + ":");
+                            traverse(obj['items'], level + "    ", pluginDetailData);
                         }
-                        else{
-                            if(obj.instanceId==pluginDetailData.data.instanceId)
-                                obj.data= pluginDetailData.data;
-                            }
+                    }
+                    else {
+                        if (obj.instanceId == pluginDetailData.data.instanceId)
+                            obj.data = pluginDetailData.data;
+                    }
 
                 }
 
@@ -354,6 +354,18 @@
 
 
                 var listener = Buildfire.datastore.onUpdate(WidgetHome.onUpdateCallback);
+
+                Messaging.onReceivedMessage = function (event) {
+                    if (event) {
+                        if (event.name == 'OPEN_FOLDER') {
+                            console.log('came here', event.message.selectedFolder);
+                            WidgetHome.goToFolder(event.message.selectedFolder);
+                            $scope.$apply();
+                        }
+
+                    }
+
+                };
 
             }]);
 })(window.angular);

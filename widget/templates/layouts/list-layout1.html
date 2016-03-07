@@ -21,7 +21,7 @@
                     </div>
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
                         <div class="list-media-holder square-icon pull-left">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 180, height: 180}) }}">
+                            <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 180, height: 180}) }}">
                             <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
