@@ -23,9 +23,9 @@
                                 var newScope = $rootScope.$new();
                                 newScope.currentItemListLayout = "templates/" + view.template + ".html";
 
-                                var _newView = '<div  id="' + view.template + '" ><div class="slide content" data-back-img="{{backgroundImage}}" ng-if="currentItemListLayout" ng-include="currentItemListLayout"></div></div>';
+                                var _newView = '<div  id="' + view.template + '" ><div class="slide content dynamic-view" data-back-img="{{backgroundImage}}" ng-if="currentItemListLayout" ng-include="currentItemListLayout"></div></div>';
                                 if (view.params && view.params.controller) {
-                                    _newView = '<div id="' + view.template + '" ><div class="slide content" data-back-img="{{backgroundImage}}" ng-if="currentItemListLayout" ng-include="currentItemListLayout" ng-controller="' + view.params.controller + '" ></div></div>';
+                                    _newView = '<div id="' + view.template + '" ><div class="slide content dynamic-view" data-back-img="{{backgroundImage}}" ng-if="currentItemListLayout" ng-include="currentItemListLayout" ng-controller="' + view.params.controller + '" ></div></div>';
                                 }
                                 var parTpl = $compile(_newView)(newScope);
                                 if (view.params && view.params.shouldUpdateTemplate) {
@@ -71,5 +71,26 @@
 
                     }
                 };
-            }]);
+            }])
+        .directive('backImg', ["$filter", "$rootScope", "$window" , function ($filter, $rootScope, $window) {
+            return function (scope, element, attrs) {
+                attrs.$observe('backImg', function (value) {
+                    var img = '';
+                    if (value) {
+                        img = $filter("cropImage")(value, $window.innerWidth, $window.innerHeight, true);
+                        element.attr("style", 'background:url(' + img + ') !important');
+                        element.css({
+                            'background-size': 'cover'
+                        });
+                    }
+                    else {
+                        img = "";
+                        element.attr("style", 'background-color:white');
+                        element.css({
+                            'background-size': 'cover'
+                        });
+                    }
+                });
+            };
+        }]);
 })(window.angular);

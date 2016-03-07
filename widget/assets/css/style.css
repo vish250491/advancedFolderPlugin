@@ -314,3 +314,11 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .clickable{
 	cursor: pointer !important;
 }
+
+.dynamic-view{
+	z-index: 10 !important;
+}
+
+.height-hundred-pc{
+	height:100% !important;
+}

@@ -139,7 +139,7 @@
                         }
                     }
 
-                    $scope.bgImage = backgroundImage;
+                    $scope.bgImage = $rootScope.bgImage = backgroundImage;
                 }
 
 
