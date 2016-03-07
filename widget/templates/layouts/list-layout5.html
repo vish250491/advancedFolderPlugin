@@ -1,9 +1,9 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin list-layout layout4 text-overlay">
-        <div class="media-center-banner clearfix border-bottom-grey text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix border-bottom-grey text-overlay">
             <div id="carousel" build-fire-carousel=""></div>
         </div>
-        <div class="text-left padded padding-bottom-zero clearfix text-overlay" >
+        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay" >
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
         <div class="padded padding-top-zero text-overlay">
@@ -21,7 +21,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div  ng-click="WidgetHome.goToFolder($index)" class="list-item-media text-center" ng-if="plugin.items">
+                        <div  ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center" ng-if="plugin.items">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 320, height: 320}) }}">
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
