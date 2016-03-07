@@ -100,11 +100,13 @@
                     });
                 };
 
-                WidgetHome.goToFolder = function (ind) {
+                WidgetHome.goToFolder = function (obj) {
+                    console.log('selected folder',obj);
                     ViewStack.push({
                         template: "folder",
-                        folderIndex: ind,
-                        info: WidgetHome.info});
+                        folderItems: obj.items,
+                        info: WidgetHome.info
+                    });
                 };
 
                 function setBackgroundImage() {
@@ -243,8 +245,10 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
+
                     if (event.data) {
                         WidgetHome.info = event;
+                        ViewStack.popAllViews();
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
                         setBackgroundImage();

@@ -40,7 +40,7 @@
                                 views++;
 
                             } else if (type === 'POP') {
-                                var _elToRemove = $(elem).find('#' + view.template),
+                                var _elToRemove = $('div[view-switcher]').find('div#folder:last'),
                                     _child = _elToRemove.children("div").eq(0);
 
                                 _child.addClass("ng-leave ng-leave-active");

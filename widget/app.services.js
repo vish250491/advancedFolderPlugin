@@ -36,7 +36,7 @@
             var viewMap = {};
             return {
                 push: function (view) {
-                    if (viewMap[view.template]) {
+                    if (viewMap[view.template] && false) {
                         this.pop();
                     }
                     else {
