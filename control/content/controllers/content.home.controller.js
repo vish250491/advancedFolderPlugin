@@ -53,12 +53,11 @@
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
-                ContentHome.addNewFolderToRootPopup = function (object) {
-                    Modals.addFolderModal().then(function (title) {
-                        ContentHome.info.data.content.entity.push({title:title,items:[]});
-                        if (!$scope.$$phase)$scope.$digest();
+                ContentHome.addNewFolderToRootPopup = function () {
+                    Modals.addFolderModal({title : '', iconUrl:''}).then(function (response) {
+                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,items :[]});
                     }, function (err) {
-                        console.log('Error while adding folder to Angular tree');
+
                     });
                 };
 
