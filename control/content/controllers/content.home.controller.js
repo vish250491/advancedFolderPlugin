@@ -3,8 +3,8 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals','Messaging',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals,Messaging) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
@@ -14,20 +14,6 @@
                 //Default initialise
                 ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
 
-
-                /*   ContentHome.treeOptions = {
-                 accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                 console.log()
-                 },
-                 removed: function (node) {
-                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
-                 },
-                 dropped: function (event) {
-                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
-                 }
-
-                 }
-                 */
 
                 var timerDelay, masterInfo;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
@@ -67,25 +53,9 @@
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
-                ContentHome.addNewFolderToRootPopup = function (object) {
-                    Modals.addFolderModal().then(function (title) {
-                        ContentHome.info.data.content.entity.push({title:title,items:[]});
-                       /* var nodeData = object.$modelValue;
-                        if(nodeData && nodeData.nodes){
-                            nodeData.nodes.push({
-                                id: nodeData.id * 10 + nodeData.nodes.length,
-                                title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-                                nodes: []
-                            });
-                        }else{
-                            nodeData={};
-                            nodeData.nodes={
-                                title:title,
-                                id:1,
-                                nodes :[]
-                            }
-                        }*/
-
+                ContentHome.addNewFolderToRootPopup = function () {
+                    Modals.addFolderModal({title : '', iconUrl:''}).then(function (response) {
+                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,items :[]});
                     }, function (err) {
 
                     });
@@ -97,17 +67,34 @@
                     },function(error ,instances){
                         if(instances){
                             instances.forEach(function(instance){
-                                ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                ContentHome.info.data.content.entity.push({instanceId:instance.instanceId});
-                                if (!$scope.$$phase)$scope.$digest();
+                                if(!ContentHome.pluginExist(instance.instanceId)){
+                                    ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                    ContentHome.info.data.content.entity.push({title:instance.title,instanceId:instance.instanceId});
+                                    if (!$scope.$$phase)$scope.$digest();
+                                }
+
                             })
                         }
                     });
                 };
 
+                ContentHome.pluginExist=function(instanceId){
+                    var pluginFound=false;
+                    ContentHome.info.data._buildfire.plugins.data.forEach(function(pluginId){
+                    if(pluginId==instanceId){
+                        pluginFound= true;
+                    }
+                   });
+                    return pluginFound;
+                }
+
                 ContentHome.deleteEntity = function (obj) {
+                    var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
+                            var index =  ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                            ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+
                             //ContentHome.info.data.content.entity.splice(ind, 1);
                             obj.remove();
                         }
@@ -117,21 +104,30 @@
 
                 ContentHome.editFolder = function (scope) {
                     var nodeData = scope.$modelValue;
-                    Modals.addFolderModal(nodeData.title).then(function (title) {
-                        nodeData.title = title;
+                    Modals.addFolderModal({title : nodeData.title, iconUrl: nodeData.iconUrl}).then(function (response) {
+                        nodeData.title = response.title;
+                        nodeData.iconUrl = response.iconUrl;
                     }, function (err) {
 
                     });
                 };
 
-                ContentHome.pluginExist=function(instanceId){
-                    //forEach(ContentHome.info.data._buildfire.plugins.data)
-                }
 
                 ContentHome.deleteRootFolder = function(ind){
                     ContentHome.info.data.content.entity.splice(ind, 1);
                 };
 
+                ContentHome.datastoreInitialized = false;
+
+
+                ContentHome.openFolderInWidget = function (obj) {
+                    Messaging.sendMessageToWidget({
+                        name: 'OPEN_FOLDER',
+                        message: {
+                            selectedFolder: obj
+                        }
+                    });
+                };
 
                 /*
                  * Go pull any previously saved data
@@ -153,8 +149,14 @@
                         }
 
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
-                            var pluginsData = getPluginDetails(ContentHome.info.data._buildfire.plugins.result,ContentHome.info.data._buildfire.plugins.result);
+                            var pluginsDetailDataArray=[];
+                            pluginsDetailDataArray = getPluginDetails(ContentHome.info.data._buildfire.plugins.result,ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
+                            if(pluginsDetailDataArray && pluginsDetailDataArray.length){
+                                pluginsDetailDataArray.forEach(function(pluginDetailDataObject){
+                                    traverse(ContentHome.info.data.content.entity,1,pluginDetailDataObject);
+                                })
+                            }
                         }
 
                         if (!ContentHome.info.data._buildfire) {
@@ -176,6 +178,44 @@
                     }
 
                 });
+
+                function traverse(x, level,pluginDetailData) {
+                    if (isArray(x)) {
+                        traverseArray(x, level,pluginDetailData);
+                    } else if ((typeof x === 'object') && (x !== null)) {
+                        traverseObject(x, level,pluginDetailData);
+                    } else {
+                        console.log(level + x);
+                    }
+                }
+
+                function isArray(o) {
+                    return Object.prototype.toString.call(o) === '[object Array]';
+                }
+
+                function traverseArray(arr, level,pluginDetailData) {
+                    console.log(level + "<array>");
+                    arr.forEach(function(x) {
+                        traverse(x, level + "  ",pluginDetailData);
+                    });
+                }
+
+                function traverseObject(obj, level,pluginDetailData) {
+                    console.log(level + "<object>");
+
+                    if (obj.hasOwnProperty('items')) {
+                        if(obj.items.length){
+                            //   console.log(level + "  " + key + ":");
+                            traverse(obj['items'], level + "    ",pluginDetailData);
+                        }
+                    }
+                    else{
+                        if(obj.instanceId==pluginDetailData.instanceId)
+                            obj.title= pluginDetailData.title;
+                            obj.iconUrl= pluginDetailData.iconUrl;
+                    }
+
+                }
 
                 function getPluginDetails(pluginsInfo, pluginIds) {
                     var returnPlugins = [];
@@ -238,6 +278,12 @@
                 }
 
                 function saveData(_info) {
+
+                   /* if (!ContentHome.datastoreInitialized) {
+                        console.error("Error with datastore didn't get called");
+                        return;
+                    }*/
+
                     var saveSuccess = function (data) {
                         console.log('Data saved successfully---------------from content-----------', data);
                     };
@@ -273,7 +319,7 @@
                  };*/
 
 
-                ContentHome.newSubFolder = function (scope) {
+                /*ContentHome.newSubFolder = function (scope) {
                     var nodeData = scope.$modelValue;
                     console.log('nodeData', nodeData);
                     nodeData.items.push({
@@ -288,7 +334,7 @@
 
                 $scope.expandAll = function () {
                     $scope.$broadcast('angular-ui-tree:expand-all');
-                };
+                };*/
 
             }]);
 })(window.angular);

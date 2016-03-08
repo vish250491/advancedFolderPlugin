@@ -4,11 +4,12 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope) {
+            '$rootScope', 'ViewStack', 'Messaging',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
+                WidgetHome.noCarouselBody = false;
                 var matchedBackgroundName = undefined;
                 var deviceHeight = window.innerHeight;
                 ;
@@ -95,7 +96,16 @@
                         pluginId: plugin.pluginTypeId,
                         instanceId: plugin.instanceId,
                         title: plugin.title,
-                        folderName: plugin.folderName
+                        folderName: plugin.pluginType.folderName
+                    });
+                };
+
+                WidgetHome.goToFolder = function (obj) {
+                    console.log('selected folder', obj);
+                    ViewStack.push({
+                        template: "folder",
+                        folderItems: obj.items,
+                        info: WidgetHome.info
                     });
                 };
 
@@ -129,7 +139,7 @@
                         }
                     }
 
-                    $scope.bgImage = backgroundImage;
+                    $scope.bgImage = $rootScope.bgImage = backgroundImage;
                 }
 
 
@@ -235,8 +245,10 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
+
                     if (event.data) {
                         WidgetHome.info = event;
+                        ViewStack.popAllViews();
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
                         setBackgroundImage();
@@ -253,52 +265,107 @@
                 function dataLoadedHandler(result) {
 
                     var pluginsList = null;
-                    if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result){
+                    if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
 
-                    if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
-                        result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
+                        if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
+                            result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
+                        }
+                        if (WidgetHome.info.data.content.entity.length) {
+                            result.data._buildfire.plugins.result.forEach(function (pluginDetailData) {
+                                traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
+                            })
+                        }
+
+
+                        // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
                     }
-                    WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
                 }
-             }
 
-
-        function getPluginDetails (pluginsInfo, pluginIds) {
-              var returnPlugins = [];
-              var tempPlugin = null;
-            for (var id = 0; id < pluginIds.length; id++) {
-            for (var i = 0; i < pluginsInfo.length; i++) {
-                tempPlugin = {};
-                var obj = pluginsInfo[i].data ? pluginsInfo[i].data : pluginsInfo[i];
-                if (pluginIds[id] == obj.instanceId) {
-                    tempPlugin.instanceId = obj.instanceId;
-                    if (obj) {
-                        tempPlugin.iconUrl = obj.iconUrl;
-                        tempPlugin.iconClassName = obj.iconClassName;
-                        tempPlugin.title = obj.title;
-                        if(obj.pluginType) {
-                            tempPlugin.pluginTypeId = obj.pluginType.token ;
-                            tempPlugin.folderName = obj.pluginType.folderName;
-                        }
-                        else{
-                            tempPlugin.pluginTypeId = obj.pluginTypeId;
-                            tempPlugin.folderName = obj.folderName ;
-                        }
+                function traverse(x, level, pluginDetailData) {
+                    if (isArray(x)) {
+                        traverseArray(x, level, pluginDetailData);
+                    } else if ((typeof x === 'object') && (x !== null)) {
+                        traverseObject(x, level, pluginDetailData);
                     } else {
-                        tempPlugin.iconUrl = "";
-                        tempPlugin.title = "[No title]";
+                        console.log(level + x);
                     }
-                    returnPlugins.push(tempPlugin);
                 }
-                tempPlugin = null;
-            }
-        }
-        return returnPlugins;
-    };
+
+                function isArray(o) {
+                    return Object.prototype.toString.call(o) === '[object Array]';
+                }
+
+                function traverseArray(arr, level, pluginDetailData) {
+                    console.log(level + "<array>");
+                    arr.forEach(function (x) {
+                        traverse(x, level + "  ", pluginDetailData);
+                    });
+                }
+
+                function traverseObject(obj, level, pluginDetailData) {
+                    console.log(level + "<object>");
+
+                    if (obj.hasOwnProperty('items')) {
+                        if (obj.items.length) {
+                            //   console.log(level + "  " + key + ":");
+                            traverse(obj['items'], level + "    ", pluginDetailData);
+                        }
+                    }
+                    else {
+                        if (obj.instanceId == pluginDetailData.data.instanceId)
+                            obj.data = pluginDetailData.data;
+                    }
+
+                }
+
+                function getPluginDetails(pluginsInfo, pluginIds) {
+                    var returnPlugins = [];
+                    var tempPlugin = null;
+                    for (var id = 0; id < pluginIds.length; id++) {
+                        for (var i = 0; i < pluginsInfo.length; i++) {
+                            tempPlugin = {};
+                            var obj = pluginsInfo[i].data ? pluginsInfo[i].data : pluginsInfo[i];
+                            if (pluginIds[id] == obj.instanceId) {
+                                tempPlugin.instanceId = obj.instanceId;
+                                if (obj) {
+                                    tempPlugin.iconUrl = obj.iconUrl;
+                                    tempPlugin.iconClassName = obj.iconClassName;
+                                    tempPlugin.title = obj.title;
+                                    if (obj.pluginType) {
+                                        tempPlugin.pluginTypeId = obj.pluginType.token;
+                                        tempPlugin.folderName = obj.pluginType.folderName;
+                                    }
+                                    else {
+                                        tempPlugin.pluginTypeId = obj.pluginTypeId;
+                                        tempPlugin.folderName = obj.folderName;
+                                    }
+                                } else {
+                                    tempPlugin.iconUrl = "";
+                                    tempPlugin.title = "[No title]";
+                                }
+                                returnPlugins.push(tempPlugin);
+                            }
+                            tempPlugin = null;
+                        }
+                    }
+                    return returnPlugins;
+                };
 
 
                 var listener = Buildfire.datastore.onUpdate(WidgetHome.onUpdateCallback);
+
+                Messaging.onReceivedMessage = function (event) {
+                    if (event) {
+                        if (event.name == 'OPEN_FOLDER') {
+                            console.log('came here', event.message.selectedFolder);
+                            WidgetHome.goToFolder(event.message.selectedFolder);
+                            $scope.$apply();
+                        }
+
+                    }
+
+                };
 
             }]);
 })(window.angular);

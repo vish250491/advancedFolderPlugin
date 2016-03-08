@@ -1,4 +1,6 @@
 // Karma configuration
+// Generated on Wed Aug 12 2015 15:10:36 GMT+0530 (IST)
+
 module.exports = function (config) {
     config.set({
 
@@ -13,18 +15,19 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            './bower_components/jquery/dist/jquery.min.js',
-            './bower_components/angular/angular.js',
-            './bower_components/angular-mocks/angular-mocks.js',
-            './bower_components/angular-animate/angular-animate.min.js',
-            './bower_components/angular-route/angular-route.min.js',
-            './bower_components/angular-bootstrap/ui-bootstrap.min.js',
-            './bower_components/angular-ui-tinymce/src/tinymce.js',
-            './bower_components/tinymce-dist/tinymce.min.js',
-            './bower_components/angular-sanitize/angular-sanitize.min.js',
+            './test/assets/bower_components/jquery/dist/jquery.min.js',
+            './test/assets/bower_components/angular/angular.js',
+            './test/assets/bower_components/angular-mocks/angular-mocks.js',
+            './test/assets/bower_components/angular-animate/angular-animate.min.js',
+            './test/assets/bower_components/angular-route/angular-route.min.js',
+            './test/assets/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+            './test/assets/bower_components/tinymce/tinymce.js',
+            './test/assets/bower_components/tinymce/tinymce.min.js',
             './test/assets/buildfire.js',
-            './control/design/**/*.js',
+            'control/content/**/*.js',
             './control/content/**/*.js',
+            './control/settings/**/*.js',
+            './control/design/**/*.js',
             './widget/**/*.js',
             './test/**/*.js'
         ],
@@ -39,10 +42,12 @@ module.exports = function (config) {
         preprocessors: {
             'widget/**/!(js)/*.js': ['coverage'],
             'widget/*.js': ['coverage'],
-            'control/design/**/!(js)/*.js': ['coverage'],
-            'control/design/*.js': ['coverage'],
             'control/content/**/!(js)/*.js': ['coverage'],
-            'control/content/*.js': ['coverage']
+            'control/content/*.js': ['coverage'],
+            'control/settings/**/!(js)/*.js': ['coverage'],
+            'control/settings/*.js': ['coverage'],
+            'control/design/**/!(js)/*.js': ['coverage'],
+            'control/design/*.js': ['coverage']
         },
 
         plugins: [
@@ -87,4 +92,4 @@ module.exports = function (config) {
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: true
     })
-};
+}

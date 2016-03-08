@@ -6,6 +6,9 @@
             NOT_FOUND: 'NOTFOUND',
             SUCCESS: 'SUCCESS'
         })
+        .constant('EVENTS', {
+            OPEN_FOLDER: 'OPENFOLDER'
+        })
         .constant('MESSAGES', {
             ERROR: {
                 NOT_FOUND: "No result found",

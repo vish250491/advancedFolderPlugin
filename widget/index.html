@@ -21,6 +21,7 @@
     <script src="assets/js/angular-touch.js"></script>
     <script src="app.js"></script>
     <script src="controllers/widget.home.controller.js"></script>
+    <script src="controllers/widget.folder.controller.js"></script>
     <script src="assets/js/ng-infinite-scroll.custom.js"></script>
     <!--app js-->
     <script src="enums.js"></script>
@@ -76,10 +77,11 @@
     }
 </style>
 <div>
-    <div id="carousel" build-fire-carousel=""></div>
+    <!--<div id="carousel" build-fire-carousel=""></div>-->
         <div ng-include="'templates/home.html'">
         </div>
 </div>
+<div view-switcher=""></div>
 </body>
 <script>
     $(function () {

@@ -94,7 +94,7 @@
 	max-height:100%;
 }
 .list-layout.layout-6 .list-item-media .list-media-holder{
-	height:150px;
+	height:70px;
 }
 .list-layout.layout-6 .list-item-media .list-media-holder img{
 	max-height:100%;
@@ -309,4 +309,16 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .layout12 .plugin-slider .link-holder p a{
 	display:block;
 	padding:10px 0;
+}
+
+.clickable{
+	cursor: pointer !important;
+}
+
+.dynamic-view{
+	z-index: 10 !important;
+}
+
+.height-hundred-pc{
+	height:100% !important;
 }

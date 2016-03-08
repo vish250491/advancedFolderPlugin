@@ -1,22 +1,31 @@
 <div class="holder padding-zero ">
     <div class="media-center-plugin layout3 text-overlay">
-        <div class="plugin-banner clearfix border-bottom-grey">
+        <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix border-bottom-grey">
             <div id="carousel" build-fire-carousel=""></div>
         </div>
-        <div class="text-left padded padding-bottom-zero clearfix text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay">
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div class=" list-layout">
-                <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin.data)">
-                    <div class="list-item-media text-left overflow-hidden">
+                <div class="clickable list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" >
+                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder square-icon pull-left">
                             <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl">
                             <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
                             <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.data.title }}</p>
+                        </div>
+                    </div>
+                    <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
+                        <div class="list-media-holder square-icon pull-left">
+                            <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 180, height: 180}) }}">
+                            <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
+                        </div>
+                        <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+                            <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.title }}</p>
                         </div>
                     </div>
                 </div>

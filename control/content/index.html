@@ -70,11 +70,11 @@
 				<a class="btn btn-success stretch" ng-click="ContentHome.addPluginInstancePopup()">Create New Plugin</a>
 			</div>-->
     <div class="row">
-        <div class="col-sm-12">
+        <!--<div class="col-sm-12">
 
             <button ng-click="expandAll()">Expand all</button>
             <button ng-click="collapseAll()">Collapse all</button>
-        </div>
+        </div>-->
     </div>
     <hr class="none">
     <div class="row" style="position:relative; left:8px;">
@@ -126,16 +126,16 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-          <span data-nodrag ng-click="ContentHome.editFolder(this)">{{node.title}}</span>
+          <span style="cursor: pointer" data-nodrag ng-click="ContentHome.openFolderInWidget(node)">{{node.title}}</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.newSubFolder(this)"
-               style="margin-right: 8px;"><span
-                    class="glyphicon glyphicon-plus"></span></a>
+                <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.editFolder(this)"
+               style="margin-right: 8px;" onclick="clickMe(event)"><span
+                    class="glyphicon glyphicon-plus">Edit</span></a>
         </div>
         <div class="nodrop" ng-if="!node.items">
           PI - <span data-nodrag>{{node.title}}</span>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
+           <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>

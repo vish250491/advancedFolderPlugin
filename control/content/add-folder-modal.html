@@ -2,12 +2,28 @@
     <h4 class="margin-zero">Create a New folder</h4>
     <span class="icon icon-cross2 close-modal" ng-click="cancel()"></span>
 </div>
+<div class="item clearfix row margin-top-five" style=" padding-left: 15px; ">
+    <div class="labels col-md-2 padding-right-zero pull-left">
+        <span>Icon/Image</span>
+    </div>
+    <div class="main col-md-9 pull-right">
+        <div class="screens clearfix">
+            <div class="screen pull-left">
+                <a class="border-grey border-radius-three default-background-hover text-center" ng-click="selectIcon()">
+                    <img ng-show="folderIconUrl" class="" ng-src="{{folderIconUrl}}">
+                    <span ng-hide="folderIconUrl || iconClassName" class="add-icon ng-hide">+</span>
+                </a>
+                <span ng-show="folderIconUrl" class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="removeIcon()"></span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="padded clearfix">
     <div class="item clearfix row">
         <div class="labels col-md-2 padding-right-zero pull-left">
             <span>Title</span>
         </div>
-        <div class="labels col-md-10 pull-right">
+        <div class="labels col-md-9 pull-right">
             <input type="text" class="form-control" placeholder="Title" ng-model="folderTitle">
         </div>
     </div>

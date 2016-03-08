@@ -8,6 +8,11 @@
                 return buildfire;
             };
         }])
+        .provider('Messaging', [function () {
+            this.$get = function () {
+                return buildfire.messaging;
+            };
+        }])
 
         .factory("DB", ['Buildfire', '$q', 'MESSAGES', 'CODES', function (Buildfire, $q, MESSAGES, CODES) {
             function DB(tagName) {
