@@ -69,7 +69,7 @@
                             instances.forEach(function(instance){
                                 if(!ContentHome.pluginExist(instance.instanceId)){
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    ContentHome.info.data.content.entity.push({title:instance.title,instanceId:instance.instanceId});
+                                    ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,instanceId:instance.instanceId});
                                     if (!$scope.$$phase)$scope.$digest();
                                 }
 
@@ -210,11 +210,11 @@
                         }
                     }
                     else{
-                        if(obj.instanceId==pluginDetailData.instanceId)
+                        if(obj.instanceId==pluginDetailData.instanceId){
                             obj.title= pluginDetailData.title;
                             obj.iconUrl= pluginDetailData.iconUrl;
+                        }
                     }
-
                 }
 
                 function getPluginDetails(pluginsInfo, pluginIds) {

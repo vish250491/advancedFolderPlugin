@@ -119,20 +119,24 @@
 <script type="text/ng-template" id="nodes_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content">
         <div ng-if="node.items">
-            <a class="btn btn-success btn-xs" ng-if="node.items && node.items.length > 0" data-nodrag
+           <a class="btn btn-success btn-xs pull-left" ng-if="node.items && node.items.length > 0" data-nodrag
                ng-click="toggle(this)"><span
                     class="glyphicon"
                     ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-          <span style="cursor: pointer" data-nodrag ng-click="ContentHome.openFolderInWidget(node)">{{node.title}}</span>
+            <span class="icon icon-menu pull-left" style=" padding-top: 4px; padding-right: 8px; "></span>
+            <div class="media-holder pull-left"><img ng-src="{{node.iconUrl}}" style=" padding-right: 8px;height: 28px;"></div>
+            <span style="cursor: pointer" data-nodrag ng-click="ContentHome.openFolderInWidget(node)">{{node.title}}</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
               <a class="pull-right btn  btn-xs" data-nodrag="" ng-click="ContentHome.editFolder(this)"  onclick="clickMe(event)"><span class="">Edit</span></a>
         </div>
-        <div class="nodrop" ng-if="!node.items">
-          PI - <span data-nodrag>{{node.title}}</span>
+        <div class="nodrop" ng-if="!node.items" style="background-color: white;">
+            <span class="icon icon-menu pull-left" style=" padding-top: 4px; padding-right: 8px; "></span>
+            <div class="media-holder pull-left"><img ng-src="{{node.iconUrl}}"  style=" padding-right: 8px;height: 28px;"></div>
+            PI - <span data-nodrag>{{node.title}}</span>
            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
         </div>
