@@ -13,7 +13,7 @@
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)"
                          class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 200, height: 200}) }}"
+                            <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/200x200', {width: 200, height: 200}) }}"
                                  ng-if="plugin.data.iconUrl"/>
                             <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon6"
                                   ng-if="plugin.data.iconClassName"></span>
@@ -29,8 +29,7 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center overflow-hidden"
                          ng-if="plugin.items">
                         <div class="list-media-holder">
-                            <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 450, height: 254}) }}">
-                            <img  ng-if="!plugin.iconUrl" src="assets/images/placeholder200x200.png">
+                            <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl:'http://www.placehold.it/200x200', {width: 200, height: 200}) }}">
                             <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon6"
                                   ng-if="plugin.data.iconClassName"></span>
                         </div>

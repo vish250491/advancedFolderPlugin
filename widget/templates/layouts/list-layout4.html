@@ -6,7 +6,7 @@
         <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay" >
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
-        <div class="padded padding-top-zero text-overlay">
+        <div class="padded padding-top-zero text-overlay" style="padding: 0;">
             <div>
                     <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in  WidgetHome.info.data.content.entity">
                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" ng-if="plugin.data">
@@ -20,7 +20,7 @@
                    </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                             <div class="plugin-slide text-center">
-                                <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 450, height: 254}) }}">
+                                <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon4" ng-if="plugin.data.iconClassName"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">

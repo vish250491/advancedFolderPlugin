@@ -24,7 +24,7 @@
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 450, height: 254}) }}">
+                            <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
                             <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon3" ng-if="plugin.data.iconClassName"></span>
                         </div>
                     </div>
