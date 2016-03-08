@@ -92,11 +92,17 @@
 
                 WidgetHome.navigateToPlugin = function (plugin) {
 
+                    var fName = '';
+                    if (plugin && plugin.pluginType && plugin.pluginType.folderName)
+                        fName = plugin.pluginType.folderName;
+                    else if (plugin && plugin.folderName)
+                        fName = plugin.folderName;
+
                     buildfire.navigation.navigateTo({
                         pluginId: plugin.pluginTypeId,
                         instanceId: plugin.instanceId,
                         title: plugin.title,
-                        folderName: plugin.pluginType.folderName
+                        folderName: fName
                     });
                 };
 
@@ -362,7 +368,11 @@
                             WidgetHome.goToFolder(event.message.selectedFolder);
                             $scope.$apply();
                         }
-
+                        if (event.name == 'OPEN_PLUGIN') {
+                            console.log('came here plugin', event.message.data);
+                            WidgetHome.navigateToPlugin(event.message.data);
+                            //$scope.$apply();
+                        }
                     }
 
                 };

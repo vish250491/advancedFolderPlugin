@@ -141,12 +141,12 @@
         </div>
         <div class="nodrop" ng-if="!node.items" style="background-color: white;">
             <span class="icon icon-menu pull-left"></span>
-            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">
+            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">
 				<img ng-src="{{node.iconUrl}}">
 			</div>
 			<div class="copy pull-left margin-left-ten">
             	<p class="ellipsis text-primary margin-zero">
-					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
+					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
 				</p>
 				<p class="ellipsis margin-zero" data-nodrag><span>Plugin Type</span></p>     
 			</div>

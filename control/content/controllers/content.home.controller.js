@@ -129,6 +129,15 @@
                     });
                 };
 
+                ContentHome.openPluginInWidget = function (obj) {
+                    Messaging.sendMessageToWidget({
+                        name: 'OPEN_PLUGIN',
+                        message: {
+                            data: obj
+                        }
+                    });
+                };
+
                 /*
                  * Go pull any previously saved data
                  * */
