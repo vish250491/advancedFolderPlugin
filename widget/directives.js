@@ -85,7 +85,7 @@
                     }
                     else {
                         img = "";
-                        element.attr("style", 'background-color:black');
+                        element.attr("style", 'background-color:white');
                         element.css({
                             'background-size': 'cover'
                         });
