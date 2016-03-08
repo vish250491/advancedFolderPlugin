@@ -128,11 +128,14 @@
 			</div>
 			<div class="copy pull-left margin-left-ten">
             	<p class="ellipsis text-primary margin-zero">
-					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">{{node.title}}</span>
+					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
 				</p>
 				<p class="ellipsis margin-zero" data-nodrag><span>Plugin Type</span></p>     
 			</div>
-			<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
+
+            <span class="text-primary" style="cursor: pointer ; margin-left: 120px;" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
+
+            <a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
 				<span class="glyphicon glyphicon-remove"></span>
 			</a>
         </div>
@@ -143,10 +146,11 @@
 			</div>
 			<div class="copy pull-left margin-left-ten">
             	<p class="ellipsis text-primary margin-zero">
-					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">{{node.title}}</span>
+					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
 				</p>
 				<p class="ellipsis margin-zero" data-nodrag><span>Plugin Type</span></p>     
 			</div>
+
            	<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
 				<span class="glyphicon glyphicon-remove"></span>
 			</a>
