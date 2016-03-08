@@ -129,9 +129,7 @@
           <span style="cursor: pointer" data-nodrag ng-click="ContentHome.openFolderInWidget(node)">{{node.title}}</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="ContentHome.deleteEntity(this)"><span
                     class="glyphicon glyphicon-remove"></span></a>
-                <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ContentHome.editFolder(this)"
-               style="margin-right: 8px;" onclick="clickMe(event)"><span
-                    class="glyphicon glyphicon-plus">Edit</span></a>
+              <a class="pull-right btn  btn-xs" data-nodrag="" ng-click="ContentHome.editFolder(this)"  onclick="clickMe(event)"><span class="">Edit</span></a>
         </div>
         <div class="nodrop" ng-if="!node.items">
           PI - <span data-nodrag>{{node.title}}</span>
