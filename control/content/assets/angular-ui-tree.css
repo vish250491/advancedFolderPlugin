@@ -21,7 +21,7 @@
 }
 
 .angular-ui-tree-nodes .angular-ui-tree-nodes {
-    padding-left: 20px;
+    padding-left: 30px;
 }
 
 .angular-ui-tree-node, .angular-ui-tree-placeholder {
@@ -109,6 +109,7 @@ tr.angular-ui-tree-empty {
 	margin-right:12px;
 	position:relative;
 	top:8px;
+	color:#999;
 }
 .tree-node div .media-holder{
 	background:#eef0f0;
@@ -127,12 +128,14 @@ tr.angular-ui-tree-empty {
 }
 .tree-node div .copy{
 	margin-left:10px;
-	width:65%;
+	width:50%;
 }
-.angular-ui-tree-node .btn.delete{
+a.action-link{
+	font-size:12px;
+}
+.angular-ui-tree-node span.delete{
 	position:relative;
-	top:9px;
-	margin-right:0;
+	top:10px;
 }
 .angular-ui-tree-node .tree-node a.btn,
 .angular-ui-tree-drag .tree-node a.btn{
@@ -145,7 +148,7 @@ tr.angular-ui-tree-empty {
 }
 .angular-ui-tree-node .tree-node .pull-right .edit-link{
 	position:relative;
-	top:10px;
+	top:6px;
 	cursor:pointer;
 }
 
@@ -155,7 +158,7 @@ tr.angular-ui-tree-empty {
 }
 
 .tree-node-content {
-    margin: 8px;
+    margin: 8px 0;
 }
 .tree-handle {
     padding: 10px;

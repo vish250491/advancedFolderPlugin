@@ -66,15 +66,17 @@
 			<div class="col-md-4 pull-left padding-right-zero">
 				<a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>
 			</div>
-    <div class="row">
-    </div>
-    <hr class="none">
-    <div class="row" style="position:relative; left:8px;">
+		</div>
+	</div>
+	<div class="item clearfix margin-top-ten">
+		<a class="text-primary action-link">Expand All</a>
+		<a class="text-primary action-link margin-left-fifteen">Collapse All</a>
+	</div>
+    <div class="item clearfix row">
         <div class="col-xs-12">
-            <div ui-tree="ContentHome.treeOptions"  id="tree-root">
+            <div ui-tree="ContentHome.treeOptions" id="tree-root">
                 <ol ui-tree-nodes ng-model="ContentHome.info.data.content.entity">
-                    <li ng-repeat="node in ContentHome.info.data.content.entity" ui-tree-node
-                        ng-include="'nodes_renderer.html'"></li>
+                    <li ng-repeat="node in ContentHome.info.data.content.entity" ui-tree-node ng-include="'nodes_renderer.html'"></li>
                 </ol>
             </div>
         </div>
@@ -100,9 +102,7 @@
 			</div>
 			<div class="pull-right">
             	<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
- 				<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
-					<span class="glyphicon glyphicon-remove"></span>
-				</a>
+ 				<span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag ng-click="ContentHome.deleteEntity(this)"></span>
 			</div>
         </div>
         <div class="nodrop" ng-if="!node.items" style="background-color: white;">
@@ -119,9 +119,7 @@
 
            	<div class="pull-right">
             	<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
- 				<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
-					<span class="glyphicon glyphicon-remove"></span>
-				</a>
+ 				<span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag ng-click="ContentHome.deleteEntity(this)"></span>
 			</div>
         </div>
     </div>
