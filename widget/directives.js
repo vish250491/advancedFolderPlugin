@@ -63,10 +63,14 @@
 
                         function manageDisplay() {
                             if (views) {
+                                $('body').addClass('no-scroll');
                                 $(elem).removeClass("ng-hide");
                             } else {
+                                $('body').removeClass('no-scroll');
                                 $(elem).addClass("ng-hide");
                             }
+
+
                         }
 
                     }
