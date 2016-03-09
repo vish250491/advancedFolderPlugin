@@ -75,7 +75,7 @@
             $scope.selectIcon = function () {
                 buildfire.imageLib.showDialog ( {showIcons:true, multiSelection:false } , function(err,result){
                     if (result && result.selectedIcons && result.selectedIcons.length > 0) {
-                        $scope.folderIconUrl = result.selectedFiles[0];
+                        $scope.folderIconUrl = result.selectedIcons[0];
                         $scope.$apply();
                     }
                     if (result && result.selectedFiles && result.selectedFiles.length > 0) {
