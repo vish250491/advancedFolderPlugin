@@ -127,7 +127,7 @@ tr.angular-ui-tree-empty {
 }
 .tree-node div .copy{
 	margin-left:10px;
-	width:40%;
+	width:65%;
 }
 .angular-ui-tree-node .btn.delete{
 	position:relative;
@@ -142,6 +142,11 @@ tr.angular-ui-tree-empty {
 .angular-ui-tree-node .tree-node a.btn span,
 .angular-ui-tree-drag .tree-node a.btn span{
 	font-size:10px !important;
+}
+.angular-ui-tree-node .tree-node .pull-right .edit-link{
+	position:relative;
+	top:10px;
+	cursor:pointer;
 }
 
 

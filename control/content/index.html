@@ -132,12 +132,12 @@
 				</p>
 				<p class="ellipsis margin-zero" data-nodrag><span>Plugin Type</span></p>     
 			</div>
-
-            <span class="text-primary" style="cursor: pointer ; margin-left: 120px;" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
-
-            <a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
-				<span class="glyphicon glyphicon-remove"></span>
-			</a>
+			<div class="pull-right">
+            	<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
+ 				<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</div>
         </div>
         <div class="nodrop" ng-if="!node.items" style="background-color: white;">
             <span class="icon icon-menu pull-left"></span>
@@ -151,9 +151,12 @@
 				<p class="ellipsis margin-zero" data-nodrag><span>Plugin Type</span></p>     
 			</div>
 
-           	<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
-				<span class="glyphicon glyphicon-remove"></span>
-			</a>
+           	<div class="pull-right">
+            	<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
+ 				<a class="pull-right btn btn-danger btn-xs delete" data-nodrag ng-click="ContentHome.deleteEntity(this)">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</div>
         </div>
     </div>
     <ol ng-if="node.items" ui-tree-nodes="" ng-model="node.items" ng-class="{hidden: collapsed}">
