@@ -40,13 +40,14 @@
                                 views++;
 
                             } else if (type === 'POP') {
+                                views--;
                                 var _elToRemove = $('div[view-switcher]').find('div#folder:last'),
                                     _child = _elToRemove.children("div").eq(0);
 
                                 _child.addClass("ng-leave ng-leave-active");
                                 _child.on("webkitTransitionEnd transitionend oTransitionEnd", function (e) {
                                     _elToRemove.remove();
-                                    views--;
+
                                 });
 
                                 //$(elem).find('#' + view.template).remove();
