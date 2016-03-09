@@ -21,7 +21,7 @@
                 </div>
                 <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
                     <div class="list-media-holder pull-left">
-                        <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/220x120' , {width: 220, height: 120}) }}">
+                        <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/220x120' , {width: 220, height: 120}) }}">
                         <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl"></span>
                     </div>
                     <div class="list-item-copy text-left padding-left-ten padding-right-ten">
