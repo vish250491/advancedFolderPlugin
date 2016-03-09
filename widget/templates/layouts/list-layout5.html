@@ -23,8 +23,8 @@
                         </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center" ng-if="plugin.items">
                             <div class="list-media-holder">
-                                <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/320x320' , {width: 320, height: 320}) }}">
-                                <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
+                                <img  ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/320x320' , {width: 320, height: 320}) }}">
+                                <span class="main-icon text-primary glyphicon glyphicon-folder-open icon5"  ng-if="! plugin.iconUrl"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
