@@ -54,12 +54,8 @@
                 };
 
                 ContentHome.addNewFolderToRootPopup = function () {
-                    Modals.addFolderModal({title: '', iconUrl: ''}).then(function (response) {
-                        ContentHome.info.data.content.entity.push({
-                            title: response.title,
-                            iconUrl: response.iconUrl,
-                            items: []
-                        });
+                    Modals.addFolderModal({title : '', iconUrl:'', fileUrl : ''}).then(function (response) {
+                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,fileUrl:response.fileUrl,items :[]});
                     }, function (err) {
 
                     });
