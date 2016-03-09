@@ -121,19 +121,21 @@
 
 
                 ContentHome.openFolderInWidget = function (obj) {
+                    var node=obj.$modelValue;
                     Messaging.sendMessageToWidget({
                         name: 'OPEN_FOLDER',
                         message: {
-                            selectedFolder: obj
+                            selectedFolder: node
                         }
                     });
                 };
 
                 ContentHome.openPluginInWidget = function (obj) {
+                    var node=obj.$modelValue;
                     Messaging.sendMessageToWidget({
                         name: 'OPEN_PLUGIN',
                         message: {
-                            data: obj
+                            data: node
                         }
                     });
                 };

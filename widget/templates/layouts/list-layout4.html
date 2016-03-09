@@ -20,8 +20,8 @@
                    </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                             <div class="plugin-slide text-center">
-                                <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
-                                <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon4" ng-if="plugin.data.iconClassName"></span>
+                                <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
+                                <span class="main-icon text-primary glyphicon glyphicon-folder-open icon4" ng-if="! plugin.iconUrl"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">{{ plugin.title }}</p>

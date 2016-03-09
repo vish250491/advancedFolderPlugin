@@ -22,7 +22,7 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
                         <div class="list-media-holder square-icon pull-left">
                             <img ng-if="plugin.iconUrl" ng-src="{{ WidgetHome.cropImage(plugin.iconUrl ? plugin.iconUrl : 'http://www.placehold.it/180x180', {width: 180, height: 180}) }}">
-                            <span class="main-icon {{ plugin.iconClassName }}" ng-if="plugin.iconClassName"></span>
+                            <span class="main-icon  glyphicon glyphicon-folder-open"  ng-if="! plugin.iconUrl"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
                             <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.title }}</p>
