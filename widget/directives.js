@@ -68,7 +68,7 @@
                                 $(elem).removeClass("ng-hide");
                             } else {
                                 $('body').removeClass('no-scroll');
-                                $(elem).addClass("ng-hide");
+                                //$(elem).addClass("ng-hide");
                             }
 
 
