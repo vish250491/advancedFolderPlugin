@@ -59,8 +59,14 @@
             else
                 $scope.folderIconUrl = '';
 
+
+            if(Info && Info.fileUrl)
+                $scope.folderFileUrl = Info.fileUrl;
+            else
+                $scope.folderFileUrl = '';
+
             $scope.ok = function () {
-                $modalInstance.close({title : $scope.folderTitle,iconUrl : $scope.folderIconUrl});
+                $modalInstance.close({title : $scope.folderTitle,iconUrl : $scope.folderIconUrl,fileUrl : $scope.folderFileUrl});
             };
             $scope.cancel = function () {
                 $modalInstance.dismiss('no');
@@ -73,7 +79,7 @@
                         $scope.$apply();
                     }
                     if (result && result.selectedFiles && result.selectedFiles.length > 0) {
-                        $scope.folderIconUrl = result.selectedFiles[0];
+                        $scope.folderFileUrl = result.selectedFiles[0];
                         $scope.$apply();
                     }
                 });
@@ -81,6 +87,7 @@
 
             $scope.removeIcon = function () {
                 $scope.folderIconUrl='';
+                $scope.folderFileUrl='';
             }
         }])
         .controller('RemovePopupCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {

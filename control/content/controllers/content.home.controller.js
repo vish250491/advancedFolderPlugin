@@ -104,9 +104,10 @@
 
                 ContentHome.editFolder = function (scope) {
                     var nodeData = scope.$modelValue;
-                    Modals.addFolderModal({title : nodeData.title, iconUrl: nodeData.iconUrl}).then(function (response) {
+                    Modals.addFolderModal({title : nodeData.title, iconUrl: nodeData.iconUrl ,fileUrl: nodeData.fileUrl}).then(function (response) {
                         nodeData.title = response.title;
                         nodeData.iconUrl = response.iconUrl;
+                        nodeData.fileUrl = response.fileUrl;
                     }, function (err) {
 
                     });

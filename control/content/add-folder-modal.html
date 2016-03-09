@@ -11,10 +11,11 @@
 	        <div class="screens clearfix">
 	            <div class="screen pull-left">
 	                <a class="border-grey border-radius-three default-background-hover text-center" ng-click="selectIcon()">
-	                    <img ng-show="folderIconUrl" class="" ng-src="{{folderIconUrl}}">
-	                    <span ng-hide="folderIconUrl || iconClassName" class="add-icon ng-hide">+</span>
+	                    <img ng-show="folderFileUrl" class="" ng-src="{{folderFileUrl}}">
+                        <span ng-class="folderIconUrl" ng-if="folderIconUrl"></span>
+	                    <span ng-hide="folderFileUrl || folderIconUrl " class="add-icon ng-hide">+</span>
 	                </a>
-	                <span ng-show="folderIconUrl" class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="removeIcon()"></span>
+	                <span ng-show="folderFileUrl || folderIconUrl " class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="removeIcon()"></span>
 	            </div>
 	        </div>
 	    </div>
