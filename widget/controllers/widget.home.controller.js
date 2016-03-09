@@ -4,15 +4,15 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope', 'ViewStack', 'Messaging','$q',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging,$q) {
+            '$rootScope', 'ViewStack', 'Messaging', '$q',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging, $q) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
                 WidgetHome.noCarouselBody = false;
                 var matchedBackgroundName = undefined;
                 var deviceHeight = window.innerHeight;
-                var detailedPluginInfoArray=[];
+                var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
 
                 WidgetHome.view = null;
@@ -92,8 +92,8 @@
 
                 WidgetHome.navigateToPlugin = function (plugin) {
 
-                    var pluginDetailInfo=getDetailedInfoOfPlugin(plugin);
-                    pluginDetailInfo.then(function(plugin){
+                    var pluginDetailInfo = getDetailedInfoOfPlugin(plugin);
+                    pluginDetailInfo.then(function (plugin) {
                         var fName = '';
                         if (plugin && plugin.pluginType && plugin.pluginType.folderName)
                             fName = plugin.pluginType.folderName;
@@ -110,17 +110,16 @@
 
                 };
 
-                function getDetailedInfoOfPlugin(plugin){
+                function getDetailedInfoOfPlugin(plugin) {
                     var deferred = $q.defer();
-                    detailedPluginInfoArray.forEach(function(detailInfo){
-                        if(plugin.instanceId==detailInfo.instanceId){
-                            plugin=detailInfo;
+                    detailedPluginInfoArray.forEach(function (detailInfo) {
+                        if (plugin.instanceId == detailInfo.instanceId) {
+                            plugin = detailInfo;
                             deferred.resolve(plugin);
                         }
                     });
                     return deferred.promise;
                 }
-
 
 
                 WidgetHome.goToFolder = function (obj) {
@@ -381,8 +380,20 @@
                 Messaging.onReceivedMessage = function (event) {
                     if (event) {
                         if (event.name == 'OPEN_FOLDER') {
-                            console.log('came here', event.message.selectedFolder);
-                            WidgetHome.goToFolder(event.message.selectedFolder);
+                            var folder = event.message.selectedFolder;
+                            for (var i = 0; i < folder.items.length; i++) {
+                                if (!folder.items[i].items) {
+
+                                    for(var j = 0; j< WidgetHome.info.data._buildfire.plugins.result.length;j++){
+                                        if(folder.items[i].instanceId === WidgetHome.info.data._buildfire.plugins.result[j].data.instanceId)
+                                        {
+                                            folder.items[i].data = WidgetHome.info.data._buildfire.plugins.result[j].data;
+                                        }
+                                    }
+                                }
+                            }
+console.log('folder>>',folder);
+                            WidgetHome.goToFolder(folder);
                             $scope.$apply();
                         }
                         if (event.name == 'OPEN_PLUGIN') {

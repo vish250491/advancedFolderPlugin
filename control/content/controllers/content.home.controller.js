@@ -3,8 +3,8 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals','Messaging',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals,Messaging) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
@@ -54,8 +54,12 @@
                 };
 
                 ContentHome.addNewFolderToRootPopup = function () {
-                    Modals.addFolderModal({title : '', iconUrl:''}).then(function (response) {
-                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,items :[]});
+                    Modals.addFolderModal({title: '', iconUrl: ''}).then(function (response) {
+                        ContentHome.info.data.content.entity.push({
+                            title: response.title,
+                            iconUrl: response.iconUrl,
+                            items: []
+                        });
                     }, function (err) {
 
                     });
@@ -63,13 +67,17 @@
 
                 ContentHome.addPluginInstancePopup = function () {
                     Buildfire.pluginInstance.showDialog({
-                        prop1:""
-                    },function(error ,instances){
-                        if(instances){
-                            instances.forEach(function(instance){
-                                if(!ContentHome.pluginExist(instance.instanceId)){
+                        prop1: ""
+                    }, function (error, instances) {
+                        if (instances) {
+                            instances.forEach(function (instance) {
+                                if (!ContentHome.pluginExist(instance.instanceId)) {
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,instanceId:instance.instanceId});
+                                    ContentHome.info.data.content.entity.push({
+                                        title: instance.title,
+                                        iconUrl: instance.iconUrl,
+                                        instanceId: instance.instanceId
+                                    });
                                     if (!$scope.$$phase)$scope.$digest();
                                 }
 
@@ -78,13 +86,13 @@
                     });
                 };
 
-                ContentHome.pluginExist=function(instanceId){
-                    var pluginFound=false;
-                    ContentHome.info.data._buildfire.plugins.data.forEach(function(pluginId){
-                    if(pluginId==instanceId){
-                        pluginFound= true;
-                    }
-                   });
+                ContentHome.pluginExist = function (instanceId) {
+                    var pluginFound = false;
+                    ContentHome.info.data._buildfire.plugins.data.forEach(function (pluginId) {
+                        if (pluginId == instanceId) {
+                            pluginFound = true;
+                        }
+                    });
                     return pluginFound;
                 }
 
@@ -92,7 +100,7 @@
                     var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
-                            var index =  ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                            var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
                             ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
 
                             //ContentHome.info.data.content.entity.splice(ind, 1);
@@ -104,7 +112,11 @@
 
                 ContentHome.editFolder = function (scope) {
                     var nodeData = scope.$modelValue;
-                    Modals.addFolderModal({title : nodeData.title, iconUrl: nodeData.iconUrl ,fileUrl: nodeData.fileUrl}).then(function (response) {
+                    Modals.addFolderModal({
+                        title: nodeData.title,
+                        iconUrl: nodeData.iconUrl,
+                        fileUrl: nodeData.fileUrl
+                    }).then(function (response) {
                         nodeData.title = response.title;
                         nodeData.iconUrl = response.iconUrl;
                         nodeData.fileUrl = response.fileUrl;
@@ -114,7 +126,7 @@
                 };
 
 
-                ContentHome.deleteRootFolder = function(ind){
+                ContentHome.deleteRootFolder = function (ind) {
                     ContentHome.info.data.content.entity.splice(ind, 1);
                 };
 
@@ -122,7 +134,7 @@
 
 
                 ContentHome.openFolderInWidget = function (obj) {
-                    var node=obj.$modelValue;
+                    var node = obj.$modelValue;
                     Messaging.sendMessageToWidget({
                         name: 'OPEN_FOLDER',
                         message: {
@@ -132,7 +144,7 @@
                 };
 
                 ContentHome.openPluginInWidget = function (obj) {
-                    var node=obj.$modelValue;
+                    var node = obj.$modelValue;
                     Messaging.sendMessageToWidget({
                         name: 'OPEN_PLUGIN',
                         message: {
@@ -141,10 +153,18 @@
                     });
                 };
 
+                ContentHome.treeOptions = {
+                    accept: function (sourceNodeScope, destNodesScope, destIndex) {
+                        if (destNodesScope.depth() >= 3 && sourceNodeScope.$modelValue.items) // this is to allow PI to be dropped inside folders of 3rd level but not folders
+                            return false;
+                        return true;
+                    }
+                };
+
                 /*
                  * Go pull any previously saved data
                  * */
-                Buildfire.datastore.getWithDynamicData('advancedFolderInfo',function (err, result) {
+                Buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                     if (!err) {
                         ContentHome.datastoreInitialized = true;
                     } else {
@@ -161,12 +181,12 @@
                         }
 
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
-                            var pluginsDetailDataArray=[];
-                            pluginsDetailDataArray = getPluginDetails(ContentHome.info.data._buildfire.plugins.result,ContentHome.info.data._buildfire.plugins.data);
+                            var pluginsDetailDataArray = [];
+                            pluginsDetailDataArray = getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
-                            if(pluginsDetailDataArray && pluginsDetailDataArray.length){
-                                pluginsDetailDataArray.forEach(function(pluginDetailDataObject){
-                                    traverse(ContentHome.info.data.content.entity,1,pluginDetailDataObject);
+                            if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
+                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
+                                    traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
                                 })
                             }
                         }
@@ -191,11 +211,11 @@
 
                 });
 
-                function traverse(x, level,pluginDetailData) {
+                function traverse(x, level, pluginDetailData) {
                     if (isArray(x)) {
-                        traverseArray(x, level,pluginDetailData);
+                        traverseArray(x, level, pluginDetailData);
                     } else if ((typeof x === 'object') && (x !== null)) {
-                        traverseObject(x, level,pluginDetailData);
+                        traverseObject(x, level, pluginDetailData);
                     } else {
                         console.log(level + x);
                     }
@@ -205,26 +225,26 @@
                     return Object.prototype.toString.call(o) === '[object Array]';
                 }
 
-                function traverseArray(arr, level,pluginDetailData) {
+                function traverseArray(arr, level, pluginDetailData) {
                     console.log(level + "<array>");
-                    arr.forEach(function(x) {
-                        traverse(x, level + "  ",pluginDetailData);
+                    arr.forEach(function (x) {
+                        traverse(x, level + "  ", pluginDetailData);
                     });
                 }
 
-                function traverseObject(obj, level,pluginDetailData) {
+                function traverseObject(obj, level, pluginDetailData) {
                     console.log(level + "<object>");
 
                     if (obj.hasOwnProperty('items')) {
-                        if(obj.items.length){
+                        if (obj.items.length) {
                             //   console.log(level + "  " + key + ":");
-                            traverse(obj['items'], level + "    ",pluginDetailData);
+                            traverse(obj['items'], level + "    ", pluginDetailData);
                         }
                     }
-                    else{
-                        if(obj.instanceId==pluginDetailData.instanceId){
-                            obj.title= pluginDetailData.title;
-                            obj.iconUrl= pluginDetailData.iconUrl;
+                    else {
+                        if (obj.instanceId == pluginDetailData.instanceId) {
+                            obj.title = pluginDetailData.title;
+                            obj.iconUrl = pluginDetailData.iconUrl;
                         }
                     }
                 }
@@ -254,7 +274,6 @@
                     }
                     return returnPlugins;
                 };
-
 
 
                 function init() {
@@ -291,10 +310,10 @@
 
                 function saveData(_info) {
 
-                   /* if (!ContentHome.datastoreInitialized) {
-                        console.error("Error with datastore didn't get called");
-                        return;
-                    }*/
+                    /* if (!ContentHome.datastoreInitialized) {
+                     console.error("Error with datastore didn't get called");
+                     return;
+                     }*/
 
                     var saveSuccess = function (data) {
                         console.log('Data saved successfully---------------from content-----------', data);
@@ -332,21 +351,21 @@
 
 
                 /*ContentHome.newSubFolder = function (scope) {
-                    var nodeData = scope.$modelValue;
-                    console.log('nodeData', nodeData);
-                    nodeData.items.push({
+                 var nodeData = scope.$modelValue;
+                 console.log('nodeData', nodeData);
+                 nodeData.items.push({
 
-                        title: 'Unnamed Folder',
-                        items: []
-                    });
-                };
-                $scope.collapseAll = function () {
-                    $scope.$broadcast('angular-ui-tree:collapse-all');
-                };
+                 title: 'Unnamed Folder',
+                 items: []
+                 });
+                 };
+                 $scope.collapseAll = function () {
+                 $scope.$broadcast('angular-ui-tree:collapse-all');
+                 };
 
-                $scope.expandAll = function () {
-                    $scope.$broadcast('angular-ui-tree:expand-all');
-                };*/
+                 $scope.expandAll = function () {
+                 $scope.$broadcast('angular-ui-tree:expand-all');
+                 };*/
 
             }]);
 })(window.angular);
