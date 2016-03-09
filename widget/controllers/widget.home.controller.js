@@ -4,15 +4,15 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope', 'ViewStack', 'Messaging',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging) {
+            '$rootScope', 'ViewStack', 'Messaging','$q',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging,$q) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
                 WidgetHome.noCarouselBody = false;
                 var matchedBackgroundName = undefined;
                 var deviceHeight = window.innerHeight;
-                ;
+                var detailedPluginInfoArray=[];
                 var deviceWidth = window.innerWidth;
 
                 WidgetHome.view = null;
@@ -92,19 +92,36 @@
 
                 WidgetHome.navigateToPlugin = function (plugin) {
 
-                    var fName = '';
-                    if (plugin && plugin.pluginType && plugin.pluginType.folderName)
-                        fName = plugin.pluginType.folderName;
-                    else if (plugin && plugin.folderName)
-                        fName = plugin.folderName;
+                    var pluginDetailInfo=getDetailedInfoOfPlugin(plugin);
+                    pluginDetailInfo.then(function(plugin){
+                        var fName = '';
+                        if (plugin && plugin.pluginType && plugin.pluginType.folderName)
+                            fName = plugin.pluginType.folderName;
+                        else if (plugin && plugin.folderName)
+                            fName = plugin.folderName;
 
-                    buildfire.navigation.navigateTo({
-                        pluginId: plugin.pluginTypeId,
-                        instanceId: plugin.instanceId,
-                        title: plugin.title,
-                        folderName: fName
-                    });
+                        buildfire.navigation.navigateTo({
+                            pluginId: plugin.pluginTypeId,
+                            instanceId: plugin.instanceId,
+                            title: plugin.title,
+                            folderName: fName
+                        });
+                    })
+
                 };
+
+                function getDetailedInfoOfPlugin(plugin){
+                    var deferred = $q.defer();
+                    detailedPluginInfoArray.forEach(function(detailInfo){
+                        if(plugin.instanceId==detailInfo.instanceId){
+                            plugin=detailInfo;
+                            deferred.resolve(plugin);
+                        }
+                    });
+                    return deferred.promise;
+                }
+
+
 
                 WidgetHome.goToFolder = function (obj) {
                     console.log('selected folder', obj);
@@ -275,7 +292,7 @@
                         pluginsList = result.data._buildfire.plugins;
 
                         if (result.data._buildfire && pluginsList && pluginsList.result && pluginsList.data) {
-                            result.data.plugins = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
+                            detailedPluginInfoArray = getPluginDetails(result.data._buildfire.plugins.result, result.data._buildfire.plugins.data);
                         }
                         if (WidgetHome.info.data.content.entity.length) {
                             result.data._buildfire.plugins.result.forEach(function (pluginDetailData) {
