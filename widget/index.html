@@ -41,7 +41,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body ng-cloak class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome">
+<body ng-cloak class="infinite-scroll-parent gridLayout no-scroll" ng-controller="WidgetHomeCtrl as WidgetHome">
 <style>
     body.gridLayout {
         background-color: {{}} !important;
@@ -76,7 +76,7 @@
         height:100%;
     }
 </style>
-<div>
+<div style="overflow-y: scroll;height: 100% !important;">
     <!--<div id="carousel" build-fire-carousel=""></div>-->
         <div ng-include="'templates/home.html'">
         </div>
