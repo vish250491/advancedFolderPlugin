@@ -354,14 +354,14 @@
                  title: 'Unnamed Folder',
                  items: []
                  });
-                 };
+                 };*/
                  $scope.collapseAll = function () {
                  $scope.$broadcast('angular-ui-tree:collapse-all');
                  };
 
                  $scope.expandAll = function () {
                  $scope.$broadcast('angular-ui-tree:expand-all');
-                 };*/
+                 };
 
             }]);
 })(window.angular);
