@@ -9,7 +9,7 @@
         </div>
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout-6">
-                <div class="clickable col-xs-6 pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
+                <div ng-show="WidgetHome.info.data.content.entity && WidgetHome.info.data._buildfire" class="clickable col-xs-6 pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)"
                          class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">

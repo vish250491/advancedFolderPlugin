@@ -57,6 +57,7 @@
                         console.log('>>result<<', result);
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
+                            loadData();
                             if (WidgetHome.info.data && WidgetHome.info.data.design)
                                 $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
 
@@ -123,6 +124,7 @@
 
 
                 WidgetHome.goToFolder = function (obj) {
+
                     console.log('selected folder', obj);
                     ViewStack.push({
                         template: "folder",
@@ -245,8 +247,10 @@
                  * Go pull saved data
                  * */
                 function loadData() {
+                    console.log('dynamic store fetching');
                     buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                         if (err) {
+                            console.log('eror in dynamic store fetching');
                             console.error("Error: ", err);
                             return;
                         }
@@ -254,7 +258,7 @@
                     });
                 }
 
-                loadData();
+
 
                 /**
                  * when a refresh is triggered get reload data
@@ -285,7 +289,7 @@
 
 
                 function dataLoadedHandler(result) {
-
+                    console.log('success in dynamic store fetching',result);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
@@ -302,6 +306,8 @@
 
                         // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
                     }
+                    $scope.$digest();
+                    console.log('success in dynamic store fetching post',WidgetHome.info);
                 }
 
                 function traverse(x, level, pluginDetailData) {
