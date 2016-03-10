@@ -3,8 +3,8 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging','Utility',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging,Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
@@ -178,7 +178,7 @@
 
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
                             var pluginsDetailDataArray = [];
-                            pluginsDetailDataArray = getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
+                            pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
                                 pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
@@ -244,33 +244,6 @@
                         }
                     }
                 }
-
-                function getPluginDetails(pluginsInfo, pluginIds) {
-                    var returnPlugins = [];
-                    var tempPlugin = null;
-                    for (var id = 0; id < pluginIds.length; id++) {
-                        for (var i = 0; i < pluginsInfo.length; i++) {
-                            tempPlugin = {};
-                            if (pluginIds[id] == pluginsInfo[i].data.instanceId) {
-                                tempPlugin.instanceId = pluginsInfo[i].data.instanceId;
-                                if (pluginsInfo[i].data) {
-                                    tempPlugin.iconUrl = pluginsInfo[i].data.iconUrl;
-                                    tempPlugin.iconClassName = pluginsInfo[i].data.iconClassName;
-                                    tempPlugin.title = pluginsInfo[i].data.title;
-                                    tempPlugin.pluginTypeId = pluginsInfo[i].data.pluginType.token;
-                                    tempPlugin.folderName = pluginsInfo[i].data.pluginType.folderName;
-                                } else {
-                                    tempPlugin.iconUrl = "";
-                                    tempPlugin.title = "[No title]";
-                                }
-                                returnPlugins.push(tempPlugin);
-                            }
-                            tempPlugin = null;
-                        }
-                    }
-                    return returnPlugins;
-                };
-
 
                 function init() {
                     var success = function (data) {
@@ -340,21 +313,6 @@
                     scope.toggle();
                 };
 
-                /*     $scope.moveLastToTheBeginning = function () {
-                 var a = $scope.data.pop();
-                 $scope.data.splice(0, 0, a);
-                 };*/
-
-
-                /*ContentHome.newSubFolder = function (scope) {
-                 var nodeData = scope.$modelValue;
-                 console.log('nodeData', nodeData);
-                 nodeData.items.push({
-
-                 title: 'Unnamed Folder',
-                 items: []
-                 });
-                 };*/
                  $scope.collapseAll = function () {
                  $scope.$broadcast('angular-ui-tree:collapse-all');
                  };
