@@ -11,7 +11,7 @@
                     <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in  WidgetHome.info.data.content.entity">
                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" ng-if="plugin.data">
                     <div class="plugin-slide text-center">
-                        <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
+                        <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
                         <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon4" ng-if="plugin.data.iconClassName"></span>
                     </div>
                     <div class="info-bar titleBarBackgroundTheme">
@@ -20,7 +20,7 @@
                    </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                             <div class="plugin-slide text-center">
-                                <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
+                                <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
                                 <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
