@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../../styles/helper.css">
     <link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../styles/transitionAnimation.css">
-   <!-- <link rel="stylesheet" href="assets/css/widget.app.css">-->
+    <!-- <link rel="stylesheet" href="assets/css/widget.app.css">-->
     <link href="assets/css/style.css" rel="stylesheet">
     <!-- jS -->
     <script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script>
@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="../../../scripts/owlCarousel/owlCarousel.css">
 
     <script src="assets/js/sdk-3.0.0.js"></script>
+    <script src="assets/js/angular-lazy-img.min.js"></script>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -44,48 +45,73 @@
 <body ng-cloak class="infinite-scroll-parent gridLayout no-scroll" ng-controller="WidgetHomeCtrl as WidgetHome">
 <style>
     body.gridLayout {
-        background-color: {{}} !important;
-        background-image: url({{bgImage}}) !important;
-        background-size:cover !important;
+
+    background-color: {
+
+    {
+    }
+    }
+    !important
+    ;
+    background-image:
+
+    url
+    (
+    {{bgImage}}
+    )
+    !important
+    ;
+    background-size:cover
+
+    !important
+    ;
     }
 </style>
 <style>
     .layout-6 .list-item-media {
         background-color: transparent !important;
     }
+
     .folder-plugin-text:empty + div .layout3 .list-layout {
         border-top: 0;
     }
+
     #mainContainer {
         position: relative;
     }
+
     .icon3, .icon4 {
         font-size: 140px;
     }
+
     .icon5 {
         font-size: 130px;
-        position:relative;
-        top:-20px;
+        position: relative;
+        top: -20px;
     }
+
     .icon6 {
         font-size: 120px;
-        position:relative;
-        top:15px;
+        position: relative;
+        top: 15px;
     }
-    .fullHeight{
-        height:100%;
+
+    .fullHeight {
+        height: 100%;
     }
 </style>
-<div style="overflow-y: scroll;height: 100% !important;">
+<div id="scrolledDiv" style="overflow-y: scroll;height: 100% !important;">
     <!--<div id="carousel" build-fire-carousel=""></div>-->
-        <div ng-include="'templates/home.html'">
-        </div>
+    <div ng-include="'templates/home.html'">
+    </div>
 </div>
 <div view-switcher=""></div>
 </body>
 <script>
     $(function () {
-        setTimeout(function(){$('#listDiv').show('slide', {direction: 'right'}, 120);},750);
+        setTimeout(function () {
+            $('#listDiv').show('slide', {direction: 'right'}, 120);
+        }, 750);
     });
 </script>
 </html>

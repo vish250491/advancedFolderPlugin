@@ -12,7 +12,7 @@
                     <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                         <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
                             <div class="list-media-holder">
-                                <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/320x320', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
+                                <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/320x320', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
                                 <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
@@ -23,7 +23,7 @@
                         </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center" ng-if="plugin.items">
                             <div class="list-media-holder">
-                                <img  ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/320x320' , {width: 320, height: 320}) }}">
+                                <img  ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/320x320' , {width: 320, height: 320}) }}">
                                 <span class="main-icon text-primary icon5" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl"></span>
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
