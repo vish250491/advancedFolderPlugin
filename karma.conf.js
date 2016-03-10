@@ -12,14 +12,14 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'test/assets/bower_components/jquery/dist/jquery.min.js',
-            'test/assets/bower_components/angular/angular.js',
-            'test/assets/bower_components/angular-animate/angular-animate.min.js',
-            'test/assets/bower_components/angular-route/angular-route.min.js',
-            'test/assets/bower_components/angular-bootstrap/ui-bootstrap.min.js',
-            'test/assets/bower_components/owlcarousel/owl-carousel/owl.carousel.min.js',
-            'test/assets/bower_components/tinymce/tinymce.min.js',
-            'test/assets/bower_components/angular-mocks/angular-mocks.js',
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/angular/angular.js',
+            'bower_components/angular-animate/angular-animate.min.js',
+            'bower_components/angular-route/angular-route.min.js',
+            'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+            'bower_components/owlcarousel/owl-carousel/owl.carousel.min.js',
+            'bower_components/tinymce/tinymce.min.js',
+            'bower_components/angular-mocks/angular-mocks.js',
             'test/assets/*.js',
             'control/content/**/*.js',
             'control/design/**/*.js',

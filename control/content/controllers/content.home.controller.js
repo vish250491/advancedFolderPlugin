@@ -11,11 +11,13 @@
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
+
+                var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 //Default initialise
                 ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
 
 
-                var timerDelay, masterInfo;
+                var timerDelay;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
                 //option for wysiwyg
@@ -275,7 +277,7 @@
                 function init() {
                     var success = function (data) {
                         if (data && data.data && (data.data.content || data.data.design)) {
-                            updateMasterInfo(data.data);
+                            updateMasterInfo(data);
                             ContentHome.info = data;
                             if (data.data.content && data.data.content.images) {
                                 ContentHome.editor.loadItems(data.data.content.images);

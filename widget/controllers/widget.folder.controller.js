@@ -19,6 +19,7 @@
                     tempInfo.data.content.entity = vs.folderItems;
                     WidgetHome.info = tempInfo;
                     console.log('folder deep info',WidgetHome.info);
+                    $rootScope.$emit('lazyImg:refresh');
                 }
 
                 WidgetHome.goToFolder = function (plugin) {
