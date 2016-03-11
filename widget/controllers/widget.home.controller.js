@@ -59,7 +59,7 @@
                             WidgetHome.info = result;
                             loadData();
                             if (WidgetHome.info.data && WidgetHome.info.data.design)
-                                $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
+                                setBackgroundImage();
 
                             $timeout(function () {
                                 WidgetHome.initCarousel();

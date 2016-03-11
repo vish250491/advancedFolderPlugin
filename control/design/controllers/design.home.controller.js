@@ -7,10 +7,10 @@
             function ($scope, $timeout,COLLECTIONS,DB,DEFAULT_DATA,Buildfire) {
                 console.log('DesignHome Controller Loaded-------------------------------------');
                 var DesignHome = this;
-                var timerDelay,masterInfo;
+                var timerDelay;
                 DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"},{name: "list-layout5"},{name: "list-layout6"}];
                 var advanceFolder=new DB(COLLECTIONS.advancedFolderInfo);
-
+                var masterInfo;
                 DesignHome.changeLayout = function (layoutName) {
                     if (layoutName && DesignHome.info.data.design) {
                         DesignHome.info.data.design.itemListLayout = layoutName;
@@ -65,7 +65,7 @@
                     var success=function(data){
                         if(data && data.data && (data.data.content || data.data.design)){
                             //console.log('Info got---------------');
-                            updateMasterInfo(data.data);
+                            updateMasterInfo(data);
                             DesignHome.info=data;
                             if(data.data.design && data.data.design.bgImage){
                             //    background.loadbackground(DesignHome.info.data.design.bgImage);
