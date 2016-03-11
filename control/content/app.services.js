@@ -27,6 +27,7 @@
                                 tempPlugin.iconClassName = pluginsInfo[i].data.iconClassName;
                                 tempPlugin.title = pluginsInfo[i].data.title;
                                 tempPlugin.pluginTypeId = pluginsInfo[i].data.pluginType.token;
+                                tempPlugin.pluginTypeName = pluginsInfo[i].data.pluginType.name;
                                 tempPlugin.folderName = pluginsInfo[i].data.pluginType.folderName;
                             } else {
                                 tempPlugin.iconUrl = "";

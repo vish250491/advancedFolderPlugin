@@ -171,6 +171,7 @@
                     }
 
                     if (result && result.data && !angular.equals({}, result.data)) {
+                        console.log('>>pluginDetailData<<',result);
 
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
@@ -185,6 +186,7 @@
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
                                 pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
+                                    $scope.$digest();
                                 })
                             }
                         }
@@ -241,8 +243,10 @@
                     }
                     else {
                         if (obj.instanceId == pluginDetailData.instanceId) {
+                            console.log('??pluginDetailData',pluginDetailData);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
+                            obj.pluginTypeName = pluginDetailData.pluginTypeName;
                         }
                     }
                 }
