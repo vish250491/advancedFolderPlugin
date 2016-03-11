@@ -1,23 +1,36 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin layout3 text-overlay">
-        <div class="plugin-banner clearfix border-bottom-grey text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix border-bottom-grey text-overlay">
             <div id="carousel" build-fire-carousel=""></div>
         </div>
-        <div class="padded text-left text-overlay" ng-if="WidgetHome.showDescription()">
+        <div ng-if="!WidgetHome.noCarouselBody" class="padded text-left text-overlay" ng-if="WidgetHome.showDescription()">
             <p class="margin-bottom-zero"
                ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
         </div>
         <div>
-            <div ng-repeat="plugin in  WidgetHome.info.data.content.entity" ng-click="WidgetHome.navigateToPlugin(plugin)">
+            <div ng-repeat="plugin in  WidgetHome.info.data.content.entity">
+                <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                 <div class="plugin-banner clearfix border-bottom-grey">
                     <div class="plugin-slide text-center">
-                        <img ng-src="{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.iconUrl" />
-                        <span class="main-icon text-primary {{ plugin.iconClassName }} icon3" ng-if="plugin.iconClassName"></span>
+                        <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
+                        <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon3" ng-if="plugin.data.iconClassName"></span>
                     </div>
                 </div>
                 <div class="padded text-left">
-                    <a class="text-primary">{{ plugin.title }}</a>
+                    <a class="text-primary">{{ plugin.data.title }}</a>
+                </div>
+                </div>
+                <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
+                    <div class="plugin-banner clearfix border-bottom-grey">
+                        <div class="plugin-slide text-center">
+                            <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
+                            <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl"></span>
+                        </div>
+                    </div>
+                    <div class="padded text-left">
+                        <a class="text-primary">{{ plugin.title }}</a>
+                    </div>
                 </div>
             </div>
         </div>

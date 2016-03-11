@@ -6,6 +6,9 @@
             NOT_FOUND: 'NOTFOUND',
             SUCCESS: 'SUCCESS'
         })
+        .constant('EVENTS', {
+            OPEN_FOLDER: 'OPENFOLDER'
+        })
         .constant('MESSAGES', {
             ERROR: {
                 NOT_FOUND: "No result found",
@@ -21,6 +24,12 @@
         .constant('DEFAULT_DATA', {
             ADVANCED_FOLDER_INFO: {
                 data: {
+                    _buildfire: {
+                        plugins: {
+                            dataType: "pluginInstance",
+                            data: [],
+                        }
+                    },
                     content: {
                         images: [],
                         description: '',

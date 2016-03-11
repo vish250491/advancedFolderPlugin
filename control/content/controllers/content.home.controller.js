@@ -3,26 +3,21 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging','Utility',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging,Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
-             /*   ContentHome.treeOptions = {
-                    accept: function (sourceNodeScope, destNodesScope, destIndex) {
-                       console.log()
-                    },
-                    removed: function (node) {
-                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> node',node);
-                    },
-                    dropped: function (event) {
-                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> event',event);
-                    }
+                // create a new instance of the buildfire carousel editor
+                ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
-                }
-*/
 
-                var timerDelay, masterInfo;
+                var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                //Default initialise
+                ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+
+
+                var timerDelay;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
                 //option for wysiwyg
@@ -33,8 +28,6 @@
                     theme: 'modern'
                 };
 
-                // create a new instance of the buildfire carousel editor
-                ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
                 // this method will be called when a new item added to the list
                 ContentHome.editor.onAddItems = function (items) {
@@ -62,25 +55,9 @@
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
-                ContentHome.addNewFolderToRootPopup = function (object) {
-                    Modals.addFolderModal().then(function (title) {
-                        ContentHome.info.data.content.entity.push({title:title,items:[]});
-                      var nodeData = object.$modelValue;
-                        if(nodeData && nodeData.nodes){
-                            nodeData.nodes.push({
-                                id: nodeData.id * 10 + nodeData.nodes.length,
-                                title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-                                nodes: []
-                            });
-                        }else{
-                            nodeData={};
-                            nodeData.nodes={
-                                title:title,
-                                id:1,
-                                nodes :[]
-                            }
-                        }
-
+                ContentHome.addNewFolderToRootPopup = function () {
+                    Modals.addFolderModal({title : '', iconUrl:'', fileUrl : ''}).then(function (response) {
+                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,fileUrl:response.fileUrl,items :[]});
                     }, function (err) {
 
                     });
@@ -88,28 +65,196 @@
 
                 ContentHome.addPluginInstancePopup = function () {
                     Buildfire.pluginInstance.showDialog({
-                        prop1:""
-                    },function(error ,instances){
-                        console.log('<<<<<<<<< PLUGIN INSTANCE ERROR CALLBACK >>>>>>>>>>',instances);
-                        //iconUrl title
-                        if(instances){
-                            instances.forEach(function(instance){
-                                ContentHome.info.data.content.entity.push({title:instance.title,iconUrl:instance.iconUrl,items:[]});
-                                if (!$scope.$$phase)$scope.$digest();
+                        prop1: ""
+                    }, function (error, instances) {
+                        if (instances) {
+                            instances.forEach(function (instance) {
+                                if (!ContentHome.pluginExist(instance.instanceId)) {
+                                    ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                    ContentHome.info.data.content.entity.push({
+                                        title: instance.title,
+                                        iconUrl: instance.iconUrl,
+                                        instanceId: instance.instanceId
+                                    });
+                                    if (!$scope.$$phase)$scope.$digest();
+                                }
+
                             })
                         }
                     });
                 };
 
+                ContentHome.pluginExist = function (instanceId) {
+                    var pluginFound = false;
+                    ContentHome.info.data._buildfire.plugins.data.forEach(function (pluginId) {
+                        if (pluginId == instanceId) {
+                            pluginFound = true;
+                        }
+                    });
+                    return pluginFound;
+                }
 
-                ContentHome.deleteRootFolder = function(ind){
+                ContentHome.deleteEntity = function (obj) {
+                    var nodeData = obj.$modelValue;
+                    Modals.removePopupModal().then(function (result) {
+                        if (result) {
+                            var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                            ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+
+                            //ContentHome.info.data.content.entity.splice(ind, 1);
+                            obj.remove();
+                        }
+                    });
+                };
+
+
+                ContentHome.editFolder = function (scope) {
+                    var nodeData = scope.$modelValue;
+                    Modals.addFolderModal({
+                        title: nodeData.title,
+                        iconUrl: nodeData.iconUrl,
+                        fileUrl: nodeData.fileUrl
+                    }).then(function (response) {
+                        nodeData.title = response.title;
+                        nodeData.iconUrl = response.iconUrl;
+                        nodeData.fileUrl = response.fileUrl;
+                    }, function (err) {
+
+                    });
+                };
+
+
+                ContentHome.deleteRootFolder = function (ind) {
                     ContentHome.info.data.content.entity.splice(ind, 1);
                 };
+
+                ContentHome.datastoreInitialized = false;
+
+
+                ContentHome.openFolderInWidget = function (obj) {
+                    var node = obj.$modelValue;
+                    Messaging.sendMessageToWidget({
+                        name: 'OPEN_FOLDER',
+                        message: {
+                            selectedFolder: node
+                        }
+                    });
+                };
+
+                ContentHome.openPluginInWidget = function (obj) {
+                    var node = obj.$modelValue;
+                    Messaging.sendMessageToWidget({
+                        name: 'OPEN_PLUGIN',
+                        message: {
+                            data: node
+                        }
+                    });
+                };
+
+                ContentHome.treeOptions = {
+                    accept: function (sourceNodeScope, destNodesScope, destIndex) {
+                        if (destNodesScope.depth() >= 3 && sourceNodeScope.$modelValue.items) // this is to allow PI to be dropped inside folders of 3rd level but not folders
+                            return false;
+                        return true;
+                    }
+                };
+
+                /*
+                 * Go pull any previously saved data
+                 * */
+                Buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
+                    if (!err) {
+                        ContentHome.datastoreInitialized = true;
+                    } else {
+                        console.error("Error: ", err);
+                        return;
+                    }
+
+                    if (result && result.data && !angular.equals({}, result.data)) {
+                        console.log('>>pluginDetailData<<',result);
+
+                        ContentHome.info.data = result.data;
+                        ContentHome.info.id = result.id;
+                        if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                            ContentHome.editor.loadItems(ContentHome.info.data.content.images);
+                        }
+
+                        if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
+                            var pluginsDetailDataArray = [];
+                            pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
+                            //to do to display on content side icon and title of plugin
+                            if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
+                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
+                                    traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
+                                    $scope.$digest();
+                                })
+                            }
+                        }
+
+                        if (!ContentHome.info.data._buildfire) {
+                            ContentHome.info.data._buildfire = {
+                                plugins: {
+                                    dataType: "pluginInstance",
+                                    data: []
+                                }
+                            };
+                        }
+
+                        if (!ContentHome.info.data.design) {
+                            ContentHome.info.data.design = {
+                                bgImage: null,
+                                selectedLayout: 1
+                            };
+                        }
+
+                    }
+
+                });
+
+                function traverse(x, level, pluginDetailData) {
+                    if (isArray(x)) {
+                        traverseArray(x, level, pluginDetailData);
+                    } else if ((typeof x === 'object') && (x !== null)) {
+                        traverseObject(x, level, pluginDetailData);
+                    } else {
+                        console.log(level + x);
+                    }
+                }
+
+                function isArray(o) {
+                    return Object.prototype.toString.call(o) === '[object Array]';
+                }
+
+                function traverseArray(arr, level, pluginDetailData) {
+                    console.log(level + "<array>");
+                    arr.forEach(function (x) {
+                        traverse(x, level + "  ", pluginDetailData);
+                    });
+                }
+
+                function traverseObject(obj, level, pluginDetailData) {
+                    console.log(level + "<object>");
+
+                    if (obj.hasOwnProperty('items')) {
+                        if (obj.items.length) {
+                            //   console.log(level + "  " + key + ":");
+                            traverse(obj['items'], level + "    ", pluginDetailData);
+                        }
+                    }
+                    else {
+                        if (obj.instanceId == pluginDetailData.instanceId) {
+                            console.log('??pluginDetailData',pluginDetailData);
+                            obj.title = pluginDetailData.title;
+                            obj.iconUrl = pluginDetailData.iconUrl;
+                            obj.pluginTypeName = pluginDetailData.pluginTypeName;
+                        }
+                    }
+                }
 
                 function init() {
                     var success = function (data) {
                         if (data && data.data && (data.data.content || data.data.design)) {
-                            updateMasterInfo(data.data);
+                            updateMasterInfo(data);
                             ContentHome.info = data;
                             if (data.data.content && data.data.content.images) {
                                 ContentHome.editor.loadItems(data.data.content.images);
@@ -139,6 +284,12 @@
                 }
 
                 function saveData(_info) {
+
+                    /* if (!ContentHome.datastoreInitialized) {
+                     console.error("Error with datastore didn't get called");
+                     return;
+                     }*/
+
                     var saveSuccess = function (data) {
                         console.log('Data saved successfully---------------from content-----------', data);
                     };
@@ -163,6 +314,18 @@
                 $scope.$watch(function () {
                     return ContentHome.info;
                 }, updateInfoData, true);
+
+                $scope.toggle = function (scope) {
+                    scope.toggle();
+                };
+
+                 $scope.collapseAll = function () {
+                 $scope.$broadcast('angular-ui-tree:collapse-all');
+                 };
+
+                 $scope.expandAll = function () {
+                 $scope.$broadcast('angular-ui-tree:expand-all');
+                 };
 
             }]);
 })(window.angular);

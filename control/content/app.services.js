@@ -8,7 +8,39 @@
                 return buildfire;
             };
         }])
-
+        .provider('Messaging', [function () {
+            this.$get = function () {
+                return buildfire.messaging;
+            };
+        }])
+        .service('Utility', function(){
+            this.getPluginDetails = function(pluginsInfo,pluginIds) {
+                var returnPlugins = [];
+                var tempPlugin = null;
+                for (var id = 0; id < pluginIds.length; id++) {
+                    for (var i = 0; i < pluginsInfo.length; i++) {
+                        tempPlugin = {};
+                        if (pluginIds[id] == pluginsInfo[i].data.instanceId) {
+                            tempPlugin.instanceId = pluginsInfo[i].data.instanceId;
+                            if (pluginsInfo[i].data) {
+                                tempPlugin.iconUrl = pluginsInfo[i].data.iconUrl;
+                                tempPlugin.iconClassName = pluginsInfo[i].data.iconClassName;
+                                tempPlugin.title = pluginsInfo[i].data.title;
+                                tempPlugin.pluginTypeId = pluginsInfo[i].data.pluginType.token;
+                                tempPlugin.pluginTypeName = pluginsInfo[i].data.pluginType.name;
+                                tempPlugin.folderName = pluginsInfo[i].data.pluginType.folderName;
+                            } else {
+                                tempPlugin.iconUrl = "";
+                                tempPlugin.title = "[No title]";
+                            }
+                            returnPlugins.push(tempPlugin);
+                        }
+                        tempPlugin = null;
+                    }
+                }
+                return returnPlugins;
+            }
+        })
         .factory("DB", ['Buildfire', '$q', 'MESSAGES', 'CODES', function (Buildfire, $q, MESSAGES, CODES) {
             function DB(tagName) {
                 this._tagName = tagName;

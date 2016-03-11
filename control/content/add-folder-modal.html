@@ -4,10 +4,28 @@
 </div>
 <div class="padded clearfix">
     <div class="item clearfix row">
+	    <div class="labels col-md-2 padding-right-zero pull-left">
+	        <span>Icon/Image</span>
+	    </div>
+	    <div class="main col-md-9 pull-right">
+	        <div class="screens clearfix">
+	            <div class="screen pull-left">
+	                <a class="border-grey border-radius-three default-background-hover text-center" ng-click="selectIcon()">
+	                    <img ng-show="folderFileUrl" class="" ng-src="{{folderFileUrl}}">
+                        <span ng-class="folderIconUrl" ng-if="folderIconUrl"></span>
+	                    <span ng-hide="folderFileUrl || folderIconUrl " class="add-icon ng-hide">+</span>
+	                </a>
+	                <span ng-show="folderFileUrl || folderIconUrl " class="icon btn-icon btn-delete-icon btn-danger transition-third" ng-click="removeIcon()"></span>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<hr class="none">
+	<div class="item clearfix row">
         <div class="labels col-md-2 padding-right-zero pull-left">
             <span>Title</span>
         </div>
-        <div class="labels col-md-10 pull-right">
+        <div class="labels col-md-9 pull-right">
             <input type="text" class="form-control" placeholder="Title" ng-model="folderTitle">
         </div>
     </div>

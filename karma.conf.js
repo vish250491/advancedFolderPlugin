@@ -1,5 +1,4 @@
-// Karma configuration
-module.exports = function (config) {
+module.exports = function(config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -13,38 +12,34 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            './bower_components/jquery/dist/jquery.min.js',
-            './bower_components/angular/angular.js',
-            './bower_components/angular-mocks/angular-mocks.js',
-            './bower_components/angular-animate/angular-animate.min.js',
-            './bower_components/angular-route/angular-route.min.js',
-            './bower_components/angular-bootstrap/ui-bootstrap.min.js',
-            './bower_components/angular-ui-tinymce/src/tinymce.js',
-            './bower_components/tinymce-dist/tinymce.min.js',
-            './bower_components/angular-sanitize/angular-sanitize.min.js',
-            './test/assets/buildfire.js',
-            './control/design/**/*.js',
-            './control/content/**/*.js',
-            './widget/**/*.js',
-            './test/**/*.js'
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/angular/angular.js',
+            'bower_components/angular-animate/angular-animate.min.js',
+            'bower_components/angular-route/angular-route.min.js',
+            'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+            'bower_components/owlcarousel/owl-carousel/owl.carousel.min.js',
+            'bower_components/tinymce/tinymce.min.js',
+            'bower_components/angular-mocks/angular-mocks.js',
+            'test/assets/*.js',
+            'control/content/**/*.js',
+            'control/design/**/*.js',
+            'control/settings/**/*.js',
+            'widget/**/*.js',
+            'test/**/*.spec.js'
         ],
 
-
         // list of files to exclude
-        exclude: [],
+        exclude: [
+        ],
 
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'widget/**/!(js)/*.js': ['coverage'],
-            'widget/*.js': ['coverage'],
-            'control/design/**/!(js)/*.js': ['coverage'],
-            'control/design/*.js': ['coverage'],
-            'control/content/**/!(js)/*.js': ['coverage'],
-            'control/content/*.js': ['coverage']
+            'control/**/!(assets|js)/*.js':['coverage'],
+            'widget/*.js':['coverage'],
+            'widget/!(assets|js)/*.js':['coverage']
         },
-
         plugins: [
             'karma-phantomjs-launcher',
             'karma-jasmine',
@@ -58,7 +53,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'html',
-            dir: 'coverage/'
+            dir: 'test/coverage/'
         },
 
         // web server port
@@ -87,4 +82,4 @@ module.exports = function (config) {
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: true
     })
-};
+}

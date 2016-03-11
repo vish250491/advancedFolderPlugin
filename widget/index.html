@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../../styles/helper.css">
     <link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../styles/transitionAnimation.css">
-   <!-- <link rel="stylesheet" href="assets/css/widget.app.css">-->
+    <!-- <link rel="stylesheet" href="assets/css/widget.app.css">-->
     <link href="assets/css/style.css" rel="stylesheet">
     <!-- jS -->
     <script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script>
@@ -21,6 +21,7 @@
     <script src="assets/js/angular-touch.js"></script>
     <script src="app.js"></script>
     <script src="controllers/widget.home.controller.js"></script>
+    <script src="controllers/widget.folder.controller.js"></script>
     <script src="assets/js/ng-infinite-scroll.custom.js"></script>
     <!--app js-->
     <script src="enums.js"></script>
@@ -64,23 +65,29 @@
     .icon5 {
         font-size: 130px;
         position:relative;
-        top:22px;
+        top:-20px;
     }
     .icon6 {
         font-size: 120px;
         position:relative;
         top:15px;
     }
+    .fullHeight{
+        height:100%;
+    }
 </style>
-<div>
-    <div id="carousel" build-fire-carousel=""></div>
-        <div ng-include="'templates/home.html'">
-        </div>
+<div id="scrolledDiv" style="overflow-y: scroll;height: 100% !important;">
+    <!--<div id="carousel" build-fire-carousel=""></div>-->
+    <div ng-include="'templates/home.html'">
+    </div>
 </div>
+<div view-switcher=""></div>
 </body>
 <script>
     $(function () {
-        setTimeout(function(){$('#listDiv').show('slide', {direction: 'right'}, 120);},750);
+        setTimeout(function () {
+            $('#listDiv').show('slide', {direction: 'right'}, 120);
+        }, 750);
     });
 </script>
 </html>
