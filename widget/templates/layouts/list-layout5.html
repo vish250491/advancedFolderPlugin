@@ -9,7 +9,7 @@
         <div class="padded padding-top-zero text-overlay">
             <div class="list-layout layout5">
                 <div  class="row">
-                    <div class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
+                    <div  style="margin-top: 20px !important;" class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                         <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
                             <div class="list-media-holder">
                                 <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/320x320', {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
