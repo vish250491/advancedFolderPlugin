@@ -3,11 +3,23 @@
         <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix border-bottom-grey">
             <div id="carousel" build-fire-carousel=""></div>
         </div>
+        <!-- Plugin init Data for carousal start-->
+        <div id="owl-demo" ng-if="(! WidgetHome.data.content.images.length && WidgetHome.firstTime)" class="owl-carousel">
+            <div class="item"><img src="assets/images/sample_1.jpg" alt="Owl Image"></div>
+            <div class="item"><img src="assets/images/sample_2.jpg" alt="Owl Image"></div>
+            <div class="item"><img src="assets/images/sample_3.jpg" alt="Owl Image"></div>
+        </div>
+        <!-- Plugin init Data for carousal ends-->
         <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay">
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
+            <!-- Plugin init Data for wisywig start-->
+            <p ng-if="WidgetHome.firstTime">
+                It all comes back to the basics. Serve customers the best-tasting food at a good value in a clean, comfortable restaurant, and they'll keep coming back.
+            </p>
+            <!-- Plugin init Data ends-->
         </div>
-        <div class="padded padding-top-zero text-overlay">
+        <div class="padded padding-top-zero text-overlay" ng-if="WidgetHome.info.data.content.entity.length">
             <div class=" list-layout">
                 <div class="clickable list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" >
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
@@ -31,5 +43,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- Plugin init Data for folders start-->
+        <div class="padded padding-top-zero text-overlay" ng-if="! WidgetHome.info.data.content.entity.length && WidgetHome.firstTime">
+            <div class=" list-layout">
+                <div class="clickable list-item" ng-repeat="plugin in WidgetHome.initData" >
+                    <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
+                        <div class="list-media-holder square-icon pull-left">
+                            <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl"></span>
+                        </div>
+                        <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+                            <p class="ellipsis margin-zero margin-top-twenty">{{ plugin.title }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Plugin init Data for folders ends-->
     </div>
 </div>

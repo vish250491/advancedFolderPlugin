@@ -14,10 +14,33 @@
                 var deviceHeight = window.innerHeight;
                 var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
+                WidgetHome.firstTime=true;
 
                 WidgetHome.view = null;
                 //Default initialise
                 WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                WidgetHome.initData=[
+                    {   title:'Restau',
+                        iconUrl:'glyphicon glyphicon-glass',
+                        items:[]
+                    },
+                    {
+                        title:'Music',
+                        iconUrl:'glyphicon glyphicon-music',
+                        items:[]
+                    },
+                    {
+                        title:'Search',
+                        iconUrl:'glyphicon glyphicon-search',
+                        items:[]
+                    },
+                    {
+                        title:'Favourite',
+                        iconUrl:'glyphicon glyphicon-star',
+                        items:[]
+                    }
+                ]
+
 
                 /*declare the device width heights*/
                 $rootScope.deviceHeight = window.innerHeight;
@@ -271,7 +294,7 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-
+                    WidgetHome.firstTime=false;
                     if (event.data) {
                         WidgetHome.info = event;
                         ViewStack.popAllViews();
