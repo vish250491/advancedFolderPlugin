@@ -3,8 +3,8 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging','Utility',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging,Utility) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging', 'Utility',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
 
@@ -56,8 +56,18 @@
                 };
 
                 ContentHome.addNewFolderToRootPopup = function () {
-                    Modals.addFolderModal({title : '', iconUrl:'', fileUrl : ''}).then(function (response) {
-                        ContentHome.info.data.content.entity.push({title:response.title,iconUrl:response.iconUrl,fileUrl:response.fileUrl,items :[]});
+                    Modals.addFolderModal({
+                        title: '',
+                        iconUrl: '',
+                        fileUrl: '',
+                        isEdit: false
+                    }).then(function (response) {
+                        ContentHome.info.data.content.entity.push({
+                            title: response.title,
+                            iconUrl: response.iconUrl,
+                            fileUrl: response.fileUrl,
+                            items: []
+                        });
                     }, function (err) {
 
                     });
@@ -114,6 +124,7 @@
                         title: nodeData.title,
                         iconUrl: nodeData.iconUrl,
                         fileUrl: nodeData.fileUrl
+                        , isEdit: true
                     }).then(function (response) {
                         nodeData.title = response.title;
                         nodeData.iconUrl = response.iconUrl;
@@ -171,7 +182,7 @@
                     }
 
                     if (result && result.data && !angular.equals({}, result.data)) {
-                        console.log('>>pluginDetailData<<',result);
+                        console.log('>>pluginDetailData<<', result);
 
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
@@ -243,7 +254,7 @@
                     }
                     else {
                         if (obj.instanceId == pluginDetailData.instanceId) {
-                            console.log('??pluginDetailData',pluginDetailData);
+                            console.log('??pluginDetailData', pluginDetailData);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
@@ -319,13 +330,13 @@
                     scope.toggle();
                 };
 
-                 $scope.collapseAll = function () {
-                 $scope.$broadcast('angular-ui-tree:collapse-all');
-                 };
+                $scope.collapseAll = function () {
+                    $scope.$broadcast('angular-ui-tree:collapse-all');
+                };
 
-                 $scope.expandAll = function () {
-                 $scope.$broadcast('angular-ui-tree:expand-all');
-                 };
+                $scope.expandAll = function () {
+                    $scope.$broadcast('angular-ui-tree:expand-all');
+                };
 
             }]);
 })(window.angular);

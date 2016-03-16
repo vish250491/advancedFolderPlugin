@@ -65,6 +65,8 @@
             else
                 $scope.folderFileUrl = '';
 
+            $scope.isEdit = Info.isEdit;
+
             $scope.ok = function () {
                 $modalInstance.close({title : $scope.folderTitle,iconUrl : $scope.folderIconUrl,fileUrl : $scope.folderFileUrl});
             };
