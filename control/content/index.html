@@ -122,7 +122,7 @@
                 <span class="text-primary edit-link margin-right-fifteen" data-nodrag=""
                       ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
                 <span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag
-                      ng-click="ContentHome.deleteEntity(this)"></span>
+                      ng-click="ContentHome.deleteEntity(this)" onclick="clickMe(event)"></span>
             </div>
         </div>
         <div class="nodrop" ng-if="!node.items" style="background-color: white;">
@@ -144,7 +144,7 @@
             <div class="pull-right">
                 <!--<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>-->
                 <span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag
-                      ng-click="ContentHome.deleteEntity(this)"></span>
+                      ng-click="ContentHome.deleteEntity(this)" onclick="clickMe(event)"></span>
             </div>
         </div>
     </div>

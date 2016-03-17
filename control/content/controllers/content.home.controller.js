@@ -110,11 +110,22 @@
                     var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
-                            var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
-                            ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                            if(nodeData.hasOwnProperty('items')){
+                                nodeData.items.forEach(function(item){
+                                    var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
+                                    ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                                })
 
-                            //ContentHome.info.data.content.entity.splice(ind, 1);
-                            obj.remove();
+                                //ContentHome.info.data.content.entity.splice(ind, 1);
+                                obj.remove();
+                            }else{
+                                var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                                ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+
+                                //ContentHome.info.data.content.entity.splice(ind, 1);
+                                obj.remove();
+                            }
+
                         }
                     });
                 };
@@ -316,10 +327,9 @@
                 }
 
                 function updateInfoData(_info) {
-                   /* if (timerDelay) {
+                    if (timerDelay) {
                         clearTimeout(timerDelay);
-                    }*/
-                    $timeout.cancel(timerDelay);
+                    }
                     if (_info && _info.data && !isUnchanged(_info)) {
                         timerDelay = $timeout(function () {
                             saveData(_info);
