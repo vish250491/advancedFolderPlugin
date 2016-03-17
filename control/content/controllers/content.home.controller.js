@@ -76,7 +76,6 @@
                 };
 
                 ContentHome.addPluginInstancePopup = function () {
-                    var tempArr = [];
                     Buildfire.pluginInstance.showDialog({
                         prop1: ""
                     }, function (error, instances) {
@@ -84,16 +83,15 @@
                             instances.forEach(function (instance) {
                                 if (!ContentHome.pluginExist(instance.instanceId)) {
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    tempArr.push({
+                                    ContentHome.info.data.content.entity.push({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
                                         instanceId: instance.instanceId
                                     });
-                                    //if (!$scope.$$phase)$scope.$digest();
+                                    if (!$scope.$$phase)$scope.$digest();
                                 }
 
-                            });
-                            ContentHome.info.data.content.entity = ContentHome.info.data.content.entity.concat(tempArr);
+                            })
                         }
                     });
                 };
@@ -293,7 +291,7 @@
                 function isUnchanged(info) {
                     console.log('info------------------------------------------', info);
                     console.log('Master info------------------------------------------', masterInfo);
-                    return (angular.equals(info.data.design, masterInfo.data.design) && angular.equals(info.data.content, masterInfo.data.content));
+                    return angular.equals(info, masterInfo);
                 }
 
                 function updateMasterInfo(info) {
