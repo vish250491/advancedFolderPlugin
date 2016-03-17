@@ -62,12 +62,14 @@
                         fileUrl: '',
                         isEdit: false
                     }).then(function (response) {
-                        ContentHome.info.data.content.entity.push({
-                            title: response.title,
-                            iconUrl: response.iconUrl,
-                            fileUrl: response.fileUrl,
-                            items: []
-                        });
+                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                            ContentHome.info.data.content.entity.push({
+                                title: response.title,
+                                iconUrl: response.iconUrl,
+                                fileUrl: response.fileUrl,
+                                items: []
+                            });
+                        }
                     }, function (err) {
 
                     });
@@ -126,9 +128,11 @@
                         fileUrl: nodeData.fileUrl
                         , isEdit: true
                     }).then(function (response) {
-                        nodeData.title = response.title;
-                        nodeData.iconUrl = response.iconUrl;
-                        nodeData.fileUrl = response.fileUrl;
+                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                            nodeData.title = response.title;
+                            nodeData.iconUrl = response.iconUrl;
+                            nodeData.fileUrl = response.fileUrl;
+                        }
                     }, function (err) {
 
                     });
