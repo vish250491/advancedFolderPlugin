@@ -76,7 +76,6 @@
                 };
 
                 ContentHome.addPluginInstancePopup = function () {
-                    var tempArr = [];
                     Buildfire.pluginInstance.showDialog({
                         prop1: ""
                     }, function (error, instances) {
@@ -84,16 +83,15 @@
                             instances.forEach(function (instance) {
                                 if (!ContentHome.pluginExist(instance.instanceId)) {
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    tempArr.push({
+                                    ContentHome.info.data.content.entity.push({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
                                         instanceId: instance.instanceId
                                     });
-                                    //if (!$scope.$$phase)$scope.$digest();
+                                    if (!$scope.$$phase)$scope.$digest();
                                 }
 
-                            });
-                            ContentHome.info.data.content.entity = ContentHome.info.data.content.entity.concat(tempArr);
+                            })
                         }
                     });
                 };
@@ -112,11 +110,22 @@
                     var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
-                            var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
-                            ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                            if(nodeData.hasOwnProperty('items')){
+                                nodeData.items.forEach(function(item){
+                                    var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
+                                    ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                                })
 
-                            //ContentHome.info.data.content.entity.splice(ind, 1);
-                            obj.remove();
+                                //ContentHome.info.data.content.entity.splice(ind, 1);
+                                obj.remove();
+                            }else{
+                                var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
+                                ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+
+                                //ContentHome.info.data.content.entity.splice(ind, 1);
+                                obj.remove();
+                            }
+
                         }
                     });
                 };
@@ -293,7 +302,7 @@
                 function isUnchanged(info) {
                     console.log('info------------------------------------------', info);
                     console.log('Master info------------------------------------------', masterInfo);
-                    return (angular.equals(info.data.design, masterInfo.data.design) && angular.equals(info.data.content, masterInfo.data.content));
+                    return angular.equals(info, masterInfo);
                 }
 
                 function updateMasterInfo(info) {
@@ -318,10 +327,9 @@
                 }
 
                 function updateInfoData(_info) {
-                   /* if (timerDelay) {
+                    if (timerDelay) {
                         clearTimeout(timerDelay);
-                    }*/
-                    $timeout.cancel(timerDelay);
+                    }
                     if (_info && _info.data && !isUnchanged(_info)) {
                         timerDelay = $timeout(function () {
                             saveData(_info);
