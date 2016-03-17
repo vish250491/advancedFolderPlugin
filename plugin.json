@@ -1,7 +1,7 @@
 {
   "author": "BuildFire",
-  "pluginName": "advancedFolderPlugin",
-  "pluginDescription": " advancedFolderPlugin Description",
+  "pluginName": "Advanced Folder",
+  "pluginDescription": "Add plugins and categorize them with containers.",
   "supportEmail": "support@buildfire.com",
   "pluginIcon": "icon.png",
   "control": {
