@@ -273,6 +273,11 @@
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
+                            obj.found=1;
+                        }else{
+                            if(!(obj.found && obj.found==1)){
+                                console.log('->>>>>>>>>>>>>>>>>>remove this object :',obj);
+                            }
                         }
                     }
                 }
