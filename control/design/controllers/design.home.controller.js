@@ -86,8 +86,9 @@
                 init();
 
                 function isUnchanged(info) {
-                    //console.log('info------------------------------------------',info);
-                    //console.log('Master info------------------------------------------',masterInfo);
+                    console.log('design data info------------------------------------------',info);
+                    console.log('design data Master info------------------------------------------',masterInfo);
+                    console.log('design data change',angular.equals(info, masterInfo));
                     return angular.equals(info, masterInfo);
                 }
 
@@ -96,15 +97,43 @@
                 }
 
                 function saveData(_info) {
+                    var updateSuccess = function (data) {
+                        updateMasterInfo(data);
+                        console.log('Data updated successfully---------------from content-----------', data);
+                    };
                     var saveSuccess = function (data) {
-                        //console.log('Data saved successfully--------------------------',data);
+                        advanceFolder.get().then(function (d) {
+                            console.log('d>>>>',d);
+                            updateMasterInfo(d);
+                            DesignHome.info = d;
+                        }, function () {
+
+                        });
+
+                        console.log('Data saved successfully---------------from content-----------', data);
                     };
                     var saveError = function (err) {
-                        /* console.error('Error while saving data------------------------------',err);*/
+                        console.error('Error while saving data------------------------------', err);
                     };
-                    if (_info && _info.data)
+                    if (_info.id)
+                        advanceFolder.update(_info.id,_info.data).then(updateSuccess, saveError);
+                    else
                         advanceFolder.save(_info.data).then(saveSuccess, saveError);
                 }
+
+            /*    function saveData(_info) {
+                    var saveSuccess = function (data) {
+                        updateMasterInfo(data);
+                        console.log('design data saved successfully--------------------------',data);
+                    };
+                    var saveError = function (err) {
+                         console.error('design data error ------------------------------',err);
+                    };
+                    if (_info.id)
+                        advanceFolder.update(_info.id,_info.data).then(saveSuccess, saveError);
+                    else
+                        advanceFolder.save(_info.data).then(saveSuccess, saveError);
+                }*/
 
                 function updateInfoData(_info) {
                     $timeout.cancel(timerDelay);

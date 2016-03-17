@@ -310,19 +310,27 @@
                 }
 
                 function saveData(_info) {
-
-                    /* if (!ContentHome.datastoreInitialized) {
-                     console.error("Error with datastore didn't get called");
-                     return;
-                     }*/
-
+                    var updateSuccess = function (data) {
+                        updateMasterInfo(data);
+                        console.log('Data updated successfully---------------from content-----------', data);
+                    };
                     var saveSuccess = function (data) {
+                        ContentHome.advancedFolderInfo.get().then(function (d) {
+                            console.log('d>>>>',d);
+                            updateMasterInfo(d);
+                            ContentHome.info = d;
+                        }, function () {
+
+                        });
+
                         console.log('Data saved successfully---------------from content-----------', data);
                     };
                     var saveError = function (err) {
                         console.error('Error while saving data------------------------------', err);
                     };
-                    if (_info && _info.data)
+                    if (_info.id)
+                        ContentHome.advancedFolderInfo.update(_info.id,_info.data).then(updateSuccess, saveError);
+                    else
                         ContentHome.advancedFolderInfo.save(_info.data).then(saveSuccess, saveError);
                 }
 
