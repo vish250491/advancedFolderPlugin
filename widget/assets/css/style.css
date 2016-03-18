@@ -322,3 +322,8 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .height-hundred-pc{
 	height:100% !important;
 }
+
+.layout5-fixes {
+	top:0px !important;
+	height:163px !important;
+}
