@@ -242,17 +242,20 @@
 
 
                 function dltObj(itemArr) {
-                    for (var i = 0; i < itemArr.length; i++) {
-                        if (itemArr[i].title === '') {
-                            itemArr.splice(i, 1);
-                        } else {
-                            if (itemArr[i].items) {
-                                dltObj(itemArr[i].items);
-                            }else{
-                               delete itemArr[i].found ;
+                    setTimeout(function(){
+                        for (var i = 0; i < itemArr.length; i++) {
+                            if (itemArr[i].title === '') {
+                                itemArr.splice(i, 1);
+                                $scope.$digest();
+                            } else {
+                                if (itemArr[i].items) {
+                                    dltObj(itemArr[i].items);
+                                }else{
+                                    delete itemArr[i].found ;
+                                }
                             }
                         }
-                    }
+                    },1000)
                 }
 
 
