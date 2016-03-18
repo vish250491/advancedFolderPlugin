@@ -246,6 +246,8 @@
                         } else {
                             if (itemArr[i].items) {
                                 dltObj(itemArr[i].items);
+                            }else{
+                               delete itemArr[i].found ;
                             }
                         }
                     }
