@@ -7,7 +7,7 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-                var latestData=[];
+                var deletePluginArray=[];
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
@@ -212,10 +212,9 @@
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
                                 pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
-                                   var newObj= my_filter(ContentHome.info.data.content.entity);
-                                    ContentHome.info.data.content.entity=newObj;
                                     $scope.$digest();
                                 })
+                                dltObj(ContentHome.info.data.content.entity);
                             }
                         }
 
@@ -240,36 +239,17 @@
                 });
 
 
-                function my_filter(json_array) {
-                    return $.map(json_array, function (element) {
-                        return (element.title == '') ? null : {
-                            title: element.title,
-                             iconUrl: element.iconUrl,
-                            instanceId: element.instanceId,
-                            pluginTypeName = element.pluginTypeName;
-                            items: (element.items == null) ? element.items : my_filter(element.items)
-                        };
-                    });
+                function dltObj(itemArr) {
+                    for (var i = 0; i < itemArr.length; i++) {
+                        if (itemArr[i].title === '') {
+                            itemArr.splice(i, 1);
+                        } else {
+                            if (itemArr[i].items) {
+                                dltObj(itemArr[i].items);
+                            }
+                        }
+                    }
                 }
-
-
-                /*//called with every property and it's value
-                                function process(key,value) {
-
-                                    console.log(key + " : "+value);
-                                }
-
-                                function traverse1(o,func) {
-                                    for (var i in o) {
-                                        func.apply(this,[i,o[i]]);
-                                        if (o[i] !== null && typeof(o[i])=="object") {
-                                            //going on step down in the object tree!!
-                                            traverse1(o[i],func);
-                                        }
-                                    }
-                                }
-
-                //that's all... no magic, no bloated framework*/
 
 
                 function traverse(x, level, pluginDetailData) {
@@ -308,14 +288,16 @@
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-
+                            obj.found=1;
                         } else {
-                           /* if (!(obj.found && obj.found == 1)) {
+                            if (!(obj.found && obj.found == 1)) {
                                 console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
+                                deletePluginArray.push(obj);
                                 obj.title = '';
                                 obj.iconUrl = '';
                                 obj.pluginTypeName = '';
-                                obj.found = 0;*/
+                                obj.found = 0;
+
                             }
                         }
                     }
