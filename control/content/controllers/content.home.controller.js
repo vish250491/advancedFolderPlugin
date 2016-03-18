@@ -62,7 +62,7 @@
                         fileUrl: '',
                         isEdit: false
                     }).then(function (response) {
-                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                        if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
                             ContentHome.info.data.content.entity.push({
                                 title: response.title,
                                 iconUrl: response.iconUrl,
@@ -110,15 +110,15 @@
                     var nodeData = obj.$modelValue;
                     Modals.removePopupModal().then(function (result) {
                         if (result) {
-                            if(nodeData.hasOwnProperty('items')){
-                                nodeData.items.forEach(function(item){
+                            if (nodeData.hasOwnProperty('items')) {
+                                nodeData.items.forEach(function (item) {
                                     var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
                                     ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
                                 })
 
                                 //ContentHome.info.data.content.entity.splice(ind, 1);
                                 obj.remove();
-                            }else{
+                            } else {
                                 var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
                                 ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
 
@@ -139,7 +139,7 @@
                         fileUrl: nodeData.fileUrl
                         , isEdit: true
                     }).then(function (response) {
-                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                        if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
                             nodeData.title = response.title;
                             nodeData.iconUrl = response.iconUrl;
                             nodeData.fileUrl = response.fileUrl;
@@ -273,10 +273,10 @@
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-                            obj.found=1;
-                        }else{
-                            if(!(obj.found && obj.found==1)){
-                                console.log('->>>>>>>>>>>>>>>>>>remove this object :',obj);
+                            obj.found = 1;
+                        } else {
+                            if (!(obj.found && obj.found == 1)) {
+                                console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
                             }
                         }
                     }
@@ -321,7 +321,7 @@
                     };
                     var saveSuccess = function (data) {
                         ContentHome.advancedFolderInfo.get().then(function (d) {
-                            console.log('d>>>>',d);
+                            console.log('d>>>>', d);
                             updateMasterInfo(d);
                             ContentHome.info = d;
                         }, function () {
@@ -334,15 +334,13 @@
                         console.error('Error while saving data------------------------------', err);
                     };
                     if (_info.id)
-                        ContentHome.advancedFolderInfo.update(_info.id,_info.data).then(updateSuccess, saveError);
+                        ContentHome.advancedFolderInfo.update(_info.id, _info.data).then(updateSuccess, saveError);
                     else
                         ContentHome.advancedFolderInfo.save(_info.data).then(saveSuccess, saveError);
                 }
 
                 function updateInfoData(_info) {
-                    if (timerDelay) {
-                        clearTimeout(timerDelay);
-                    }
+                    $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
                         timerDelay = $timeout(function () {
                             saveData(_info);
