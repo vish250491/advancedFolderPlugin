@@ -210,11 +210,13 @@
                             pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
-                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
+
+                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject,index) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
+                                    if(index==(pluginsDetailDataArray.length-1))
+                                        dltObj(ContentHome.info.data.content.entity);
+                                    $scope.$digest();
                                 })
-                                dltObj(ContentHome.info.data.content.entity);
-                                $scope.$digest();
                             }
                         }
 
