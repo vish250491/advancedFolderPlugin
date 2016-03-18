@@ -431,7 +431,7 @@
                 };
 
 
-                $rootScope.$on("CallParentMethod", function (d) {
+                $rootScope.$on("CallHomeMethod", function (event,d) {
                     if (d.data && d.method == 'navigateToPlugin')
                         WidgetHome.navigateToPlugin(d.data);
                 });
