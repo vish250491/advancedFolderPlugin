@@ -3,13 +3,13 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginDesign')
-        .controller('DesignHomeCtrl', ['$scope', '$timeout','COLLECTIONS','DB','DEFAULT_DATA','Buildfire',
-            function ($scope, $timeout,COLLECTIONS,DB,DEFAULT_DATA,Buildfire) {
+        .controller('DesignHomeCtrl', ['$scope', '$timeout', 'COLLECTIONS', 'DB', 'DEFAULT_DATA', 'Buildfire',
+            function ($scope, $timeout, COLLECTIONS, DB, DEFAULT_DATA, Buildfire) {
                 console.log('DesignHome Controller Loaded-------------------------------------');
                 var DesignHome = this;
                 var timerDelay;
-                DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"},{name: "list-layout5"},{name: "list-layout6"}];
-                var advanceFolder=new DB(COLLECTIONS.advancedFolderInfo);
+                DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}, {name: "list-layout5"}, {name: "list-layout6"}];
+                var advanceFolder = new DB(COLLECTIONS.advancedFolderInfo);
                 var masterInfo;
                 DesignHome.changeLayout = function (layoutName) {
                     if (layoutName && DesignHome.info.data.design) {
@@ -26,8 +26,8 @@
                             return console.err('Error:', error);
                         }
                         if (result.selectedFiles && result.selectedFiles.length) {
-                            DesignHome.info.data.design =  DesignHome.info.data.design || {};
-                            DesignHome.info.data.design.bgImage =  DesignHome.info.data.design.bgImage || {};
+                            DesignHome.info.data.design = DesignHome.info.data.design || {};
+                            DesignHome.info.data.design.bgImage = DesignHome.info.data.design.bgImage || {};
                             DesignHome.info.data.design.bgImage[imageName] = result.selectedFiles[0];
                             if (!$scope.$$phase && !$scope.$root.$$phase) {
                                 $scope.$apply();
@@ -40,8 +40,8 @@
                  * Delete the background and back to the default white background
                  * */
                 DesignHome.deleteBackground = function (imageName) {
-                    DesignHome.info.data.design =  DesignHome.info.data.design || {};
-                    DesignHome.info.data.design.bgImage =  DesignHome.info.data.design.bgImage || {};
+                    DesignHome.info.data.design = DesignHome.info.data.design || {};
+                    DesignHome.info.data.design.bgImage = DesignHome.info.data.design.bgImage || {};
                     DesignHome.info.data.design.bgImage[imageName] = undefined;
                     if (!$scope.$$phase && !$scope.$root.$$phase) {
                         $scope.$apply();
@@ -61,54 +61,82 @@
                 };
 
 
-                function init(){
-                    var success=function(data){
-                        if(data && data.data && (data.data.content || data.data.design)){
+                function init() {
+                    var success = function (data) {
+                        if (data && data.data && (data.data.content || data.data.design)) {
                             //console.log('Info got---------------');
                             updateMasterInfo(data);
-                            DesignHome.info=data;
-                            if(data.data.design && data.data.design.bgImage){
-                            //    background.loadbackground(DesignHome.info.data.design.bgImage);
+                            DesignHome.info = data;
+                            if (data.data.design && data.data.design.bgImage) {
+                                //    background.loadbackground(DesignHome.info.data.design.bgImage);
                             }
                         }
-                        else{
+                        else {
                             updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
-                            DesignHome.info=DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                            DesignHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                         }
-                        console.log('Got soundcloud info successfully-----------------',data.data);
+                        console.log('Got soundcloud info successfully-----------------', data.data);
                     };
-                    var error=function(err){
-                        console.error('Error while getting data from db-------',err);
+                    var error = function (err) {
+                        console.error('Error while getting data from db-------', err);
                     };
-                    advanceFolder.get().then(success,error);
+                    advanceFolder.get().then(success, error);
                 }
 
                 init();
 
                 function isUnchanged(info) {
-                    //console.log('info------------------------------------------',info);
-                    //console.log('Master info------------------------------------------',masterInfo);
-                    return angular.equals(info,masterInfo);
+                    console.log('design data info------------------------------------------',info);
+                    console.log('design data Master info------------------------------------------',masterInfo);
+                    console.log('design data change',angular.equals(info, masterInfo));
+                    return angular.equals(info, masterInfo);
                 }
 
                 function updateMasterInfo(info) {
                     masterInfo = angular.copy(info);
                 }
-                function saveData(_info){
-                    var saveSuccess=function(data){
-                        //console.log('Data saved successfully--------------------------',data);
+
+                function saveData(_info) {
+                    var updateSuccess = function (data) {
+                        updateMasterInfo(data);
+                        console.log('Data updated successfully---------------from content-----------', data);
                     };
-                    var saveError=function(err){
-                       /* console.error('Error while saving data------------------------------',err);*/
+                    var saveSuccess = function (data) {
+                        advanceFolder.get().then(function (d) {
+                            console.log('d>>>>',d);
+                            updateMasterInfo(d);
+                            DesignHome.info = d;
+                        }, function () {
+
+                        });
+
+                        console.log('Data saved successfully---------------from content-----------', data);
                     };
-                    if(_info && _info.data)
-                        advanceFolder.save(_info.data).then(saveSuccess,saveError);
+                    var saveError = function (err) {
+                        console.error('Error while saving data------------------------------', err);
+                    };
+                    if (_info.id)
+                        advanceFolder.update(_info.id,_info.data).then(updateSuccess, saveError);
+                    else
+                        advanceFolder.save(_info.data).then(saveSuccess, saveError);
                 }
 
-                function updateInfoData(_info){
-                    if (timerDelay) {
-                        clearTimeout(timerDelay);
-                    }
+            /*    function saveData(_info) {
+                    var saveSuccess = function (data) {
+                        updateMasterInfo(data);
+                        console.log('design data saved successfully--------------------------',data);
+                    };
+                    var saveError = function (err) {
+                         console.error('design data error ------------------------------',err);
+                    };
+                    if (_info.id)
+                        advanceFolder.update(_info.id,_info.data).then(saveSuccess, saveError);
+                    else
+                        advanceFolder.save(_info.data).then(saveSuccess, saveError);
+                }*/
+
+                function updateInfoData(_info) {
+                    $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
                         timerDelay = $timeout(function () {
                             saveData(_info);

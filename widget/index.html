@@ -37,6 +37,37 @@
 
     <script src="assets/js/sdk-3.0.0.js"></script>
 
+    <style>
+        #owl-demo .item img{
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function(){
+                $("#owl-demo").owlCarousel({
+
+                    navigation: false,
+                    dots: false,
+                    slideSpeed: 800,
+                    paginationSpeed: 800,
+                    singleItem: true,
+                    pagination: false,
+                    items: 1,
+                    itemsMobile: true,
+                    //lazyLoad:true,
+                    autoHeight: false,
+                    autoplay: true,
+                    autoplaySpeed:800,
+                    loop : true
+                });
+            },1000)
+
+        });
+    </script>
+
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +80,13 @@
         background-size:cover !important;
     }
 </style>
+<!--<style ng-if="WidgetHome.firstTime">
+    body.gridLayout {
+    background-color: {{}} !important;
+    background-image: url("assets/images/sample_bg.jpg") !important;
+    background-size:cover !important;
+    }
+</style>-->
 <style>
     .layout-6 .list-item-media {
         background-color: transparent !important;

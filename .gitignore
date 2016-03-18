@@ -38,3 +38,6 @@ node_modules
 # Optional .idea/ directory
 test/ftest
 
+# Dependency directory
+bower_components
+

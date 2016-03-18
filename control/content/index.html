@@ -25,13 +25,14 @@
     <script src="modals.js"></script>
     <script src="controllers/content.home.controller.js"></script>
     <script>
-        function clickMe(e){
+        function clickMe(e) {
             setTimeout(function () {
-                var top =  e.pageY;
+                var top = e.pageY;
                 $('.modal-dialog.modal-sm').offset({top: top, left: 0});
             }, 30);
 
-        };
+        }
+        ;
     </script>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
@@ -48,7 +49,8 @@
     <hr class="none">
     <div class="item clearfix row">
         <div class="main col-md-12 pull-right">
-            <textarea class="form-control" placeholder="WYSIWYG" ui-tinymce="ContentHome.bodyWYSIWYGOptions" ng-model="ContentHome.info.data.content.description"></textarea>
+            <textarea class="form-control" placeholder="WYSIWYG" ui-tinymce="ContentHome.bodyWYSIWYGOptions"
+                      ng-model="ContentHome.info.data.content.description"></textarea>
         </div>
     </div>
     <hr class="none">
@@ -58,27 +60,35 @@
         </div>
     </div>
     <hr class="none">
-	<div class="item clearfix row">
-		<div class="labels col-md-12 padding-right-zero pull-left row">
-			<div class="col-md-4 pull-left padding-right-zero">
-            	<a class="btn btn-primary stretch" ng-click="ContentHome.addPluginInstancePopup()">Add Plugin Instance</a>
-			</div>
-			<div class="col-md-4 pull-left padding-right-zero">
-				<a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)" onclick="clickMe(event)">New Container</a>
-			</div>
-		</div>
-	</div>
-	<div class="item clearfix margin-top-ten">
-		<a class="text-primary action-link" ng-click="expandAll()">Expand All</a>
-		<a class="text-primary action-link margin-left-fifteen" ng-click="collapseAll()">Collapse All</a>
-	</div>
+    <div class="item clearfix row">
+        <div class="labels col-md-12 padding-right-zero pull-left row">
+            <div class="col-md-4 pull-left padding-right-zero">
+                <a class="btn btn-primary stretch" ng-click="ContentHome.addPluginInstancePopup()">Add Plugin
+                    Instance</a>
+            </div>
+            <div class="col-md-4 pull-left padding-right-zero">
+                <a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)"
+                   onclick="clickMe(event)">New Container</a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="ContentHome.info.data.content.entity.length" class="item clearfix margin-top-ten">
+        <a class="text-primary action-link" ng-click="expandAll()">Expand All</a>
+        <a class="text-primary action-link margin-left-fifteen" ng-click="collapseAll()">Collapse All</a>
+    </div>
     <div class="item clearfix row">
         <div class="col-xs-12">
-            <div ui-tree="ContentHome.treeOptions" id="tree-root">
+            <div ng-show="ContentHome.info.data.content.entity.length" ui-tree="ContentHome.treeOptions" id="tree-root">
                 <ol ui-tree-nodes ng-model="ContentHome.info.data.content.entity">
-                    <li ng-repeat="node in ContentHome.info.data.content.entity" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                    <li ng-repeat="node in ContentHome.info.data.content.entity" ui-tree-node
+                        ng-include="'nodes_renderer.html'"></li>
                 </ol>
             </div>
+            <div style="margin-top: 10px" class="well no-plugins text-center" ng-hide="ContentHome.info.data.content.entity.length">
+
+                <h5>You have not added any plugins or containers to this folder yet.</h5>
+
+            </divsty>
         </div>
     </div>
 </div>
@@ -86,41 +96,56 @@
 <script type="text/ng-template" id="nodes_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content clearfix">
         <div ng-if="node.items">
-           <a class="btn btn-primary btn-xs pull-left" style="position:relative; top:10px;" ng-if="node.items && node.items.length > 0" data-nodrag ng-click="toggle(this)">
-				<span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
-			</a>
+            <a class="btn btn-primary btn-xs pull-left" style="position:relative; top:10px;"
+               ng-if="node.items && node.items.length > 0" data-nodrag ng-click="toggle(this)">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+            </a>
             <span class="icon icon-menu pull-left"></span>
-            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">
-				<img ng-src="{{node.fileUrl}}" ng-if="node.fileUrl">
-                <span class="main-icon text-primary icon6" ng-class="node.iconUrl ? node.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="!node.fileUrl"></span>
-			</div>
-			<div class="copy pull-left margin-left-ten">
-            	<p class="ellipsis text-primary margin-zero">
-					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
-				</p>
-				<p class="ellipsis margin-zero" data-nodrag><span>Container</span></p>
-			</div>
-			<div class="pull-right">
-            	<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
- 				<span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag ng-click="ContentHome.deleteEntity(this)"></span>
-			</div>
+
+            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)"
+                 onclick="clickMe(event)">
+                <img ng-src="{{node.fileUrl}}" ng-if="node.fileUrl">
+                <span class="main-icon text-primary icon6"
+                      ng-class="node.iconUrl ? node.iconUrl : 'glyphicon glyphicon-folder-open'"
+                      ng-if="!node.fileUrl"></span>
+            </div>
+            <div class="copy pull-left margin-left-ten">
+                <p class="ellipsis text-primary margin-zero">
+                    <span class="text-primary" style="cursor: pointer" data-nodrag=""
+                          ng-click="ContentHome.openFolderInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
+                </p>
+
+                <p class="ellipsis margin-zero" data-nodrag><span>Container</span></p>
+            </div>
+            <div class="pull-right">
+                <span class="text-primary edit-link margin-right-fifteen" data-nodrag=""
+                      ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
+                <span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag
+                      ng-click="ContentHome.deleteEntity(this)" onclick="clickMe(event)"></span>
+            </div>
         </div>
         <div class="nodrop" ng-if="!node.items" style="background-color: white;">
             <span class="icon icon-menu pull-left"></span>
-            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">
-				<img ng-src="{{node.iconUrl}}">
-			</div>
-			<div class="copy pull-left margin-left-ten">
-            	<p class="ellipsis text-primary margin-zero">
-					<span class="text-primary" style="cursor: pointer" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
-				</p>
-				<p class="ellipsis margin-zero" data-nodrag><span>{{node.pluginTypeName}}</span></p>
-			</div>
 
-           	<div class="pull-right">
-            	<!--<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>-->
- 				<span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag ng-click="ContentHome.deleteEntity(this)"></span>
-			</div>
+            <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)"
+                 onclick="clickMe(event)">
+                <img ng-src="{{node.iconUrl}}">
+            </div>
+            <div class="copy pull-left margin-left-ten">
+                <p class="ellipsis text-primary margin-zero">
+                    <span class="text-primary" style="cursor: pointer" data-nodrag=""
+                          ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
+                </p>
+
+                <p class="ellipsis margin-zero" data-nodrag><span>{{node.pluginTypeName}}</span></p>
+            </div>
+
+            <div class="pull-right">
+                <!--<span class="text-primary edit-link margin-right-fifteen" data-nodrag="" ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>-->
+                <span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag
+                      ng-click="ContentHome.deleteEntity(this)" onclick="clickMe(event)"></span>
+            </div>
         </div>
     </div>
     <ol ng-if="node.items" ui-tree-nodes="" ng-model="node.items" ng-class="{hidden: collapsed}">

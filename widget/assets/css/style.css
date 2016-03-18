@@ -178,7 +178,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 /* Info Bar */
 .holder .info-bar{
 	position:absolute;
-	bottom:0;
+	bottom:-1px;
 	left:0;
 	width:100%;
 	padding:10px 0;
@@ -321,4 +321,9 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 
 .height-hundred-pc{
 	height:100% !important;
+}
+
+.layout5-fixes {
+	top:0px !important;
+	height:163px !important;
 }
