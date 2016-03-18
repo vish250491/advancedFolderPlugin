@@ -46,13 +46,8 @@
                 };
 
                 WidgetHome.navigateToPlugin = function (plugin) {
-
-                    buildfire.navigation.navigateTo({
-                        pluginId: plugin.pluginTypeId,
-                        instanceId: plugin.instanceId,
-                        title: plugin.title,
-                        folderName: plugin.pluginType.folderName
-                    });
+                    $rootScope.$emit("CallHomeMethod", {method:'navigateToPlugin', data:plugin});
                 };
+
             }]);
 })(window.angular);

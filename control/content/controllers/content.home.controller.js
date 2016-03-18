@@ -10,7 +10,7 @@
                 var latestData=[];
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
-                ContentHome.deletableItems=[];
+
 
                 var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 //Default initialise
@@ -262,7 +262,6 @@
                     console.log(level + "<object>");
 
                     if (obj.hasOwnProperty('items')) {
-                        latestData.push(obj);
                         if (obj.items.length) {
                             //   console.log(level + "  " + key + ":");
                             traverse(obj['items'], level + "    ", pluginDetailData);
@@ -275,11 +274,11 @@
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-                            obj.found=1;
-                        }else{
-                            if(!(obj.found && obj.found==1)){
-                                //deletableItems.push(obj);
-                           }
+                            obj.found = 1;
+                        } else {
+                            if (!(obj.found && obj.found == 1)) {
+                                console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
+                            }
                         }
                     }
                 }
@@ -323,7 +322,7 @@
                     };
                     var saveSuccess = function (data) {
                         ContentHome.advancedFolderInfo.get().then(function (d) {
-                            console.log('d>>>>',d);
+                            console.log('d>>>>', d);
                             updateMasterInfo(d);
                             ContentHome.info = d;
                         }, function () {
@@ -336,15 +335,13 @@
                         console.error('Error while saving data------------------------------', err);
                     };
                     if (_info.id)
-                        ContentHome.advancedFolderInfo.update(_info.id,_info.data).then(updateSuccess, saveError);
+                        ContentHome.advancedFolderInfo.update(_info.id, _info.data).then(updateSuccess, saveError);
                     else
                         ContentHome.advancedFolderInfo.save(_info.data).then(saveSuccess, saveError);
                 }
 
                 function updateInfoData(_info) {
-                    if (timerDelay) {
-                        clearTimeout(timerDelay);
-                    }
+                    $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
                         timerDelay = $timeout(function () {
                             saveData(_info);

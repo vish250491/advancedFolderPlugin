@@ -14,30 +14,31 @@
                 var deviceHeight = window.innerHeight;
                 var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
-                WidgetHome.firstTime=true;
+                WidgetHome.firstTime = true;
 
                 WidgetHome.view = null;
                 //Default initialise
                 WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
-                WidgetHome.initData=[
-                    {   title:'Restau',
-                        iconUrl:'glyphicon glyphicon-glass',
-                        items:[]
+                WidgetHome.initData = [
+                    {
+                        title: 'Restau',
+                        iconUrl: 'glyphicon glyphicon-glass',
+                        items: []
                     },
                     {
-                        title:'Music',
-                        iconUrl:'glyphicon glyphicon-music',
-                        items:[]
+                        title: 'Music',
+                        iconUrl: 'glyphicon glyphicon-music',
+                        items: []
                     },
                     {
-                        title:'Search',
-                        iconUrl:'glyphicon glyphicon-search',
-                        items:[]
+                        title: 'Search',
+                        iconUrl: 'glyphicon glyphicon-search',
+                        items: []
                     },
                     {
-                        title:'Favourite',
-                        iconUrl:'glyphicon glyphicon-star',
-                        items:[]
+                        title: 'Favourite',
+                        iconUrl: 'glyphicon glyphicon-star',
+                        items: []
                     }
                 ]
 
@@ -282,7 +283,6 @@
                 }
 
 
-
                 /**
                  * when a refresh is triggered get reload data
                  */
@@ -294,7 +294,7 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-                    WidgetHome.firstTime=false;
+                    WidgetHome.firstTime = false;
                     if (event.data) {
                         WidgetHome.info = event;
                         ViewStack.popAllViews();
@@ -312,7 +312,7 @@
 
 
                 function dataLoadedHandler(result) {
-                    console.log('success in dynamic store fetching',result);
+                    console.log('success in dynamic store fetching', result);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
@@ -325,12 +325,9 @@
                                 traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
                             })
                         }
-
-
-                        // WidgetHome.info.data.content.entity = result.data._buildfire.plugins.result;
                     }
                     $scope.$digest();
-                    console.log('success in dynamic store fetching post',WidgetHome.info);
+                    console.log('success in dynamic store fetching post', WidgetHome.info);
                 }
 
                 function traverse(x, level, pluginDetailData) {
@@ -413,15 +410,14 @@
                             for (var i = 0; i < folder.items.length; i++) {
                                 if (!folder.items[i].items) {
 
-                                    for(var j = 0; j< WidgetHome.info.data._buildfire.plugins.result.length;j++){
-                                        if(folder.items[i].instanceId === WidgetHome.info.data._buildfire.plugins.result[j].data.instanceId)
-                                        {
+                                    for (var j = 0; j < WidgetHome.info.data._buildfire.plugins.result.length; j++) {
+                                        if (folder.items[i].instanceId === WidgetHome.info.data._buildfire.plugins.result[j].data.instanceId) {
                                             folder.items[i].data = WidgetHome.info.data._buildfire.plugins.result[j].data;
                                         }
                                     }
                                 }
                             }
-console.log('folder>>',folder);
+                            console.log('folder>>', folder);
                             WidgetHome.goToFolder(folder);
                             $scope.$apply();
                         }
@@ -433,6 +429,12 @@ console.log('folder>>',folder);
                     }
 
                 };
+
+                $rootScope.$on("CallHomeMethod", function (event,d) {
+                    if (d.data && d.method == 'navigateToPlugin')
+                        WidgetHome.navigateToPlugin(d.data);
+                });
+
 
             }]);
 })(window.angular);
