@@ -212,9 +212,9 @@
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
                                 pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
-                                    $scope.$digest();
                                 })
                                 dltObj(ContentHome.info.data.content.entity);
+                                $scope.$digest();
                             }
                         }
 
