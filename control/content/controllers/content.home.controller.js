@@ -7,7 +7,7 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-                var latestData=[];
+
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
@@ -269,7 +269,6 @@
                     }
                     else {
                         if (obj.instanceId == pluginDetailData.instanceId) {
-                            latestData[latestData.length-1].items.push(obj);
                             console.log('??pluginDetailData', pluginDetailData);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
@@ -278,6 +277,10 @@
                         } else {
                             if (!(obj.found && obj.found == 1)) {
                                 console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
+                                obj.title = '';
+                                obj.iconUrl = '';
+                                obj.pluginTypeName = '';
+                                obj.found = 0;
                             }
                         }
                     }
