@@ -213,6 +213,7 @@
                                 pluginsDetailDataArray.forEach(function (pluginDetailDataObject) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
                                    var newObj= my_filter(ContentHome.info.data.content.entity);
+                                    ContentHome.info.data.content.entity=newObj;
                                     $scope.$digest();
                                 })
                             }
@@ -243,6 +244,9 @@
                     return $.map(json_array, function (element) {
                         return (element.title == '') ? null : {
                             title: element.title,
+                             iconUrl: element.iconUrl,
+                            instanceId: element.instanceId,
+                            pluginTypeName = element.pluginTypeName;
                             items: (element.items == null) ? element.items : my_filter(element.items)
                         };
                     });
@@ -304,14 +308,14 @@
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-                            obj.found = 1;
+
                         } else {
-                            if (!(obj.found && obj.found == 1)) {
+                           /* if (!(obj.found && obj.found == 1)) {
                                 console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
                                 obj.title = '';
                                 obj.iconUrl = '';
                                 obj.pluginTypeName = '';
-                                obj.found = 0;
+                                obj.found = 0;*/
                             }
                         }
                     }
