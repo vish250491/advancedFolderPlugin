@@ -86,7 +86,8 @@
                                     ContentHome.info.data.content.entity.push({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
-                                        instanceId: instance.instanceId
+                                        instanceId: instance.instanceId,
+                                        pluginTypeName : instance.pluginTypeName
                                     });
                                     if (!$scope.$$phase)$scope.$digest();
                                 }else{
@@ -114,7 +115,8 @@
                                     ContentHome.info.data.content.entity.push({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
-                                        instanceId: instance.instanceId
+                                        instanceId: instance.instanceId,
+                                        pluginTypeName : instance.pluginTypeName
                                     });
                                     if (!$scope.$$phase)$scope.$digest();
 
