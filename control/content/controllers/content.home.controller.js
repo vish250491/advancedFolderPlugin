@@ -103,6 +103,27 @@
                     });
                 };
 
+                ContentHome.createNewPlugin=function(){
+                    Buildfire.pluginInstance.showCreatePluginInstancesDialog({
+                        prop1:""
+                    },function(error,instances){
+                        if (instances) {
+                            instances.forEach(function (instance) {
+
+                                    ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                    ContentHome.info.data.content.entity.push({
+                                        title: instance.title,
+                                        iconUrl: instance.iconUrl,
+                                        instanceId: instance.instanceId
+                                    });
+                                    if (!$scope.$$phase)$scope.$digest();
+
+                            })
+                        }
+                    });
+
+                }
+
                 ContentHome.pluginExist = function (instanceId) {
                     var pluginFound = false;
                     ContentHome.info.data._buildfire.plugins.data.forEach(function (pluginId) {
