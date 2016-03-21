@@ -10,7 +10,7 @@
                 var deletePluginArray=[];
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
-
+                $scope.pluginExist=0;
 
                 var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 //Default initialise
@@ -89,6 +89,13 @@
                                         instanceId: instance.instanceId
                                     });
                                     if (!$scope.$$phase)$scope.$digest();
+                                }else{
+                                    $scope.pluginExist=1;
+                                    if (!$scope.$$phase)$scope.$digest();
+                                  setTimeout(function(){
+                                      $scope.pluginExist=0;
+                                      if (!$scope.$$phase)$scope.$digest();
+                                    },2000)
                                 }
 
                             })
