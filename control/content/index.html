@@ -34,6 +34,7 @@
         }
         ;
     </script>
+
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
 </head>
@@ -58,6 +59,13 @@
         <div class="labels col-md-3 padding-right-zero pull-left">
             <span>Plugins</span>
         </div>
+        <div class="item clearfix row" >
+            <div class="main pull-right col-md-8" ng-if="pluginExist">
+                <div class="alert alert-danger alert-sm text-center">
+                    Plugin instance already exist.
+            </div>
+            </div>
+        </div>
     </div>
     <hr class="none">
     <div class="item clearfix row">
@@ -67,8 +75,10 @@
                     Instance</a>
             </div>
             <div class="col-md-4 pull-left padding-right-zero">
-                <a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)"
-                   onclick="clickMe(event)">New Container</a>
+                <a class="btn btn-success stretch" ng-click="ContentHome.addNewFolderToRootPopup(this)">New Container</a>
+            </div>
+            <div class="col-md-4 pull-left padding-right-zero">
+                <a class="btn btn-success stretch" ng-click="ContentHome.createNewPlugin(this)">Create New Plugin</a>
             </div>
         </div>
     </div>
@@ -120,7 +130,7 @@
             </div>
             <div class="pull-right">
                 <span class="text-primary edit-link margin-right-fifteen" data-nodrag=""
-                      ng-click="ContentHome.editFolder(this)" onclick="clickMe(event)">Edit</span>
+                      ng-click="ContentHome.editFolder(this)">Edit</span>
                 <span class="btn-icon btn-delete-icon btn-danger transition-third delete" data-nodrag
                       ng-click="ContentHome.deleteEntity(this)" onclick="clickMe(event)"></span>
             </div>

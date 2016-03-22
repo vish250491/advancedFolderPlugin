@@ -90,7 +90,7 @@
                     }
                     else {
                         img = "";
-                        element.attr("style", 'background-color:white !important');
+                        element.attr("style", '');
                         element.css({
                             'background-size': 'cover'
                         });
