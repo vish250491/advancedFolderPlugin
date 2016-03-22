@@ -14,6 +14,7 @@
                 var deviceHeight = window.innerHeight;
                 var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
+                var oldCarousalArray=[];
                 WidgetHome.firstTime = true;
 
                 WidgetHome.view = null;
@@ -87,6 +88,7 @@
 
                             $timeout(function () {
                                 WidgetHome.initCarousel();
+                                oldCarousalArray=WidgetHome.info.data.content.images;
                             }, 1500);
                         }
                         else {
@@ -301,9 +303,10 @@
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
                         setBackgroundImage();
-                        $timeout(function () {
+                        var newCarousalArray=WidgetHome.info.data.content.images;
+                        if(!angular.equals(oldCarousalArray,newCarousalArray))
                             WidgetHome.initCarousel();
-                        }, 500);
+
                         $scope.$apply();
                     }
                     loadData();
