@@ -15,6 +15,7 @@
                 var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
                 var oldCarousalArray=[];
+                var oldLayoutName=null;
                 WidgetHome.firstTime = true;
 
                 WidgetHome.view = null;
@@ -83,9 +84,10 @@
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
                             loadData();
-                            if (WidgetHome.info.data && WidgetHome.info.data.design)
+                            if (WidgetHome.info.data && WidgetHome.info.data.design) {
                                 setBackgroundImage();
-
+                                oldLayoutName=WidgetHome.info.data.design.itemListLayout;
+                            }
                             $timeout(function () {
                                 WidgetHome.initCarousel();
                                 oldCarousalArray=WidgetHome.info.data.content.images;
@@ -304,8 +306,16 @@
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
                         setBackgroundImage();
                         var newCarousalArray=WidgetHome.info.data.content.images;
-                        if(!angular.equals(oldCarousalArray,newCarousalArray))
-                            WidgetHome.initCarousel();
+                        var newLayoutName=WidgetHome.info.data.design.itemListLayout;
+                     //   if(WidgetHome.info.data.design.itemListLayout)
+                        if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
+                           setTimeout(function(){
+                               WidgetHome.initCarousel();
+                               oldCarousalArray=newCarousalArray;
+                               oldLayoutName=newLayoutName;
+                           },500);
+                        }
+
 
                         $scope.$apply();
                     }
