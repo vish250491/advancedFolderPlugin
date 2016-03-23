@@ -63,7 +63,7 @@
                         isEdit: false
                     }).then(function (response) {
                         if(!(response.title === null || response.title.match(/^ *$/) !== null)){
-                            ContentHome.info.data.content.entity.push({
+                            ContentHome.info.data.content.entity.unshift({
                                 title: response.title,
                                 iconUrl: response.iconUrl,
                                 fileUrl: response.fileUrl,
@@ -83,7 +83,7 @@
                             instances.forEach(function (instance) {
                                 if (!ContentHome.pluginExist(instance.instanceId)) {
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    ContentHome.info.data.content.entity.push({
+                                    ContentHome.info.data.content.entity.unshift({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
                                         instanceId: instance.instanceId,
@@ -112,7 +112,7 @@
                             instances.forEach(function (instance) {
 
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    ContentHome.info.data.content.entity.push({
+                                    ContentHome.info.data.content.entity.unshift({
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
                                         instanceId: instance.instanceId,
