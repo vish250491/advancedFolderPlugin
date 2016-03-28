@@ -1,5 +1,6 @@
 <div class="header clearfix border-bottom-grey">
-    <h4 class="margin-zero">Delete Item</h4>
+    <h4 ng-show="!isFolder" class="margin-zero">Delete Item</h4>
+    <h4 ng-show="isFolder" class="margin-zero">Delete Container</h4>
     <span class="icon icon-cross2 close-modal" ng-click="RemovePopup.cancel('Close Modal');"></span>
 </div>
 <div class="padded clearfix">
