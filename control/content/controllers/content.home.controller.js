@@ -136,9 +136,9 @@
                     return pluginFound;
                 }
 
-                ContentHome.deleteEntity = function (obj) {
+                ContentHome.deleteEntity = function (obj,isFolder) {
                     var nodeData = obj.$modelValue;
-                    Modals.removePopupModal().then(function (result) {
+                    Modals.removePopupModal(isFolder).then(function (result) {
                         if (result) {
                             if(nodeData.hasOwnProperty('items')){
                                 nodeData.items.forEach(function(item){

@@ -28,14 +28,17 @@
                     });
                     return addFolderDeferred.promise;
                 },
-                removePopupModal: function () {
+                removePopupModal: function (isFolder) {
                     var removePopupDeferred = $q.defer();
                     var removePopupModal = $modal
                         .open({
                             templateUrl: 'rm-item-modal.html',
                             controller: 'RemovePopupCtrl',
                             controllerAs: 'RemovePopup',
-                            size: 'sm'
+                            size: 'sm',
+                            resolve:{
+                                isFolder:function(){return isFolder;}
+                            }
                         });
                     removePopupModal.result.then(function (imageInfo) {
                         removePopupDeferred.resolve(imageInfo);
@@ -92,8 +95,10 @@
                 $scope.folderFileUrl='';
             }
         }])
-        .controller('RemovePopupCtrl', ['$scope', '$modalInstance',  function ($scope, $modalInstance) {
+        .controller('RemovePopupCtrl', ['$scope', '$modalInstance','isFolder',  function ($scope, $modalInstance,isFolder) {
             var RemovePopup = this;
+
+            $scope.isFolder = isFolder;
 
             RemovePopup.ok = function () {
                 $modalInstance.close('yes');
