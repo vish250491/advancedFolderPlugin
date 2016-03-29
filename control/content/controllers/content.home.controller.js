@@ -231,9 +231,9 @@
 updateMasterInfo(result);
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
-                        if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                     /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
                             ContentHome.editor.loadItems(ContentHome.info.data.content.images);
-                        }
+                        }*/
 
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
                             var pluginsDetailDataArray = [];
@@ -365,6 +365,7 @@ updateMasterInfo(result);
                 function isUnchanged(info) {
                     console.log('info------------------------------------------', info);
                     console.log('Master info------------------------------------------', masterInfo);
+                    console.log('info------------------------------------------ change', angular.equals(info, masterInfo));
                     return angular.equals(info, masterInfo);
                 }
 
