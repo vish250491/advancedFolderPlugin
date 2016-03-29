@@ -17,6 +17,7 @@
                 var oldCarousalArray=[];
                 var oldLayoutName=null;
                 WidgetHome.firstTime = true;
+                $scope.layout12TotalItem=0;
 
                 WidgetHome.view = null;
                 //Default initialise
@@ -151,6 +152,21 @@
                 }
 
 
+                function preparePluginsData(plugins) {
+
+                        var matrix = [], i, k;
+                        var matrix = []
+                        for (i = 0, k = -1; i < plugins.length; i++) {
+                            if (i % 8 === 0) {
+                                k++;
+                                matrix[k] = [];
+                            }
+                            matrix[k].push(plugins[i]);
+                        }
+                        $scope.layout12Plugins = matrix;
+
+                }
+
                 WidgetHome.goToFolder = function (obj) {
 
                     console.log('selected folder', obj);
@@ -260,8 +276,9 @@
                     w = w / r;
                     h = h / r;
                     if (w < h) {
-                        w = h;
+                        var t = h;
                         h = w;
+                        w = t;
                     }
 
                     return w / h;
@@ -308,6 +325,7 @@
                         var newCarousalArray=WidgetHome.info.data.content.images;
                         var newLayoutName=WidgetHome.info.data.design.itemListLayout;
                      //   if(WidgetHome.info.data.design.itemListLayout)
+
                         if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
                            setTimeout(function(){
                                WidgetHome.initCarousel();
@@ -336,6 +354,14 @@
                         if (WidgetHome.info.data.content.entity.length) {
                             result.data._buildfire.plugins.result.forEach(function (pluginDetailData) {
                                 traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
+                                if(WidgetHome.info.data.design.itemListLayout=="list-layout12"){
+                                    var currentCount =Number(WidgetHome.info.data.content.entity.length);
+                                  ///  preparePluginsData(WidgetHome.info.data.content.entity);
+                                    if(currentCount){
+                                        $scope.layout12TotalItem=currentCount;
+                                    }
+                                }
+
                             })
                         }
                     }
@@ -448,6 +474,20 @@
                         WidgetHome.navigateToPlugin(d.data);
                 });
 
+                $scope.$on('LastRepeaterElement', function(){
+                    // $('.plugin-slider.text-center.owl-carousel').trigger("destroy.owl.carousel");
+                    $scope.layout12Height= $('.plugin-slider .plugin-slide').first().height()+17+'px';
+                    var slides = $('.plugin-slider .plugin-slide').length;
+                    $scope.layout12TotalItem=$scope.layout12TotalItem+1;
+                    // Slider needs at least 2 slides or you'll get an error.
+                    if(slides > 1){
+                        $('.plugin-slider').owlCarousel({
+                            loop:false,
+                            nav:false,
+                            items:1
+                        });
+                    }
+                });
 
             }]);
 })(window.angular);
