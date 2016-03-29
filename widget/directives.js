@@ -77,6 +77,50 @@
                     }
                 };
             }])
+        .directive('imageCarousel', function ($timeout) {
+            return {
+                restrict: 'A',
+                scope: {},
+                link: function (scope, elem, attrs) {
+                    scope.carousel = null;
+                    scope.timeout = null;
+                    function initCarousel() {
+                        if (scope.timeout) {
+                            $timeout.cancel(scope.timeout);
+                        }
+                        if (scope.carousel) {
+                            scope.carousel.trigger("destroy.owl.carousel");
+                            $(elem).find(".owl-stage-outer").remove();
+                        }
+                        scope.carousel = null;
+                        scope.timeout = $timeout(function () {
+                            var obj = {
+                                loop:false,
+                                nav:false,
+                                items:1
+                            };
+                            scope.carousel = $(elem).owlCarousel(obj);
+                        }, 100);
+                    }
+
+                    initCarousel();
+                    attrs.$observe("imageCarousel", function (newVal, oldVal) {
+                        if (newVal) {
+                            if (scope.carousel) {
+                                initCarousel();
+                            }
+                        }
+                    });
+                }
+            }
+        })
+        .directive('emitLastRepeaterElement', function() {
+            return function(scope) {
+                if (scope.$last){
+                    scope.$emit('LastRepeaterElement');
+                }
+            };
+        })
         .directive('backImg', ["$filter", "$rootScope", "$window" , function ($filter, $rootScope, $window) {
             return function (scope, element, attrs) {
                 attrs.$observe('backImg', function (value) {

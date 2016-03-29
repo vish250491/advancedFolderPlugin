@@ -21,7 +21,7 @@
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                     <div class="item-block clearfix col-md-4 col-sm-6 col-xs-6 pull-left">
                         <div class="text-center">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.iconUrl, {width: 400, height: 400}) }}">
+
                             <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/400x400' , {width: 400, height: 400}) }}">
                             <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
                             <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
@@ -33,8 +33,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
