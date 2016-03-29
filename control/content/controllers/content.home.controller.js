@@ -228,7 +228,7 @@
 
                     if (result && result.data && !angular.equals({}, result.data)) {
                         console.log('>>pluginDetailData<<', result);
-
+updateMasterInfo(result);
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
                         if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
