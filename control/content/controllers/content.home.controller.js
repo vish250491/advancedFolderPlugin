@@ -365,8 +365,9 @@ updateMasterInfo(result);
                 function isUnchanged(info) {
                     console.log('info------------------------------------------', info);
                     console.log('Master info------------------------------------------', masterInfo);
-                    console.log('info------------------------------------------ change', angular.equals(info, masterInfo));
-                    return angular.equals(info, masterInfo);
+                    console.log('info------------------------------------------ change', (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design)));
+                    //return angular.equals(info, masterInfo);
+                    return (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design));
                 }
 
                 function updateMasterInfo(info) {
