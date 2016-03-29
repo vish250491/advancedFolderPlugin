@@ -8,7 +8,7 @@
                 console.log('DesignHome Controller Loaded-------------------------------------');
                 var DesignHome = this;
                 var timerDelay;
-                DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}, {name: "list-layout5"}, {name: "list-layout6"}];
+                DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}, {name: "list-layout5"}, {name: "list-layout6"}, {name: "list-layout7"}, {name: "list-layout8"}, {name: "list-layout9"}, {name: "list-layout10"}, {name: "list-layout11"}, {name: "list-layout12"}];
                 var advanceFolder = new DB(COLLECTIONS.advancedFolderInfo);
                 var masterInfo;
                 DesignHome.changeLayout = function (layoutName) {
