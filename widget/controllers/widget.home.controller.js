@@ -260,8 +260,9 @@
                     w = w / r;
                     h = h / r;
                     if (w < h) {
-                        w = h;
+                        var t = h;
                         h = w;
+                        w = t;
                     }
 
                     return w / h;
