@@ -7,15 +7,15 @@
             function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
-                var deletePluginArray=[];
+                var deletePluginArray = [];
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
-                $scope.pluginExist=0;
+                $scope.pluginExist = 0;
 
                 var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 //Default initialise
                 ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
-
+                ContentHome.restrictUpdate = false;
 
                 var timerDelay;
                 ContentHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
@@ -62,7 +62,7 @@
                         fileUrl: '',
                         isEdit: false
                     }).then(function (response) {
-                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                        if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
                             ContentHome.info.data.content.entity.unshift({
                                 title: response.title,
                                 iconUrl: response.iconUrl,
@@ -87,16 +87,16 @@
                                         title: instance.title,
                                         iconUrl: instance.iconUrl,
                                         instanceId: instance.instanceId,
-                                        pluginTypeName : instance.pluginTypeName
+                                        pluginTypeName: instance.pluginTypeName
                                     });
                                     if (!$scope.$$phase)$scope.$digest();
-                                }else{
-                                    $scope.pluginExist=1;
+                                } else {
+                                    $scope.pluginExist = 1;
                                     if (!$scope.$$phase)$scope.$digest();
-                                  setTimeout(function(){
-                                      $scope.pluginExist=0;
-                                      if (!$scope.$$phase)$scope.$digest();
-                                    },2000)
+                                    setTimeout(function () {
+                                        $scope.pluginExist = 0;
+                                        if (!$scope.$$phase)$scope.$digest();
+                                    }, 2000)
                                 }
 
                             })
@@ -104,21 +104,21 @@
                     });
                 };
 
-                ContentHome.createNewPlugin=function(){
+                ContentHome.createNewPlugin = function () {
                     Buildfire.pluginInstance.showCreatePluginInstancesDialog({
-                        prop1:""
-                    },function(error,instances){
+                        prop1: ""
+                    }, function (error, instances) {
                         if (instances) {
                             instances.forEach(function (instance) {
 
-                                    ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
-                                    ContentHome.info.data.content.entity.unshift({
-                                        title: instance.title,
-                                        iconUrl: instance.iconUrl,
-                                        instanceId: instance.instanceId,
-                                        pluginTypeName : instance.pluginTypeName
-                                    });
-                                    if (!$scope.$$phase)$scope.$digest();
+                                ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
+                                ContentHome.info.data.content.entity.unshift({
+                                    title: instance.title,
+                                    iconUrl: instance.iconUrl,
+                                    instanceId: instance.instanceId,
+                                    pluginTypeName: instance.pluginTypeName
+                                });
+                                if (!$scope.$$phase)$scope.$digest();
 
                             })
                         }
@@ -136,19 +136,19 @@
                     return pluginFound;
                 }
 
-                ContentHome.deleteEntity = function (obj,isFolder) {
+                ContentHome.deleteEntity = function (obj, isFolder) {
                     var nodeData = obj.$modelValue;
                     Modals.removePopupModal(isFolder).then(function (result) {
                         if (result) {
-                            if(nodeData.hasOwnProperty('items')){
-                                nodeData.items.forEach(function(item){
+                            if (nodeData.hasOwnProperty('items')) {
+                                nodeData.items.forEach(function (item) {
                                     var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
                                     ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
                                 })
 
                                 //ContentHome.info.data.content.entity.splice(ind, 1);
                                 obj.remove();
-                            }else{
+                            } else {
                                 var index = ContentHome.info.data._buildfire.plugins.data.indexOf(nodeData.instanceId);
                                 ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
 
@@ -169,7 +169,7 @@
                         fileUrl: nodeData.fileUrl
                         , isEdit: true
                     }).then(function (response) {
-                        if(!(response.title === null || response.title.match(/^ *$/) !== null)){
+                        if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
                             nodeData.title = response.title;
                             nodeData.iconUrl = response.iconUrl;
                             nodeData.fileUrl = response.fileUrl;
@@ -228,27 +228,28 @@
 
                     if (result && result.data && !angular.equals({}, result.data)) {
                         console.log('>>pluginDetailData<<', result);
-updateMasterInfo(result);
+                        //updateMasterInfo(result);
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
-                     /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
-                            ContentHome.editor.loadItems(ContentHome.info.data.content.images);
-                        }*/
-
+                        /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                         ContentHome.editor.loadItems(ContentHome.info.data.content.images);
+                         }*/
+                        ContentHome.restrictUpdate = true;
                         if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
                             var pluginsDetailDataArray = [];
                             pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
                             //to do to display on content side icon and title of plugin
                             if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
 
-                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject,index) {
+                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject, index) {
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
-                                    if(index==(pluginsDetailDataArray.length-1))
+                                    if (index == (pluginsDetailDataArray.length - 1))
                                         dltObj(ContentHome.info.data.content.entity);
                                     $scope.$digest();
                                 })
                             }
                         }
+                        ContentHome.restrictUpdate = false;
 
                         if (!ContentHome.info.data._buildfire) {
                             ContentHome.info.data._buildfire = {
@@ -272,7 +273,7 @@ updateMasterInfo(result);
 
 
                 function dltObj(itemArr) {
-                    setTimeout(function(){
+                    setTimeout(function () {
                         for (var i = 0; i < itemArr.length; i++) {
                             if (itemArr[i].title === '') {
                                 itemArr.splice(i, 1);
@@ -280,12 +281,12 @@ updateMasterInfo(result);
                             } else {
                                 if (itemArr[i].items) {
                                     dltObj(itemArr[i].items);
-                                }else{
-                                    delete itemArr[i].found ;
+                                } else {
+                                    delete itemArr[i].found;
                                 }
                             }
                         }
-                    },1000)
+                    }, 1000)
                 }
 
 
@@ -325,7 +326,7 @@ updateMasterInfo(result);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-                            obj.found=1;
+                            obj.found = 1;
                         } else {
                             if (!(obj.found && obj.found == 1)) {
                                 console.log('->>>>>>>>>>>>>>>>>>remove this object :', obj);
@@ -363,11 +364,13 @@ updateMasterInfo(result);
                 init();
 
                 function isUnchanged(info) {
+                    if (ContentHome.restrictUpdate)
+                        return true;
                     console.log('info------------------------------------------', info);
                     console.log('Master info------------------------------------------', masterInfo);
-                    console.log('info------------------------------------------ change', (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design)));
-                    //return angular.equals(info, masterInfo);
-                    return (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design));
+                    //console.log('info------------------------------------------ change', (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design)));
+                    return angular.equals(info, masterInfo);
+                    //return (angular.equals(info.data.content, masterInfo.data.content) && angular.equals(info.data.design, masterInfo.data.design));
                 }
 
                 function updateMasterInfo(info) {
