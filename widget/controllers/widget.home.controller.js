@@ -324,7 +324,6 @@
                         setBackgroundImage();
                         var newCarousalArray=WidgetHome.info.data.content.images;
                         var newLayoutName=WidgetHome.info.data.design.itemListLayout;
-                     //   if(WidgetHome.info.data.design.itemListLayout)
 
                         if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
                            setTimeout(function(){
