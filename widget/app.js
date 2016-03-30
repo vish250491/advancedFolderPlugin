@@ -18,7 +18,7 @@
         //injected ui.bootstrap for angular bootstrap component
         .config(['$httpProvider','$compileProvider','lazyImgConfigProvider', function ($httpProvider,$compileProvider,lazyImgConfigProvider) {
 
-            var scrollable = document.querySelector('#scrolledDiv');
+           /* var scrollable = document.querySelector('#scrolledDiv');
             lazyImgConfigProvider.setOptions({
                 offset: 5000, // how early you want to load image (default = 100)
                 errorClass: 'error', // in case of loading image failure what class should be added (default = null)
@@ -26,7 +26,7 @@
                 onError: function(image){}, // function fired on loading error
                 onSuccess: function(image){}, // function fired on loading success
                 container: angular.element(scrollable) // if scrollable container is not $window then provide it here
-            });
+            });*/
 
 
             /**
