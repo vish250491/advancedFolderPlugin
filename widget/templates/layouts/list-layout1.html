@@ -35,7 +35,7 @@
                         <div class="list-media-holder square-icon pull-left">
                             <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/180x180', {width: 180, height: 180}) }}">
                                 <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                                <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
+                                <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
 
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">

@@ -26,7 +26,7 @@
                         <div class="plugin-slide text-center">
                             <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
                             <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
+                            <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
 
                         </div>
                     </div>
