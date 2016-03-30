@@ -13,7 +13,7 @@
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)"
                          class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/200x200', {width: 200, height: 200}) }}"
+                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/200x200', {width: 200, height: 200}) }}"
                                  ng-if="plugin.data.iconUrl"/>
                             <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon6"
                                   ng-if="plugin.data.iconClassName"></span>
@@ -29,7 +29,7 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center overflow-hidden"
                          ng-if="plugin.items">
                         <div class="list-media-holder">
-                            <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl:'http://www.placehold.it/200x200', {width: 200, height: 200}) }}">
+                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl:'http://www.placehold.it/200x200', {width: 200, height: 200}) }}">
                             <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
                             <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
                         </div>
