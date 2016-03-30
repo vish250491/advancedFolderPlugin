@@ -24,7 +24,7 @@
 
                             <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/400x400' , {width: 400, height: 400}) }}">
                             <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
+                            <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if=" ! plugin.fileUrl && plugin.items.length==0"></span>
 
                             <div class="text-holder">
                                 <p class="item-text whiteTheme text-center">{{ plugin.title }}</p>
