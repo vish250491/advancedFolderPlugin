@@ -324,7 +324,6 @@
                         setBackgroundImage();
                         var newCarousalArray=WidgetHome.info.data.content.images;
                         var newLayoutName=WidgetHome.info.data.design.itemListLayout;
-                     //   if(WidgetHome.info.data.design.itemListLayout)
 
                         if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
                            setTimeout(function(){
@@ -356,7 +355,7 @@
                                 traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
                                 if(WidgetHome.info.data.design.itemListLayout=="list-layout12"){
                                     var currentCount =Number(WidgetHome.info.data.content.entity.length);
-                                  ///  preparePluginsData(WidgetHome.info.data.content.entity);
+                                    preparePluginsData(WidgetHome.info.data.content.entity);
                                     if(currentCount){
                                         $scope.layout12TotalItem=currentCount;
                                     }

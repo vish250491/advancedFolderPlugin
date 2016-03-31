@@ -11,11 +11,22 @@
             'advancedFolderPluginWidgetFilters',
             'advancedFolderWidgetServices',
             'infinite-scroll',
-            'ngTouch'
+            'ngTouch',
+            'angularLazyImg'
         ])
         //injected ngRoute for routing
         //injected ui.bootstrap for angular bootstrap component
-        .config(['$httpProvider','$compileProvider', function ($httpProvider,$compileProvider) {
+        .config(['$httpProvider','$compileProvider','lazyImgConfigProvider', function ($httpProvider,$compileProvider,lazyImgConfigProvider) {
+
+           /* var scrollable = document.querySelector('#scrolledDiv');*/
+            lazyImgConfigProvider.setOptions({
+                offset: 5000, // how early you want to load image (default = 100)
+                errorClass: 'error', // in case of loading image failure what class should be added (default = null)
+                successClass: 'success', // in case of loading image success what class should be added (default = null)
+                onError: function(image){}, // function fired on loading error
+                onSuccess: function(image){} // function fired on loading success
+            });
+
 
             /**
              * To make href urls safe on mobile

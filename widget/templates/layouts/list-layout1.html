@@ -24,7 +24,7 @@
                 <div class="clickable list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" >
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder square-icon pull-left">
-                            <img ng-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl">
+                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl">
                             <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
@@ -33,9 +33,9 @@
                     </div>
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
                         <div class="list-media-holder square-icon pull-left">
-                            <img ng-if="plugin.fileUrl" ng-src="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/180x180', {width: 180, height: 180}) }}">
+                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/180x180', {width: 180, height: 180}) }}">
                                 <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                                <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="plugin.items.length==0"></span>
+                                <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
 
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
