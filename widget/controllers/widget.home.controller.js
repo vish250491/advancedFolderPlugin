@@ -89,10 +89,10 @@
                                 setBackgroundImage();
                                 oldLayoutName=WidgetHome.info.data.design.itemListLayout;
                             }
-                            $timeout(function () {
+                           // $timeout(function () {
                                 WidgetHome.initCarousel();
                                 oldCarousalArray=WidgetHome.info.data.content.images;
-                            }, 1500);
+                          //  }, 1500);
                         }
                         else {
                             WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
@@ -326,11 +326,11 @@
                         var newLayoutName=WidgetHome.info.data.design.itemListLayout;
 
                         if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
-                           setTimeout(function(){
+                           //setTimeout(function(){
                                WidgetHome.initCarousel();
                                oldCarousalArray=newCarousalArray;
                                oldLayoutName=newLayoutName;
-                           },500);
+                         //  },500);
                         }
 
 
