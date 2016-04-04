@@ -1,8 +1,7 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin layout3 text-overlay">
         <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix text-overlay">
-            <buildfire-carousel
-                    images="WidgetHome.info.data.content.image"></buildfire-carousel>
+            <div id="carousel" build-fire-carousel=""></div>
         </div>
         <div ng-if="!WidgetHome.noCarouselBody" class="padded text-left text-overlay" ng-if="WidgetHome.showDescription()">
             <p class="margin-bottom-zero"
