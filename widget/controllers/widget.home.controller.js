@@ -96,10 +96,15 @@
                         }
                         else {
                             WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                            setBackgroundImage();
+                            $timeout(function () {
+                                WidgetHome.initCarousel();
+                            }, 1500);
                         }
                     },
                     function fail() {
                         WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                        setBackgroundImage()
                     }
                 );
 
