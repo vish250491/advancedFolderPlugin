@@ -343,17 +343,20 @@
 
                 function init() {
                     var success = function (data) {
-                        if (data && data.data && (data.data.content || data.data.design)) {
+                        if (data && data.data && data.id && (data.data.content || data.data.design)) {
                             updateMasterInfo(data);
                             ContentHome.info = data;
-                            if (data.data.content && data.data.content.images) {
-                                ContentHome.editor.loadItems(data.data.content.images);
-                            }
                         }
                         else {
                             updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
                             ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                         }
+                        if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                            ContentHome.editor.loadItems(ContentHome.info.data.content.images);
+                            if (!$scope.$$phase)$scope.$digest();
+                        }
+                       // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
+
                     };
                     var error = function (err) {
                         console.error('Error while getting data from db-------', err);

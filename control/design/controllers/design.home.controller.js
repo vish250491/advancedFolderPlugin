@@ -63,13 +63,11 @@
 
                 function init() {
                     var success = function (data) {
-                        if (data && data.data && (data.data.content || data.data.design)) {
-                            //console.log('Info got---------------');
+                        if (data && data.data && data.id && (data.data.content || data.data.design)) {
+
                             updateMasterInfo(data);
                             DesignHome.info = data;
-                            if (data.data.design && data.data.design.bgImage) {
-                                //    background.loadbackground(DesignHome.info.data.design.bgImage);
-                            }
+
                         }
                         else {
                             updateMasterInfo(DEFAULT_DATA.ADVANCED_FOLDER_INFO);
