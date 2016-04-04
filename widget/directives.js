@@ -77,37 +77,6 @@
                     }
                 };
             }])
-        .directive('buildfireCarousel', function ($timeout) {
-            var linker = function (scope, elem, attrs) {
-                var view
-                    , initCarousel = function () {
-                        $timeout(function () {
-                            var imgs = scope.images || [];
-                            view = new buildfire.components.carousel.view("#carousel", imgs);
-                        });
-
-                    };
-
-                initCarousel();
-
-                scope.$watch(function () {
-                    return scope.images;
-                }, function (newValue, oldValue) {
-                    var imgs = angular.copy(newValue);
-                    if (view)
-                        view.loadItems(imgs);
-                });
-            };
-            return {
-                restrict: 'E',
-                replace: true,
-                link: linker,
-                template: "<div id='carousel'></div>",
-                scope: {
-                    images: '='
-                }
-            }
-        })
         .directive('imageCarousel', function ($timeout) {
             return {
                 restrict: 'A',
