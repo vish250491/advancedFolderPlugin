@@ -104,7 +104,7 @@
 </body>
 <script type="text/ng-template" id="nodes_renderer.html">
     <div ui-tree-handle class="tree-node tree-node-content clearfix">
-        <div ng-if="node.items">
+        <div ng-if="node.items" class="container">
             <a class="btn btn-primary btn-xs pull-left" style="position:relative; top:10px;"
                ng-if="node.items && node.items.length > 0" data-nodrag ng-click="toggle(this)">
                 <span class="glyphicon"
