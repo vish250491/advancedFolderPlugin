@@ -34,7 +34,11 @@
         }
         ;
     </script>
-
+    <style>
+        .angular-ui-tree-node .tree-node.parent {
+            background: #eef0f0;
+        }
+    </style>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
 </head>
@@ -103,8 +107,8 @@
 </div>
 </body>
 <script type="text/ng-template" id="nodes_renderer.html">
-    <div ui-tree-handle class="tree-node tree-node-content clearfix">
-        <div ng-if="node.items" class="container">
+    <div ui-tree-handle ng-class="node.items ? 'parent': ''" class="tree-node tree-node-content clearfix">
+        <div ng-if="node.items" >
             <a class="btn btn-primary btn-xs pull-left" style="position:relative; top:10px;"
                ng-if="node.items && node.items.length > 0" data-nodrag ng-click="toggle(this)">
                 <span class="glyphicon"
