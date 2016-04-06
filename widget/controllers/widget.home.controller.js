@@ -92,7 +92,7 @@
                             $timeout(function () {
                                 WidgetHome.initCarousel();
                                 oldCarousalArray=WidgetHome.info.data.content.images;
-                            }, 1500);
+                           }, 1500);
                         }
                         else {
                             WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;

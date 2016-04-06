@@ -1,7 +1,8 @@
 <div class="holder padding-zero ">
     <div class="media-center-plugin layout3 text-overlay">
         <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix border-bottom-grey">
-            <div id="carousel" build-fire-carousel=""></div>
+            <div id="carousel" build-fire-carousel=""
+                 ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
         <!-- Plugin init Data for carousal start-->
         <!--<div id="owl-demo" ng-if="(! WidgetHome.data.content.images.length && WidgetHome.firstTime)" class="owl-carousel">
@@ -10,7 +11,7 @@
             <div class="item"><img src="assets/images/sample_3.jpg" alt="Owl Image"></div>
         </div>-->
         <!-- Plugin init Data for carousal ends-->
-        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left  padding-bottom-zero clearfix text-overlay">
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
             <!-- Plugin init Data for wisywig start-->
