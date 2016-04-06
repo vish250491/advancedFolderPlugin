@@ -4,7 +4,7 @@
             <div id="carousel" build-fire-carousel=""
                  ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
-        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay" ng-if="WidgetHome.showDescription()">
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left padding-bottom-zero clearfix text-overlay" ng-if="WidgetHome.showDescription()">
             <p ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
         </div>

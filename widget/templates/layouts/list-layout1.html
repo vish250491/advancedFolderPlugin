@@ -11,7 +11,7 @@
             <div class="item"><img src="assets/images/sample_3.jpg" alt="Owl Image"></div>
         </div>-->
         <!-- Plugin init Data for carousal ends-->
-        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left  padding-bottom-zero clearfix text-overlay">
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
             <!-- Plugin init Data for wisywig start-->
