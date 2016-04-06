@@ -24,7 +24,9 @@
         .constant('DEFAULT_DATA', {
             ADVANCED_FOLDER_INFO: {
                 data: {
+                    "_buildfire":[
 
+                    ],
                     "content": {
                         "images": [
                             {
