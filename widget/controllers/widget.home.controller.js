@@ -22,6 +22,8 @@
                 WidgetHome.view = null;
                 //Default initialise
                 WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+
+
                 WidgetHome.initData = [
                     {
                         title: 'Restau',
@@ -320,9 +322,10 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-                    WidgetHome.firstTime = false;
+
                     if (event.data) {
                         WidgetHome.info = event;
+                        layout12Skeleton();
                         ViewStack.popAllViews();
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
@@ -358,19 +361,27 @@
                         if (WidgetHome.info.data.content.entity.length) {
                             result.data._buildfire.plugins.result.forEach(function (pluginDetailData) {
                                 traverse(WidgetHome.info.data.content.entity, 1, pluginDetailData);
-                                if(WidgetHome.info.data.design.itemListLayout=="list-layout12"){
-                                    var currentCount =Number(WidgetHome.info.data.content.entity.length);
-                                    preparePluginsData(WidgetHome.info.data.content.entity);
-                                    if(currentCount){
-                                        $scope.layout12TotalItem=currentCount;
-                                    }
-                                }
+                                layout12Skeleton();
 
                             })
+                        }
+                    }else{
+                        if (WidgetHome.info.data.content.entity.length) {
+                            layout12Skeleton();
                         }
                     }
                     $scope.$digest();
                     console.log('success in dynamic store fetching post', WidgetHome.info);
+                }
+
+                function  layout12Skeleton(){
+                    if(WidgetHome.info.data.design.itemListLayout=="list-layout12"){
+                        var currentCount =Number(WidgetHome.info.data.content.entity.length);
+                        preparePluginsData(WidgetHome.info.data.content.entity);
+                        if(currentCount){
+                            $scope.layout12TotalItem=currentCount;
+                        }
+                    }
                 }
 
                 function traverse(x, level, pluginDetailData) {
