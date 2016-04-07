@@ -23,6 +23,7 @@
                 data: {
                     "_buildfire": {
                         "plugins" :{
+                            "dataType" : "pluginInstance",
                             "data": []
                         }
 
