@@ -27,7 +27,8 @@
                         <div class="plugin-slide text-center">
                             <div class="blackLayer"></div>
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 640, height: 200}) }}');"></div>
-                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 640, height: 200}) }}" ng-if="plugin.data.iconUrl">
+                            <img load-image="4x1"
+                                 data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 640, height: 200}) }}" ng-if="plugin.data.iconUrl">
                              <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon10"
                                    ng-if="plugin.data.iconClassName"></span>
                             <p class="ellipsis item-text whiteTheme text-center">{{ plugin.data.title }}</p>
