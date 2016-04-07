@@ -12,7 +12,7 @@
                 <div  class="row">
                     <div  class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                         <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
-                            <div class="list-media-holder"  ng-style="{ 'height' : (plugin.data.iconClassName) ? '171px' : '100%' }">
+                            <div class="list-media-holder"  style=" height: 171px; ">
                                 <img load-image="1x1"
                                      data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
                                 <span class="layout5-fixes main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
