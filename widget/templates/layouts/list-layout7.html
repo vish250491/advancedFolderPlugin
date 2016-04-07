@@ -14,9 +14,9 @@
                     <div class="plugin-banner clearfix">
                         <div class="plugin-slide text-center">
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');"></div>
-                            <img load-image="239x1"
-                                 data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 512, height: 210}) }}" ng-if="plugin.data.iconUrl">
-                                  <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon7"
+                           <!-- <img lazy-img="{{ WidgetHome.cropImage( 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}" ng-if="!(plugin.data.iconUrl && plugin.data.iconClassName)">-->
+                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}" ng-if="plugin.data.iconUrl">
+                             <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon7"
                                         ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="info-bar blackBackgroundTheme">
