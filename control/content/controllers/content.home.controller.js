@@ -161,7 +161,7 @@
                 };
 
                 ContentHome.resizeImage=function(url,options){
-                   return Buildfire.imageLib.resizeImage(url, options);
+                   return Buildfire.imageLib.cropImage(url, options);
                 };
 
                 ContentHome.editFolder = function (scope) {

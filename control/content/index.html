@@ -122,7 +122,7 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)"
                  onclick="clickMe(event)">
-                <img ng-src="{{ContentHome.resizeImage(node.fileUrl,{width:50})}}" ng-if="node.fileUrl">
+                <img ng-src="{{ContentHome.resizeImage(node.fileUrl,{width:50,height:50})}}" ng-if="node.fileUrl">
                 <span class="main-icon text-primary icon6"
                       ng-class="node.iconUrl ? node.iconUrl : 'glyphicon glyphicon-folder-open'"
                       ng-if="!node.fileUrl"></span>
@@ -147,7 +147,7 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)"
                  onclick="clickMe(event)">
-                <img ng-src="{{ContentHome.resizeImage(node.iconUrl,{width:50})}}">
+                <img ng-src="{{ContentHome.resizeImage(node.iconUrl,{width:50,height:50})}}">
             </div>
             <div class="copy pull-left margin-left-ten">
                 <p class="ellipsis text-primary margin-zero">
