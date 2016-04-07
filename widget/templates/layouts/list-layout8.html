@@ -16,7 +16,8 @@
                 <div class="list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                     <div class="list-item-media text-left overflow-hidden"  ng-click="WidgetHome.navigateToPlugin(plugin.data)" ng-if="plugin.data">
                         <div class="list-media-holder square-icon pull-left">
-                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl" style="border-radius:50%;">
+                            <img load-image="1x1"
+                                 data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl" style="border-radius:50%;">
                             <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
@@ -26,7 +27,8 @@
 
                     <div class="list-item-media text-left overflow-hidden" ng-click="WidgetHome.goToFolder(plugin)"  ng-if="plugin.items">
                         <div class="list-media-holder square-icon pull-left" style="border-radius:50%;">
-                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/180x180', {width: 180, height: 180}) }}" style="border-radius:50%;">
+                            <img ng-if="plugin.fileUrl" load-image="1x1"
+                                 data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 180, height: 180}) }}" style="border-radius:50%;">
                             <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0" style="border-radius:50%;"></span>
                             <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0" style="border-radius:50%;"></span>
                         </div>
