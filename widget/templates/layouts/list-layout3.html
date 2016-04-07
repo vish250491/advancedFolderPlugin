@@ -14,7 +14,7 @@
                 <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                 <div class="plugin-banner clearfix border-bottom-grey">
                     <div class="plugin-slide text-center">
-                        <img oad-image="16x9"
+                        <img load-image="16x9"
                              data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
                         <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon3" ng-if="plugin.data.iconClassName"></span>
                     </div>
@@ -26,7 +26,7 @@
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
-                            <img ng-if="plugin.fileUrl" oad-image="16x9"
+                            <img ng-if="plugin.fileUrl" load-image="16x9"
                                  data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 450, height: 254}) }}">
                             <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
                             <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
