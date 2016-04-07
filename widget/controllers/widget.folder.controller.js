@@ -81,7 +81,7 @@
                     $rootScope.$emit("CallHomeMethod", {method:'navigateToPlugin', data:plugin});
                 };
 
-                $scope.$on('LastRepeaterElement', function(){
+              /*  $scope.$on('LastRepeaterElement', function(){
                     // $('.plugin-slider.text-center.owl-carousel').trigger("destroy.owl.carousel");
                     $scope.layout12Height= $('.plugin-slider .plugin-slide').first().height()+17+'px';
                     var slides = $('.plugin-slider .plugin-slide').length;
@@ -94,7 +94,7 @@
                             items:1
                         });
                     }
-                });
+                });*/
 
             }]);
 })(window.angular);

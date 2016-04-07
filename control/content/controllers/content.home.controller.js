@@ -161,6 +161,21 @@
                 };
 
 
+                ContentHome.resizeImage = function (url, settings) {
+                    var options = {};
+                    if (!url) {
+                        return "";
+                    }
+                    else {
+                        if (settings.height) {
+                            options.height = settings.height;
+                        }
+                        if (settings.width) {
+                            options.width = settings.width;
+                        }
+                        return Buildfire.imageLib.cropImage(url, options);
+                    }
+                };
                 ContentHome.editFolder = function (scope) {
                     var nodeData = scope.$modelValue;
                     Modals.addFolderModal({
