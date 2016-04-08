@@ -8,7 +8,8 @@
             function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack) {
                 console.log('WidgetFolderCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
-                $scope.layout12TotalItem=0;
+              /*  $scope.layout12Height='300px';
+                $scope.layout12TotalItem=0;*/
 
                 WidgetHome.noCarouselBody = true;
 
@@ -21,11 +22,11 @@
 
                         if(tempInfo.data.design.itemListLayout=="list-layout12"){
 
-                                var currentCount =Number(tempInfo.data.content.entity.length);
+                               /* var currentCount =Number(tempInfo.data.content.entity.length);*/
                                 preparePluginsData(tempInfo.data.content.entity);
-                                if(currentCount){
+                               /* if(currentCount){
                                     $scope.layout12TotalItem=currentCount;
-                                }
+                                }*/
 
                                 WidgetHome.info = tempInfo;
                                 //$scope.$digest();
