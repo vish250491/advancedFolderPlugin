@@ -105,7 +105,7 @@
 
                     initCarousel();
                     attrs.$observe("imageCarousel", function (newVal, oldVal) {
-                        if (newVal) {
+                        if (parseInt(newVal)) {
                             if (scope.carousel) {
                                 initCarousel();
                             }
