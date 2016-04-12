@@ -1,6 +1,6 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin list-layout layout4 text-overlay">
-        <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix border-bottom-grey text-overlay">
+        <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix  text-overlay">
             <div id="carousel" build-fire-carousel=""
                  ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
@@ -12,7 +12,7 @@
                 <div  class="row">
                     <div  class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                         <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
-                            <div class="list-media-holder" style="height: 171px;">
+                            <div class="list-media-holder"  style=" height: 171px; ">
                                 <img load-image="1x1"
                                      data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 320, height: 320}) }}" ng-if="plugin.data.iconUrl" />
                                 <span class="layout5-fixes main-icon text-primary {{ plugin.data.iconClassName }} icon5" ng-if="plugin.data.iconClassName"></span>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center" ng-if="plugin.items">
-                            <div class="list-media-holder">
+                            <div class="list-media-holder" style=" height: 171px; ">
                                 <img  ng-if="plugin.fileUrl" load-image="1x1"
                                       data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 320, height: 320}) }}">
                                 <span class="layout5-fixes main-icon text-primary icon5" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
