@@ -12,9 +12,9 @@
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
                 $scope.pluginExist = 0;
 
-                var masterInfo = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                var masterInfo = null;//DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 //Default initialise
-                ContentHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                ContentHome.info = null;//DEFAULT_DATA.ADVANCED_FOLDER_INFO;
                 ContentHome.restrictUpdate = false;
 
                 var timerDelay;
