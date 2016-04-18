@@ -35,50 +35,52 @@
                         "images": [
                             {
                                 "action": "noAction",
-                                "iconUrl": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/4f6c85e0-fa2e-11e5-a163-758fec3c9ebe.jpg",
+                                "iconUrl": "http://imageserver.prod.s3.amazonaws.com/1460958791423-042123055388219655/e116e1b0-0529-11e6-ad9d-6f08d19b7913.jpg",
                                 "title": "image"
                             },
                             {
                                 "action": "noAction",
-                                "iconUrl": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/50e0af50-fa2e-11e5-a163-758fec3c9ebe.jpg",
+                                "iconUrl": "http://imageserver.prod.s3.amazonaws.com/1460958791423-042123055388219655/e1729640-0529-11e6-aae4-45742639c60d.jpg",
                                 "title": "image"
                             }
                         ],
-                            "description": "<p>&nbsp;Instant way to group all applications into group wise.</p>",
+                            "description": "<p>With the Advanced Folder plugin you can add existing plugins, create new plugins, or create groups so that you can group your plugins together in a hierarchy. Check out our tutorial in our knowledge base for more information. HINT: You'll also want to check out our article on the WYSIWYG</p>",
                             "entity": [
-                            {
-                                "title": "A",
-                                "iconUrl": "",
-                                "fileUrl": "",
-                                "items": []
-                            },
-                            {
-                                "title": "B",
-                                "iconUrl": "",
-                                "fileUrl": "",
-                                "items": []
-                            },
-                            {
-                                "title": "C",
-                                "iconUrl": "",
-                                "fileUrl": "",
-                                "items": []
-                            },
-                            {
-                                "title": "D",
-                                "iconUrl": "",
-                                "fileUrl": "",
-                                "items": []
-                            }
-                        ]
+                                {
+                                    "title": "This is a group",
+                                    "iconUrl": "",
+                                    "fileUrl": "",
+                                    "items": [
+                                        {
+                                            "title": "You can add contents inside",
+                                            "iconUrl": "",
+                                            "fileUrl": "",
+                                            "items": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "This is another group",
+                                    "iconUrl": "",
+                                    "fileUrl": "",
+                                    "items": [
+                                        {
+                                            "title": "Add plugins or other groups",
+                                            "iconUrl": "",
+                                            "fileUrl": "",
+                                            "items": []
+                                        }
+                                    ]
+                                }
+                            ]
                     },
                         "design": {
                         "itemListLayout": "list-layout1",
                             "bgImage": {
-                            "i16x9": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/08facfd0-fa2f-11e5-a163-758fec3c9ebe.jpg",
-                                "i3x2": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/08facfd0-fa2f-11e5-a163-758fec3c9ebe.jpg",
-                                "i4x3": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/08facfd0-fa2f-11e5-a163-758fec3c9ebe.jpg",
-                                "i16x10": "http://imageserver.prod.s3.amazonaws.com/b55ee984-a8e8-11e5-88d3-124798dea82d/08facfd0-fa2f-11e5-a163-758fec3c9ebe.jpg"
+                            "i16x9": "",
+                                "i3x2": "",
+                                "i4x3": "",
+                                "i16x10": ""
                         }
                     }
 
