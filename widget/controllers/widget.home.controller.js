@@ -22,7 +22,7 @@
 
                 WidgetHome.view = null;
                 //Default initialise
-                WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                WidgetHome.info = null;//DEFAULT_DATA.ADVANCED_FOLDER_INFO;
 
 
                 WidgetHome.initData = [
