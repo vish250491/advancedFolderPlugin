@@ -1,22 +1,18 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin list-layout layout4 text-overlay">
-        <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix border-bottom-grey text-overlay">
-            <div id="carousel" build-fire-carousel=""></div>
+        <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix  text-overlay">
+            <div id="carousel" build-fire-carousel="" ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
-        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay">
-            <p ng-if="WidgetHome.showDescription()"
-               ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left padding-bottom-zero clearfix text-overlay">
+            <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
         <div class="padding-top-zero text-overlay">
             <div class="list-layout layout-6">
                 <div ng-show="WidgetHome.info.data.content.entity && WidgetHome.info.data._buildfire" class="clickable col-xs-6 pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
-                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)"
-                         class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
+                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
-                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/200x200', {width: 200, height: 200}) }}"
-                                 ng-if="plugin.data.iconUrl"/>
-                            <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon6"
-                                  ng-if="plugin.data.iconClassName"></span>
+                            <img load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 200, height: 200}) }}" ng-if="plugin.data.iconUrl"/>
+							<img src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName">
                         </div>
                         <div class="list-item-copy text-center" style="min-height: 42px;">
                             <p class="ellipsis margin-zero text-primary">
@@ -29,9 +25,9 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center overflow-hidden"
                          ng-if="plugin.items">
                         <div class="list-media-holder">
-                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl:'http://www.placehold.it/200x200', {width: 200, height: 200}) }}">
-                            <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
+                            <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 200, height: 200}) }}">
+							<img src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
+	                        <img src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
                         </div>
                         <div class="list-item-copy text-center" style="min-height: 42px;">
                             <p class="ellipsis margin-zero text-primary">

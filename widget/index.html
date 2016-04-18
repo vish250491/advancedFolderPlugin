@@ -44,6 +44,11 @@
             display: block;
             width: 100%;
             height: auto;
+        },
+        .wyswig-pading {
+            padding-top : 0px;
+            padding-left : 0px;
+            padding-right : 0px;
         }
     </style>
     <script>
@@ -123,10 +128,10 @@
     }
 
     .icon11 {
-        font-size: 146px;
+        font-size: 154px;
         position:relative;
-        top:15px;
-        padding-bottom :16px
+        top:0px;
+        padding-bottom :8px
     }
 
     font-size: 180px;
@@ -134,9 +139,9 @@
         height:100%;
     }
 </style>
-<div id="scrolledDiv" style="overflow-y: scroll;height: 100% !important;">
+<div id="scrolledDiv" style="overflow-y: scroll; height: 100% !important;">
     <!--<div id="carousel" build-fire-carousel=""></div>-->
-    <div ng-include="'templates/home.html'">
+    <div ng-include="'templates/home.html'" style="height: 100%;">
     </div>
 </div>
 <div view-switcher=""></div>

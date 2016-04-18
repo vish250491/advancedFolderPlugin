@@ -1,9 +1,10 @@
     <div class="holder padding-zero">
     <div class="media-center-plugin list-layout layout4 text-overlay">
         <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix  text-overlay">
-            <div id="carousel" build-fire-carousel=""></div>
+            <div id="carousel" build-fire-carousel=""
+                 ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
-        <div ng-if="!WidgetHome.noCarouselBody" class="text-left padded padding-bottom-zero clearfix text-overlay" >
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left padding-bottom-zero clearfix text-overlay" >
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
         <div class="padded padding-top-zero text-overlay" style="padding: 0;">
@@ -12,8 +13,10 @@
                 <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                     <div class="plugin-banner clearfix">
                         <div class="plugin-slide text-center">
-                            <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');"></div>
-                            <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}" ng-if="plugin.data.iconUrl">
+                            <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');'height':'146px'"></div>
+                           <!-- <img lazy-img="{{ WidgetHome.cropImage( 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}" ng-if="!(plugin.data.iconUrl && plugin.data.iconClassName)">-->
+                            <img load-image="239x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 512, height: 210}) }}" ng-if="plugin.data.iconUrl">
+                            <img src="../../../styles/media/holder-239x1.png" ng-if="plugin.data.iconClassName">
                         </div>
                         <div class="info-bar blackBackgroundTheme">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.data.title }}</p>
@@ -25,9 +28,9 @@
                     <div class="plugin-banner clearfix">
                         <div class="plugin-slide text-center">
                             <div class="backgroundLayer" style="background:url('{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');"></div>
-                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/1024x420' , {width: 512, height: 210}) }}">
-                            <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
+                            <img ng-if="plugin.fileUrl" load-image="239x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 512, height: 210}) }}">
+							<img src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
+	                        <img src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
                         </div>
                         <div class="info-bar blackBackgroundTheme">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.title }}</p>

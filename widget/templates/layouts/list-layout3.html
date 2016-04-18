@@ -1,9 +1,10 @@
 <div class="holder padding-zero">
     <div class="media-center-plugin layout3 text-overlay">
         <div ng-if="!WidgetHome.noCarouselBody" class="plugin-banner clearfix text-overlay">
-            <div id="carousel" build-fire-carousel=""></div>
+            <div id="carousel" build-fire-carousel=""
+                 ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
         </div>
-        <div ng-if="!WidgetHome.noCarouselBody" class="padded text-left text-overlay" ng-if="WidgetHome.showDescription()">
+        <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class=" text-left text-overlay" ng-if="WidgetHome.showDescription()">
             <p class="margin-bottom-zero"
                ng-bind-html="WidgetHome.info.data.content.description | safeHtml">
             </p>
@@ -13,7 +14,7 @@
                 <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                 <div class="plugin-banner clearfix border-bottom-grey">
                     <div class="plugin-slide text-center">
-                        <img lazy-img="{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/450x254', {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
+                        <img load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
                         <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon3" ng-if="plugin.data.iconClassName"></span>
                     </div>
                 </div>
@@ -24,10 +25,9 @@
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
-                            <img ng-if="plugin.fileUrl" lazy-img="{{ WidgetHome.cropImage(plugin.fileUrl ? plugin.fileUrl : 'http://www.placehold.it/450x254' , {width: 450, height: 254}) }}">
-                            <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon3" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
-
+                            <img ng-if="plugin.fileUrl" load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 450, height: 254}) }}">
+	                        <img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
+	                        <img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
                         </div>
                     </div>
                     <div class="padded text-left">

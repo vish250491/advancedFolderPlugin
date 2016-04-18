@@ -8,7 +8,6 @@
             function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack) {
                 console.log('WidgetFolderCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
-                $scope.layout12TotalItem=0;
 
                 WidgetHome.noCarouselBody = true;
 
@@ -21,14 +20,10 @@
 
                         if(tempInfo.data.design.itemListLayout=="list-layout12"){
 
-                                var currentCount =Number(tempInfo.data.content.entity.length);
                                 preparePluginsData(tempInfo.data.content.entity);
-                                if(currentCount){
-                                    $scope.layout12TotalItem=currentCount;
-                                }
 
                                 WidgetHome.info = tempInfo;
-                                //$scope.$digest();
+
 
                         }else{
                             WidgetHome.info = tempInfo;
@@ -81,20 +76,6 @@
                     $rootScope.$emit("CallHomeMethod", {method:'navigateToPlugin', data:plugin});
                 };
 
-                $scope.$on('LastRepeaterElement', function(){
-                    // $('.plugin-slider.text-center.owl-carousel').trigger("destroy.owl.carousel");
-                    $scope.layout12Height= $('.plugin-slider .plugin-slide').first().height()+17+'px';
-                    var slides = $('.plugin-slider .plugin-slide').length;
-                    $scope.layout12TotalItem=$scope.layout12TotalItem+1;
-                    // Slider needs at least 2 slides or you'll get an error.
-                    if(slides > 1){
-                        $('.plugin-slider').owlCarousel({
-                            loop:false,
-                            nav:false,
-                            items:1
-                        });
-                    }
-                });
 
             }]);
 })(window.angular);

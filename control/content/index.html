@@ -34,7 +34,15 @@
         }
         ;
     </script>
+    <style>
+        .angular-ui-tree-node .tree-node.parent {
+            background: #f7f7f7;
+        }
 
+        .angular-ui-tree-node .tree-node.parent:hover {
+            background: #eef0f0;
+        }
+    </style>
     <link rel="stylesheet" href="../../../../styles/transitionAnimation.css">
     <meta charset="UTF-8">
 </head>
@@ -95,7 +103,11 @@
             </div>
             <div style="margin-top: 10px" class="well no-plugins text-center" ng-hide="ContentHome.info.data.content.entity.length">
 
-                <h5>You have not added any plugins or containers to this group yet.</h5>
+                <h5 style=" line-height: 30px; "> You have not added any plugins or groups to this folder yet.</br>
+                    To add a plugin you have already created, click "Add Existing Plugin Instance".</br>
+                    To add a new group of plugins, click "Add New Group".</br>
+                    To create a brand new plugin, click "Create New Plugin".</br>
+                   </h5>
 
             </div>
         </div>
@@ -103,8 +115,8 @@
 </div>
 </body>
 <script type="text/ng-template" id="nodes_renderer.html">
-    <div ui-tree-handle class="tree-node tree-node-content clearfix">
-        <div ng-if="node.items">
+    <div ui-tree-handle ng-class="node.items ? 'parent': ''" class="tree-node tree-node-content clearfix">
+        <div ng-if="node.items" >
             <a class="btn btn-primary btn-xs pull-left" style="position:relative; top:10px;"
                ng-if="node.items && node.items.length > 0" data-nodrag ng-click="toggle(this)">
                 <span class="glyphicon"
@@ -114,7 +126,7 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openFolderInWidget(this)"
                  onclick="clickMe(event)">
-                <img ng-src="{{node.fileUrl}}" ng-if="node.fileUrl">
+                <img ng-src="{{ContentHome.resizeImage(node.fileUrl,{width:50,height:50})}}" ng-if="node.fileUrl">
                 <span class="main-icon text-primary icon6"
                       ng-class="node.iconUrl ? node.iconUrl : 'glyphicon glyphicon-folder-open'"
                       ng-if="!node.fileUrl"></span>
@@ -139,7 +151,7 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)"
                  onclick="clickMe(event)">
-                <img ng-src="{{node.iconUrl}}">
+                <img ng-src="{{ContentHome.resizeImage(node.iconUrl,{width:50,height:50})}}">
             </div>
             <div class="copy pull-left margin-left-ten">
                 <p class="ellipsis text-primary margin-zero">
