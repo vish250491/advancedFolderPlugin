@@ -138,14 +138,29 @@
 
                 ContentHome.deleteEntity = function (obj, isFolder) {
                     var nodeData = obj.$modelValue;
+                    var pluginInstanceArray=[];
                     Modals.removePopupModal(isFolder).then(function (result) {
                         if (result) {
                             if (nodeData.hasOwnProperty('items')) {
-                                nodeData.items.forEach(function (item) {
+                                getLeaf(nodeData);
+                                function getLeaf(node) {
+                                    if (node.items) {
+                                        node.items.forEach(function (item) {
+                                            return getLeaf(item);
+                                        });
+                                    }
+                                    else {
+                                        return pluginInstanceArray.push(node.instanceId);
+                                    }
+                                }
+
+                                ContentHome.info.data._buildfire.plugins.data = ContentHome.info.data._buildfire.plugins.data.filter(function(x) { return pluginInstanceArray.indexOf(x) < 0 })
+
+                                /*nodeData.items.forEach(function (item) {
                                     var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
                                     ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
                                 })
-
+*/
                                 //ContentHome.info.data.content.entity.splice(ind, 1);
                                 obj.remove();
                             } else {
@@ -159,6 +174,7 @@
                         }
                     });
                 };
+
 
 
                 ContentHome.resizeImage = function (url, settings) {
