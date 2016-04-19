@@ -155,5 +155,5 @@
                     elem.attr("src", attrs.finalSrc);
                 }
             };
-        }]);;
+        }]);
 })(window.angular);
