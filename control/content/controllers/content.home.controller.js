@@ -49,9 +49,22 @@
                 };
                 // this method will be called when you change the order of items
                 ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
-                    var temp = ContentHome.info.data.content.images[oldIndex];
-                    ContentHome.info.data.content.images[oldIndex] = ContentHome.info.data.content.images[newIndex];
-                    ContentHome.info.data.content.images[newIndex] = temp;
+                  var items = ContentHome.info.data.content.images;
+
+                  var tmp = items[oldIndex];
+
+                  if (oldIndex < newIndex) {
+                    for (var i = oldIndex + 1; i <= newIndex; i++) {
+                      items[i - 1] = items[i];
+                    }
+                  } else {
+                    for (var i = oldIndex - 1; i >= newIndex; i--) {
+                      items[i + 1] = items[i];
+                    }
+                  }
+                  items[newIndex] = tmp;
+
+                  ContentHome.info.data.content.images = items;
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
@@ -124,7 +137,7 @@
                         }
                     });
 
-                }
+                };
 
                 ContentHome.pluginExist = function (instanceId) {
                     var pluginFound = false;
@@ -134,7 +147,7 @@
                         }
                     });
                     return pluginFound;
-                }
+                };
 
                 ContentHome.deleteEntity = function (obj, isFolder) {
                     var nodeData = obj.$modelValue;
