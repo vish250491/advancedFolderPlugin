@@ -452,6 +452,26 @@
                 function updateInfoData(_info) {
                     $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
+                        if(_info.data.default){
+                            _info.data={
+                                _buildfire: {
+                                    plugins: {
+                                        dataType: "pluginInstance",
+                                        data: []
+                                    }
+                                },
+                                content: {
+                                    images: [],
+                                    description: '',
+                                    entity:[]
+                                },
+                                design: {
+                                    itemListLayout: "list-layout1",
+                                    bgImage: ""
+                                }
+                            };
+                            ContentHome.editor.loadItems([]);
+                        }
                         timerDelay = $timeout(function () {
                             saveData(_info);
                         }, 1000);
