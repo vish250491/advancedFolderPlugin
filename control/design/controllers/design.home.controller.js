@@ -8,11 +8,33 @@
                 console.log('DesignHome Controller Loaded-------------------------------------');
                 var DesignHome = this;
                 var timerDelay;
+                var _data={
+                    _buildfire: {
+                        plugins: {
+                            dataType: "pluginInstance",
+                            data: []
+                        }
+                    },
+                    content: {
+                        images: [],
+                        description: '',
+                        entity:[]
+                    },
+                    design: {
+                        itemListLayout: "list-layout1",
+                        bgImage: []
+                    }
+                };
+
+
                 DesignHome.layouts = [{name: "list-layout1"}, {name: "list-layout2"}, {name: "list-layout3"}, {name: "list-layout4"}, {name: "list-layout5"}, {name: "list-layout6"}, {name: "list-layout7"}, {name: "list-layout8"}, {name: "list-layout9"}, {name: "list-layout10"}, {name: "list-layout11"}, {name: "list-layout12"}];
                 var advanceFolder = new DB(COLLECTIONS.advancedFolderInfo);
                 var masterInfo;
                 DesignHome.changeLayout = function (layoutName) {
                     if (layoutName && DesignHome.info.data.design) {
+                        if(DesignHome.info.data.default){
+                            _data.design.itemListLayout = layoutName;
+                        }
                         DesignHome.info.data.design.itemListLayout = layoutName;
                     }
                 };
@@ -26,6 +48,11 @@
                             return console.err('Error:', error);
                         }
                         if (result.selectedFiles && result.selectedFiles.length) {
+
+                            if(DesignHome.info.data.default){
+                                _data.design.bgImage[imageName] = result.selectedFiles[0];
+                            }
+
                             DesignHome.info.data.design = DesignHome.info.data.design || {};
                             DesignHome.info.data.design.bgImage = DesignHome.info.data.design.bgImage || {};
                             DesignHome.info.data.design.bgImage[imageName] = result.selectedFiles[0];
@@ -119,23 +146,12 @@
                         advanceFolder.save(_info.data).then(saveSuccess, saveError);
                 }
 
-            /*    function saveData(_info) {
-                    var saveSuccess = function (data) {
-                        updateMasterInfo(data);
-                        console.log('design data saved successfully--------------------------',data);
-                    };
-                    var saveError = function (err) {
-                         console.error('design data error ------------------------------',err);
-                    };
-                    if (_info.id)
-                        advanceFolder.update(_info.id,_info.data).then(saveSuccess, saveError);
-                    else
-                        advanceFolder.save(_info.data).then(saveSuccess, saveError);
-                }*/
-
                 function updateInfoData(_info) {
                     $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
+                        if(_info.data.default) {
+                            _info.data = _data;
+                        }
                         timerDelay = $timeout(function () {
                             saveData(_info);
                         }, 1000);

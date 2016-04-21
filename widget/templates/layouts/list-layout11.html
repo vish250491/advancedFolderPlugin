@@ -25,7 +25,9 @@
                         <div class="text-center">
                             <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 400, height: 400}) }}">
 							<img src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
-							<img src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0">                         	
+                            <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
+                            <span class="main-icon text-primary icon11" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if=" ! plugin.fileUrl && plugin.items.length==0"></span>
+
                             <div class="text-holder">
                                 <p class="item-text whiteTheme text-center">{{ plugin.title }}</p>
                             </div>

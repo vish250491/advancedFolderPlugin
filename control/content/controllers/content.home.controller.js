@@ -8,6 +8,24 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var deletePluginArray = [];
+
+                var _data={
+                    _buildfire: {
+                        plugins: {
+                            dataType: "pluginInstance",
+                            data: []
+                        }
+                    },
+                    content: {
+                        images: [],
+                        description: '',
+                        entity:[]
+                    },
+                    design: {
+                        itemListLayout: "list-layout1",
+                        bgImage: ""
+                    }
+                };
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
                 $scope.pluginExist = 0;
@@ -49,9 +67,22 @@
                 };
                 // this method will be called when you change the order of items
                 ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
-                    var temp = ContentHome.info.data.content.images[oldIndex];
-                    ContentHome.info.data.content.images[oldIndex] = ContentHome.info.data.content.images[newIndex];
-                    ContentHome.info.data.content.images[newIndex] = temp;
+                  var items = ContentHome.info.data.content.images;
+
+                  var tmp = items[oldIndex];
+
+                  if (oldIndex < newIndex) {
+                    for (var i = oldIndex + 1; i <= newIndex; i++) {
+                      items[i - 1] = items[i];
+                    }
+                  } else {
+                    for (var i = oldIndex - 1; i >= newIndex; i--) {
+                      items[i + 1] = items[i];
+                    }
+                  }
+                  items[newIndex] = tmp;
+
+                  ContentHome.info.data.content.images = items;
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
@@ -63,6 +94,14 @@
                         isEdit: false
                     }).then(function (response) {
                         if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
+                            if(ContentHome.info.data.default){
+                                _data.content.entity.unshift({
+                                    title: response.title,
+                                    iconUrl: response.iconUrl,
+                                    fileUrl: response.fileUrl,
+                                    items: []
+                                });
+                            }
                             ContentHome.info.data.content.entity.unshift({
                                 title: response.title,
                                 iconUrl: response.iconUrl,
@@ -82,6 +121,15 @@
                         if (instances) {
                             instances.forEach(function (instance) {
                                 if (!ContentHome.pluginExist(instance.instanceId)) {
+                                    if(ContentHome.info.data.default){
+                                        _data._buildfire.plugins.data.push(instance.instanceId);
+                                        _data.content.entity.unshift({
+                                            title: instance.title,
+                                            iconUrl: instance.iconUrl,
+                                            instanceId: instance.instanceId,
+                                            pluginTypeName: instance.pluginTypeName
+                                        });
+                                    }
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
                                     ContentHome.info.data.content.entity.unshift({
                                         title: instance.title,
@@ -111,6 +159,16 @@
                         if (instances) {
                             instances.forEach(function (instance) {
 
+                                if(ContentHome.info.data.default){
+                                    _data._buildfire.plugins.data.push(instance.instanceId);
+                                    _data.content.entity.unshift({
+                                        title: instance.title,
+                                        iconUrl: instance.iconUrl,
+                                        instanceId: instance.instanceId,
+                                        pluginTypeName: instance.pluginTypeName
+                                    });
+                                }
+
                                 ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
                                 ContentHome.info.data.content.entity.unshift({
                                     title: instance.title,
@@ -124,7 +182,7 @@
                         }
                     });
 
-                }
+                };
 
                 ContentHome.pluginExist = function (instanceId) {
                     var pluginFound = false;
@@ -134,7 +192,7 @@
                         }
                     });
                     return pluginFound;
-                }
+                };
 
                 ContentHome.deleteEntity = function (obj, isFolder) {
                     var nodeData = obj.$modelValue;
@@ -439,6 +497,10 @@
                 function updateInfoData(_info) {
                     $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
+                        if(_info.data.default){
+                            _info.data=_data;
+                            ContentHome.editor.loadItems([]);
+                        }
                         timerDelay = $timeout(function () {
                             saveData(_info);
                         }, 1000);

@@ -28,7 +28,6 @@
                             <div class="blackLayer"></div>
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 640, height: 200}) }}');"></div>
                             <img load-image="4x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 640, height: 200}) }}" ng-if="plugin.data.iconUrl">
-                            <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon10" ng-if="plugin.data.iconClassName"></span>
                             <img src="../../../styles/media/holder-4x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
                             <p class="ellipsis item-text whiteTheme text-center">{{ plugin.data.title }}</p>
                         </div>
@@ -43,7 +42,8 @@
                             <div class="backgroundLayer" style="background:url('{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/1024x420', {width: 640, height: 200}) }}');"></div>
                             <img ng-if="plugin.fileUrl" load-image="4x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 640, height: 200}) }}">
                            	<img src="../../../styles/media/holder-4x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
-							<img src="../../../styles/media/holder-4x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
+                            <span class="main-icon text-primary icon10" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
+                            <span class="main-icon text-primary icon10" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
                             <p class="ellipsis item-text whiteTheme text-center">{{ plugin.title }}</p>
                         </div>
                     </div>
