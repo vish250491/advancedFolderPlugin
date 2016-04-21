@@ -8,6 +8,24 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var deletePluginArray = [];
+
+                var _data={
+                    _buildfire: {
+                        plugins: {
+                            dataType: "pluginInstance",
+                            data: []
+                        }
+                    },
+                    content: {
+                        images: [],
+                        description: '',
+                        entity:[]
+                    },
+                    design: {
+                        itemListLayout: "list-layout1",
+                        bgImage: ""
+                    }
+                };
                 // create a new instance of the buildfire carousel editor
                 ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
                 $scope.pluginExist = 0;
@@ -76,6 +94,14 @@
                         isEdit: false
                     }).then(function (response) {
                         if (!(response.title === null || response.title.match(/^ *$/) !== null)) {
+                            if(ContentHome.info.data.default){
+                                _data.content.entity.unshift({
+                                    title: response.title,
+                                    iconUrl: response.iconUrl,
+                                    fileUrl: response.fileUrl,
+                                    items: []
+                                });
+                            }
                             ContentHome.info.data.content.entity.unshift({
                                 title: response.title,
                                 iconUrl: response.iconUrl,
@@ -95,6 +121,15 @@
                         if (instances) {
                             instances.forEach(function (instance) {
                                 if (!ContentHome.pluginExist(instance.instanceId)) {
+                                    if(ContentHome.info.data.default){
+                                        _data._buildfire.plugins.data.push(instance.instanceId);
+                                        _data.content.entity.unshift({
+                                            title: instance.title,
+                                            iconUrl: instance.iconUrl,
+                                            instanceId: instance.instanceId,
+                                            pluginTypeName: instance.pluginTypeName
+                                        });
+                                    }
                                     ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
                                     ContentHome.info.data.content.entity.unshift({
                                         title: instance.title,
@@ -123,6 +158,16 @@
                     }, function (error, instances) {
                         if (instances) {
                             instances.forEach(function (instance) {
+
+                                if(ContentHome.info.data.default){
+                                    _data._buildfire.plugins.data.push(instance.instanceId);
+                                    _data.content.entity.unshift({
+                                        title: instance.title,
+                                        iconUrl: instance.iconUrl,
+                                        instanceId: instance.instanceId,
+                                        pluginTypeName: instance.pluginTypeName
+                                    });
+                                }
 
                                 ContentHome.info.data._buildfire.plugins.data.push(instance.instanceId);
                                 ContentHome.info.data.content.entity.unshift({
@@ -453,23 +498,7 @@
                     $timeout.cancel(timerDelay);
                     if (_info && _info.data && !isUnchanged(_info)) {
                         if(_info.data.default){
-                            _info.data={
-                                _buildfire: {
-                                    plugins: {
-                                        dataType: "pluginInstance",
-                                        data: []
-                                    }
-                                },
-                                content: {
-                                    images: [],
-                                    description: '',
-                                    entity:[]
-                                },
-                                design: {
-                                    itemListLayout: "list-layout1",
-                                    bgImage: ""
-                                }
-                            };
+                            _info.data=_data;
                             ContentHome.editor.loadItems([]);
                         }
                         timerDelay = $timeout(function () {
