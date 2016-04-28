@@ -16,7 +16,7 @@
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');'height':'146px'"></div>
                            <!-- <img lazy-img="{{ WidgetHome.cropImage( 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}" ng-if="!(plugin.data.iconUrl && plugin.data.iconClassName)">-->
                             <img load-image="239x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 512, height: 210}) }}" ng-if="plugin.data.iconUrl">
-                            <img src="../../../styles/media/holder-239x1.png" ng-if="plugin.data.iconClassName">
+                            <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="plugin.data.iconClassName" />
                         </div>
                         <div class="info-bar blackBackgroundTheme">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.data.title }}</p>
@@ -30,8 +30,8 @@
                             <div class="backgroundLayer" style="background:url('{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');"></div>
                             <img ng-if="plugin.fileUrl" load-image="239x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 512, height: 210}) }}">
 							<img src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
-                            <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
+                            <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
+	                        <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
                         <div class="info-bar blackBackgroundTheme">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.title }}</p>

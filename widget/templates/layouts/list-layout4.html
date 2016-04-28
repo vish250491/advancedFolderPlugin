@@ -12,9 +12,8 @@
                <div class="plugin-banner has-info-bar clearfix" ng-repeat="plugin in  WidgetHome.info.data.content.entity">
                    <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" ng-if="plugin.data">
                     <div class="plugin-slide text-center">
-                        <img load-image="16x9"
-                             data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
-                        <span class="main-icon text-primary {{ plugin.data.iconClassName }} icon4" ng-if="plugin.data.iconClassName"></span>
+                        <img load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 450, height: 254}) }}" ng-if="plugin.data.iconUrl" />
+                        <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="plugin.data.iconClassName" />
                     </div>
                     <div class="info-bar titleBarBackgroundTheme">
                         <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">{{ plugin.data.title }}</p>
@@ -24,10 +23,8 @@
                             <div class="plugin-slide text-center">
                                 <img ng-if="plugin.fileUrl" load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl  , {width: 450, height: 254}) }}">
 		                        <img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
-                                <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                                <span class="main-icon text-primary icon4" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
-
-
+	                            <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
+		                        <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">{{ plugin.title }}</p>

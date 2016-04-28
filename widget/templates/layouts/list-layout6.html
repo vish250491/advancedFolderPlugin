@@ -12,8 +12,7 @@
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
                             <img load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 200, height: 200}) }}" ng-if="plugin.data.iconUrl"/>
-							<img src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName">
-
+							<img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName" />
                         </div>
                         <div class="list-item-copy text-center" style="min-height: 42px;">
                             <p class="ellipsis margin-zero text-primary">
@@ -28,8 +27,8 @@
                         <div class="list-media-holder">
                             <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 200, height: 200}) }}">
 							<img src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
-                            <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
-                            <span class="main-icon text-primary icon6" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
+                            <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
+	                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
                         <div class="list-item-copy text-center" style="min-height: 42px;">
                             <p class="ellipsis margin-zero text-primary">
