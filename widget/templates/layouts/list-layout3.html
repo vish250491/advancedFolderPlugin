@@ -26,7 +26,6 @@
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
                             <img ng-if="plugin.fileUrl" load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 450, height: 254}) }}">
-	                        <img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
                             <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>

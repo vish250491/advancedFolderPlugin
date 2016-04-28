@@ -29,7 +29,6 @@
                         <div class="plugin-slide text-center">
                             <div class="backgroundLayer" style="background:url('{{ cropImage(plugin.iconUrl? plugin.iconUrl : 'http://www.placehold.it/1024x420', {width: 512, height: 210}) }}');"></div>
                             <img ng-if="plugin.fileUrl" load-image="239x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 512, height: 210}) }}">
-							<img src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
                             <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
