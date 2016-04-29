@@ -14,11 +14,15 @@
                 var deviceHeight = window.innerHeight;
                 var detailedPluginInfoArray = [];
                 var deviceWidth = window.innerWidth;
-                var oldCarousalArray=[];
-                var oldLayoutName=null;
+                var oldCarousalArray = [];
+                var oldLayoutName = null;
                 WidgetHome.firstTime = true;
-                $scope.layout12TotalItem=0;
-                $scope.layout12Height='300px';
+                $scope.layout12TotalItem = 0;
+                $scope.layout12Height = '300px';
+
+                $scope.setWidth = function () {
+                    $rootScope.deviceWidth = window.innerWidth;
+                };
 
                 WidgetHome.view = null;
                 //Default initialise
@@ -51,7 +55,7 @@
 
                 /*declare the device width heights*/
                 $rootScope.deviceHeight = window.innerHeight;
-                $rootScope.deviceWidth = window.innerWidth;
+                //$rootScope.deviceWidth = window.innerWidth;
 
                 WidgetHome.advancedFolderInfo = new DB(COLLECTIONS.advancedFolderInfo);
 
@@ -87,15 +91,17 @@
                         console.log('>>result<<', result);
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
-                            loadData();
+                            $timeout(function () {
+                                loadData();
+                            }, 1000);
                             if (WidgetHome.info.data && WidgetHome.info.data.design) {
                                 setBackgroundImage();
-                                oldLayoutName=WidgetHome.info.data.design.itemListLayout;
+                                oldLayoutName = WidgetHome.info.data.design.itemListLayout;
                             }
                             $timeout(function () {
                                 WidgetHome.initCarousel();
-                                oldCarousalArray=WidgetHome.info.data.content.images;
-                           }, 1500);
+                                oldCarousalArray = WidgetHome.info.data.content.images;
+                            }, 1500);
                         }
                         else {
                             WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
@@ -162,16 +168,16 @@
 
                 function preparePluginsData(plugins) {
 
-                        var matrix = [], i, k;
-                        var matrix = []
-                        for (i = 0, k = -1; i < plugins.length; i++) {
-                            if (i % 8 === 0) {
-                                k++;
-                                matrix[k] = [];
-                            }
-                            matrix[k].push(plugins[i]);
+                    var matrix = [], i, k;
+                    var matrix = []
+                    for (i = 0, k = -1; i < plugins.length; i++) {
+                        if (i % 8 === 0) {
+                            k++;
+                            matrix[k] = [];
                         }
-                        $scope.layout12Plugins = matrix;
+                        matrix[k].push(plugins[i]);
+                    }
+                    $scope.layout12Plugins = matrix;
 
                 }
 
@@ -303,6 +309,7 @@
                     console.log('dynamic store fetching');
                     buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                         if (err) {
+                            $('body').hide();
                             console.log('eror in dynamic store fetching');
                             console.error("Error: ", err);
                             return;
@@ -323,7 +330,6 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-
                     if (event.data) {
                         WidgetHome.info = event;
                         layout12Skeleton();
@@ -331,15 +337,15 @@
                         if (WidgetHome.info.data && WidgetHome.info.data.design)
                             $rootScope.bgImage = WidgetHome.info.data.design.bgImage;
                         setBackgroundImage();
-                        var newCarousalArray=WidgetHome.info.data.content.images;
-                        var newLayoutName=WidgetHome.info.data.design.itemListLayout;
+                        var newCarousalArray = WidgetHome.info.data.content.images;
+                        var newLayoutName = WidgetHome.info.data.design.itemListLayout;
 
-                        if(( (oldLayoutName != newLayoutName )|| !angular.equals(oldCarousalArray,newCarousalArray)) ){
-                           setTimeout(function(){
-                               WidgetHome.initCarousel();
-                               oldCarousalArray=newCarousalArray;
-                               oldLayoutName=newLayoutName;
-                           },500);
+                        if (( (oldLayoutName != newLayoutName ) || !angular.equals(oldCarousalArray, newCarousalArray))) {
+                            setTimeout(function () {
+                                WidgetHome.initCarousel();
+                                oldCarousalArray = newCarousalArray;
+                                oldLayoutName = newLayoutName;
+                            }, 500);
                         }
 
 
@@ -351,7 +357,7 @@
 
 
                 function dataLoadedHandler(result) {
-                    console.log('success in dynamic store fetching', result);
+                    console.log('success in dynamic store fetching', result.data._buildfire.plugins.result.length);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
@@ -366,7 +372,7 @@
 
                             })
                         }
-                    }else{
+                    } else {
                         if (WidgetHome.info.data.content.entity.length) {
                             layout12Skeleton();
                         }
@@ -375,12 +381,12 @@
                     console.log('success in dynamic store fetching post', WidgetHome.info);
                 }
 
-                function  layout12Skeleton(){
-                    if(WidgetHome.info.data.design.itemListLayout=="list-layout12"){
-                        var currentCount =Number(WidgetHome.info.data.content.entity.length);
+                function layout12Skeleton() {
+                    if (WidgetHome.info.data.design.itemListLayout == "list-layout12") {
+                        var currentCount = Number(WidgetHome.info.data.content.entity.length);
                         preparePluginsData(WidgetHome.info.data.content.entity);
-                        if(currentCount){
-                            $scope.layout12TotalItem=currentCount;
+                        if (currentCount) {
+                            $scope.layout12TotalItem = currentCount;
                         }
                     }
                 }
@@ -485,22 +491,22 @@
 
                 };
 
-                $rootScope.$on("CallHomeMethod", function (event,d) {
+                $rootScope.$on("CallHomeMethod", function (event, d) {
                     if (d.data && d.method == 'navigateToPlugin')
                         WidgetHome.navigateToPlugin(d.data);
                 });
 
-                $scope.$on('LastRepeaterElement', function(){
+                $scope.$on('LastRepeaterElement', function () {
                     // $('.plugin-slider.text-center.owl-carousel').trigger("destroy.owl.carousel");
-                    $scope.layout12Height= $('.plugin-slider .plugin-slide').first().height()+240+'px';
+                    $scope.layout12Height = $('.plugin-slider .plugin-slide').first().height() + 240 + 'px';
                     var slides = $('.plugin-slider .plugin-slide').length;
-                    $scope.layout12TotalItem=$scope.layout12TotalItem+1;
+                    $scope.layout12TotalItem = $scope.layout12TotalItem + 1;
                     // Slider needs at least 2 slides or you'll get an error.
-                    if(slides > 1){
+                    if (slides > 1) {
                         $('.plugin-slider').owlCarousel({
-                            loop:false,
-                            nav:false,
-                            items:1
+                            loop: false,
+                            nav: false,
+                            items: 1
                         });
                     }
                 });
