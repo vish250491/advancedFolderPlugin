@@ -91,7 +91,9 @@
                         console.log('>>result<<', result);
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
-                            loadData();
+                            $timeout(function () {
+                                loadData();
+                            }, 1000);
                             if (WidgetHome.info.data && WidgetHome.info.data.design) {
                                 setBackgroundImage();
                                 oldLayoutName = WidgetHome.info.data.design.itemListLayout;
@@ -328,7 +330,6 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-debugger;
                     if (event.data) {
                         WidgetHome.info = event;
                         layout12Skeleton();
