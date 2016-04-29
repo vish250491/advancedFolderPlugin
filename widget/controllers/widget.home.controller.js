@@ -307,6 +307,7 @@
                     console.log('dynamic store fetching');
                     buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                         if (err) {
+                            $('body').hide();
                             console.log('eror in dynamic store fetching');
                             console.error("Error: ", err);
                             return;
@@ -327,7 +328,7 @@
                  */
 
                 WidgetHome.onUpdateCallback = function (event) {
-
+debugger;
                     if (event.data) {
                         WidgetHome.info = event;
                         layout12Skeleton();
