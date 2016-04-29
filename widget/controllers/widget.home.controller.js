@@ -356,7 +356,7 @@ debugger;
 
 
                 function dataLoadedHandler(result) {
-                    console.log('success in dynamic store fetching', result);
+                    console.log('success in dynamic store fetching', result.data._buildfire.plugins.result.length);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
                         pluginsList = result.data._buildfire.plugins;
