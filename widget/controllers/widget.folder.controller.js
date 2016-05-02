@@ -8,11 +8,25 @@
             function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack) {
                 console.log('WidgetFolderCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
-
+                var breadCrumbFlag = true;
                 WidgetHome.noCarouselBody = true;
 
                 var vs = ViewStack.getCurrentView();
                 console.log('vs>>>>', vs);
+
+                buildfire.history.get('pluginBreadcrumbsOnly', function (err, result) {
+                    if(result && result.length) {
+                        result.forEach(function(breadCrumb) {
+                            if(breadCrumb.label == vs.folderName) {
+                                breadCrumbFlag = false;
+                            }
+                        });
+                    }
+                    if(breadCrumbFlag) {
+                        buildfire.history.push(vs.folderName, { elementToShow: vs.folderName });
+                    }
+                });
+
                 if (vs) {
                     console.log('got folder', vs.info);
                     var tempInfo = angular.copy(vs.info);
@@ -53,7 +67,9 @@
                     ViewStack.push({
                         template: "folder",
                         folderItems: plugin.items,
-                        info: WidgetHome.info});
+                        info: WidgetHome.info,
+                        folderName: plugin.title
+                    });
                 };
 
                 WidgetHome.cropImage = function (url, settings) {

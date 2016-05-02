@@ -79,13 +79,11 @@
 
         }])
         .run(['ViewStack', function (ViewStack) {
-            buildfire.navigation.onBackButtonClick = function () {
+            buildfire.history.onPop(function(err,data){
                 if (ViewStack.hasViews()) {
                     ViewStack.pop();
-                } else {
-                    buildfire.navigation._goBackOne();
                 }
-            };
+            });
         }])
 })
 (window.angular, window.buildfire);

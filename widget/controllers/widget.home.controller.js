@@ -187,7 +187,8 @@
                     ViewStack.push({
                         template: "folder",
                         folderItems: obj.items,
-                        info: WidgetHome.info
+                        info: WidgetHome.info,
+                        folderName: obj.title
                     });
                 };
 
