@@ -21,7 +21,7 @@
                 $scope.layout12Height = '300px';
 
                 $scope.setWidth = function () {
-                    $rootScope.deviceWidth = window.innerWidth;
+                    $rootScope.deviceWidth = window.innerWidth || 320;
                 };
 
                 WidgetHome.view = null;
