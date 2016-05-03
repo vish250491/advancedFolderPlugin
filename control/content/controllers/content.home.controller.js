@@ -197,20 +197,24 @@
                 ContentHome.deleteEntity = function (obj, isFolder) {
                     var nodeData = obj.$modelValue;
                     var pluginInstanceArray=[];
+
+                    function getLeaf(node) {
+                        if (node.items) {
+                            node.items.forEach(function (item) {
+                                return getLeaf(item);
+                            });
+                        }
+                        else {
+                            return pluginInstanceArray.push(node.instanceId);
+                        }
+                    }
+
                     Modals.removePopupModal(isFolder).then(function (result) {
                         if (result) {
                             if (nodeData.hasOwnProperty('items')) {
+
                                 getLeaf(nodeData);
-                                function getLeaf(node) {
-                                    if (node.items) {
-                                        node.items.forEach(function (item) {
-                                            return getLeaf(item);
-                                        });
-                                    }
-                                    else {
-                                        return pluginInstanceArray.push(node.instanceId);
-                                    }
-                                }
+
 
                                 ContentHome.info.data._buildfire.plugins.data = ContentHome.info.data._buildfire.plugins.data.filter(function(x) { return pluginInstanceArray.indexOf(x) < 0 })
 
