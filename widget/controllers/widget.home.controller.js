@@ -94,7 +94,7 @@
                            var data= LocalStorage.get()
                             if(data){
 
-                                WidgetHome.navigateToPlugin(data);
+                                WidgetHome.goToFolder(data);
                             }
                             $timeout(function () {
                                 loadData();
