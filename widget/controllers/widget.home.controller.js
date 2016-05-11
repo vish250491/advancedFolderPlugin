@@ -21,7 +21,7 @@
                 $scope.layout12Height = '300px';
 
                 $scope.setWidth = function () {
-                    $rootScope.deviceWidth = window.innerWidth;
+                    $rootScope.deviceWidth = window.innerWidth || 320;
                 };
 
                 WidgetHome.view = null;
@@ -362,6 +362,17 @@
 
 
                 function dataLoadedHandler(result) {
+                    if(!result)
+                    console.log('result is undefined');
+                    if(!result.data)
+                        console.log('result.data is undefined');
+                    if(!result.data._buildfire)
+                        console.log('result.data._buildfire is undefined');
+                    if(!result.data._buildfire.plugins)
+                        console.log('result.data._buildfire.plugins is undefined');
+                    if(!result.data._buildfire.plugins.result)
+                        console.log('result.data._buildfire.plugins.result is undefined');
+
                     console.log('success in dynamic store fetching', result.data._buildfire.plugins.result.length);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
