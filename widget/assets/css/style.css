@@ -221,6 +221,9 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	position:relative;
 	padding:1px !important;
 }
+.layout11 .item-block{
+	padding:0 !important;
+}
 .plugin-slide p.item-text{
 	position:absolute;
 	top:50%;
