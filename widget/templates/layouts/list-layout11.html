@@ -7,7 +7,7 @@
         <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left padding-bottom-zero clearfix text-overlay" >
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
-        <div class="padded padding-top-zero text-overlay" style="padding: 0;">
+        <div class="padded padding-top-zero text-overlay" style="padding: 0; margin-top:1px;">
             <div ng-repeat="plugin in WidgetHome.info.data.content.entity" class="col-md-4 col-sm-6 col-xs-6 pull-left clearfix" style="padding:1px;">
                 <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
                     <div class="item-block clearfix pull-left">
