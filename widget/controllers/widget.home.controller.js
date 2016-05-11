@@ -93,7 +93,6 @@
                             WidgetHome.info = result;
                            var data= LocalStorage.get()
                             if(data){
-
                                 WidgetHome.goToFolder(data);
                             }
                             $timeout(function () {
@@ -194,6 +193,7 @@
                         folderItems: obj.items,
                         info: WidgetHome.info
                     });
+                    LocalStorage.set(obj);
                 };
 
                 function setBackgroundImage() {

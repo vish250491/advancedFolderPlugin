@@ -17,7 +17,7 @@
                     console.log('got folder', vs.info);
                     var tempInfo = angular.copy(vs.info);
                     tempInfo.data.content.entity = vs.folderItems;
-                    LocalStorage.set(vs.folderItems);
+
 
                         if(tempInfo.data.design.itemListLayout=="list-layout12"){
 
@@ -55,6 +55,7 @@
                         template: "folder",
                         folderItems: plugin.items,
                         info: WidgetHome.info});
+                    LocalStorage.set(plugin);
                 };
 
                 WidgetHome.cropImage = function (url, settings) {
