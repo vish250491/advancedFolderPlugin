@@ -4,8 +4,8 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope', 'ViewStack', 'Messaging', '$q',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging, $q) {
+            '$rootScope', 'ViewStack', 'Messaging', '$q','LocalStorage',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging, $q,LocalStorage) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
@@ -91,6 +91,11 @@
                         console.log('>>result<<', result);
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
+                           var data= LocalStorage.get()
+                            if(data){
+
+                                WidgetHome.navigateToPlugin(data);
+                            }
                             $timeout(function () {
                                 loadData();
                             }, 1000);

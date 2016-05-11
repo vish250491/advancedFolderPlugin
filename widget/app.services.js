@@ -70,5 +70,17 @@
                     viewMap = {};
                 }
             };
-        }]);
+        }])
+    .factory('LocalStorage', [ function () {
+
+        return {
+            get: function () {
+                var data= JSON.parse(localStorage.getItem('lastEntity'));
+                return data;
+            },
+            set: function (data) {
+                localStorage.setItem("lastEntity", JSON.stringify(data));
+            }
+        };
+    }]);
 })(window.angular, window.buildfire, window.location);

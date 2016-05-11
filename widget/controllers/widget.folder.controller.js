@@ -4,8 +4,8 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetFolderCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope', 'ViewStack',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack) {
+            '$rootScope', 'ViewStack','LocalStorage',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack ,LocalStorage) {
                 console.log('WidgetFolderCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
 
@@ -17,6 +17,7 @@
                     console.log('got folder', vs.info);
                     var tempInfo = angular.copy(vs.info);
                     tempInfo.data.content.entity = vs.folderItems;
+                    LocalStorage.set(vs.folderItems);
 
                         if(tempInfo.data.design.itemListLayout=="list-layout12"){
 
