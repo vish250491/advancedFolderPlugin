@@ -92,9 +92,7 @@
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
                            var data= LocalStorage.get()
-                            if(data){
-                                WidgetHome.goToFolder(data);
-                            }
+                            ViewStack.push(data);
                             $timeout(function () {
                                 loadData();
                             }, 1000);
@@ -193,7 +191,11 @@
                         folderItems: obj.items,
                         info: WidgetHome.info
                     });
-                    LocalStorage.set(obj);
+                    LocalStorage.set({
+                        template: "folder",
+                        folderItems: obj.items,
+                        info: WidgetHome.info
+                    });
                 };
 
                 function setBackgroundImage() {
