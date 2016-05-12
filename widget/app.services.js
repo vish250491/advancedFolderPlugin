@@ -75,11 +75,11 @@
 
         return {
             get: function () {
-                var data= JSON.parse(localStorage.getItem('lastEntity'));
+                var data= JSON.parse(localStorage.getItem(buildfire.context.instanceId));
                 return data;
             },
             set: function (data) {
-                localStorage.setItem("lastEntity", JSON.stringify(data));
+                localStorage.setItem(buildfire.context.instanceId, JSON.stringify(data));
             }
         };
     }]);
