@@ -1,5 +1,5 @@
     <div class="holder padding-zero">
-    <div class="media-center-plugin list-layout layout4 text-overlay">
+    <div class="media-center-plugin list-layout layout4 layout11 text-overlay">
         <div ng-if="!WidgetHome.noCarouselBody" class="media-center-banner clearfix  text-overlay">
             <div id="carousel" build-fire-carousel=""
                  ng-style="WidgetHome.info.data.content.images.length > 0 ? {'min-height': (9 * deviceWidth / 16) + 'px' } : {}"></div>
@@ -7,10 +7,10 @@
         <div ng-if="!WidgetHome.noCarouselBody" ng-class="WidgetHome.info.data.content.description ? 'padded':'wyswig-pading'" class="text-left padding-bottom-zero clearfix text-overlay" >
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
-        <div class="padded padding-top-zero text-overlay" style="padding: 0;">
-            <div ng-repeat="plugin in  WidgetHome.info.data.content.entity">
-                <div  ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
-                    <div class="item-block clearfix col-md-4 col-sm-6 col-xs-6 pull-left">
+        <div class="padded padding-top-zero text-overlay" style="padding: 0; margin-top:1px;">
+            <div ng-repeat="plugin in WidgetHome.info.data.content.entity" class="col-md-4 col-sm-6 col-xs-6 pull-left clearfix" style="padding:1px;">
+                <div ng-click="WidgetHome.navigateToPlugin(plugin)" ng-if="plugin.data">
+                    <div class="item-block clearfix pull-left">
                         <div class="text-center">
 							<div class="blackLayer"></div>
                             <img load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 400, height: 400}) }}" ng-if="plugin.data.iconUrl">
@@ -21,8 +21,8 @@
                         </div>
                     </div>
                 </div>
-                <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
-                    <div class="item-block clearfix col-md-4 col-sm-6 col-xs-6 pull-left">
+                <div ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
+                    <div class="item-block clearfix pull-left">
                         <div class="text-center">
 							<div class="blackLayer"></div>
                             <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl , {width: 400, height: 400}) }}">
