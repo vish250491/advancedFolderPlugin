@@ -4,8 +4,8 @@
     angular
         .module('advancedFolderPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'DEFAULT_DATA', 'COLLECTIONS', 'DB', 'Buildfire',
-            '$rootScope', 'ViewStack', 'Messaging', '$q',
-            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging, $q) {
+            '$rootScope', 'ViewStack', 'Messaging', '$q','LocalStorage',
+            function ($scope, $timeout, DEFAULT_DATA, COLLECTIONS, DB, Buildfire, $rootScope, ViewStack, Messaging, $q,LocalStorage) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
 
                 var WidgetHome = this;
@@ -91,6 +91,8 @@
                         console.log('>>result<<', result);
                         if (result && result.data && result.id) {
                             WidgetHome.info = result;
+                           var data= LocalStorage.get()
+                            ViewStack.init(data);
                             $timeout(function () {
                                 loadData();
                             }, 1000);
@@ -189,6 +191,11 @@
                         folderItems: obj.items,
                         info: WidgetHome.info
                     });
+                   /* LocalStorage.set({
+                        template: "folder",
+                        folderItems: obj.items,
+                        info: WidgetHome.info
+                    });*/
                 };
 
                 function setBackgroundImage() {
@@ -357,6 +364,17 @@
 
 
                 function dataLoadedHandler(result) {
+                    if(!result)
+                    console.log('result is undefined');
+                    if(!result.data)
+                        console.log('result.data is undefined');
+                    if(!result.data._buildfire)
+                        console.log('result.data._buildfire is undefined');
+                    if(!result.data._buildfire.plugins)
+                        console.log('result.data._buildfire.plugins is undefined');
+                    if(!result.data._buildfire.plugins.result)
+                        console.log('result.data._buildfire.plugins.result is undefined');
+
                     console.log('success in dynamic store fetching', result.data._buildfire.plugins.result.length);
                     var pluginsList = null;
                     if (result && result.data && result.data._buildfire && result.data._buildfire.plugins && result.data._buildfire.plugins.result) {
