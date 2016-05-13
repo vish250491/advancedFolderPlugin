@@ -36,10 +36,30 @@
             };
             return DB;
         }])
-        .factory('ViewStack', ['$rootScope', function ($rootScope) {
+        .factory('LocalStorage', [ function () {
+
+            return {
+                get: function () {
+                    var data= JSON.parse(localStorage.getItem(buildfire.context.instanceId));
+                    return data;
+                },
+                set: function (data) {
+                    localStorage.setItem(buildfire.context.instanceId, JSON.stringify(data));
+                }
+            };
+        }])
+        .factory('ViewStack', ['$rootScope','LocalStorage', function ($rootScope ,LocalStorage) {
             var views = [];
             var viewMap = {};
             return {
+                init : function(viewObject){
+                    if(viewObject && viewObject.viewMap && viewObject.views){
+                        viewMap=viewObject.viewMap;
+                        views=viewObject.views;
+                        $rootScope.$broadcast('VIEW_CHANGED', 'PUSH', views[views.length-1  ]);
+                    }
+
+                },
                 push: function (view) {
                     if (viewMap[view.template] && false) {
                         this.pop();
@@ -49,6 +69,7 @@
                         views.push(view);
                         $rootScope.$broadcast('VIEW_CHANGED', 'PUSH', view);
                     }
+                    LocalStorage.set({"views" : views,"viewMap" : viewMap});
                     return view;
                 },
                 pop: function () {
@@ -71,16 +92,5 @@
                 }
             };
         }])
-    .factory('LocalStorage', [ function () {
-
-        return {
-            get: function () {
-                var data= JSON.parse(localStorage.getItem(buildfire.context.instanceId));
-                return data;
-            },
-            set: function (data) {
-                localStorage.setItem(buildfire.context.instanceId, JSON.stringify(data));
-            }
-        };
-    }]);
+   ;
 })(window.angular, window.buildfire, window.location);

@@ -55,10 +55,10 @@
                         template: "folder",
                         folderItems: plugin.items,
                         info: WidgetHome.info});
-                    LocalStorage.set({
+                   /* LocalStorage.set({
                         template: "folder",
                         folderItems: plugin.items,
-                        info: WidgetHome.info});
+                        info: WidgetHome.info});*/
                 };
 
                 WidgetHome.cropImage = function (url, settings) {
