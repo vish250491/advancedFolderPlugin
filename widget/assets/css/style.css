@@ -306,6 +306,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	background:rgba(0,0,0,0.8);
 	padding:5px 15px;
 	border-radius:3px;
+	max-height:380px;
 }
 .layout12 .plugin-slider .link-holder p{
 	margin:0;
