@@ -11,7 +11,7 @@
                 <div class="clickable col-xs-6 pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
-                            <img load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 200, height: 200}) }}" ng-if="plugin.data.iconUrl"/>
+                            <img load-image="1x1" data-final-src="{{ plugin.data.iconUrl }}" ng-if="plugin.data.iconUrl" crop-width="200" crop-height="200" crop-type="crop"/>
 							<img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName" />
                         </div>
                         <div class="list-item-copy text-center" style="min-height: 42px;">
@@ -25,7 +25,7 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center overflow-hidden"
                          ng-if="plugin.items">
                         <div class="list-media-holder">
-                            <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 200, height: 200}) }}">
+                            <img ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{ plugin.fileUrl }}" crop-width="200" crop-height="200" crop-type="crop">
                             <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
