@@ -25,7 +25,7 @@
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                     <div class="plugin-banner clearfix border-bottom-grey">
                         <div class="plugin-slide text-center">
-                            <img ng-if="plugin.fileUrl" load-image="16x9" data-final-src="{{ plugin.fileUrl }}" crop-width="450" crop-height="254" crop-type="crop" >
+                            <img ng-if="plugin.fileUrl" load-image="16x9" data-final-src="{{ plugin.fileUrl }}" crop-width="450" crop-height="254" crop-type="crop" />
                             <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
