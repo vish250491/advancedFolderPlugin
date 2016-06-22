@@ -323,45 +323,47 @@
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
                         if(!ContentHome.info ){
-                                init();
-                        }
-                        ContentHome.info.data = result.data;
-                        ContentHome.info.id = result.id;
-                        /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
-                         ContentHome.editor.loadItems(ContentHome.info.data.content.images);
-                         }*/
-                        ContentHome.restrictUpdate = true;
-                        if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
-                            var pluginsDetailDataArray = [];
-                            pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
-                            //to do to display on content side icon and title of plugin
-                            if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
+                                init(function(){
+                                    ContentHome.info.data = result.data;
+                                    ContentHome.info.id = result.id;
+                                    /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                                     ContentHome.editor.loadItems(ContentHome.info.data.content.images);
+                                     }*/
+                                    ContentHome.restrictUpdate = true;
+                                    if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
+                                        var pluginsDetailDataArray = [];
+                                        pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
+                                        //to do to display on content side icon and title of plugin
+                                        if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
 
-                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject, index) {
-                                    traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
-                                    if (index == (pluginsDetailDataArray.length - 1))
-                                        dltObj(ContentHome.info.data.content.entity);
+                                            pluginsDetailDataArray.forEach(function (pluginDetailDataObject, index) {
+                                                traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
+                                                if (index == (pluginsDetailDataArray.length - 1))
+                                                    dltObj(ContentHome.info.data.content.entity);
 
-                                })
-                                $scope.$digest();
-                            }
-                        }
-                        ContentHome.restrictUpdate = false;
+                                            })
+                                           // $scope.$digest();
+                                        }
+                                    }
+                                    ContentHome.restrictUpdate = false;
 
-                        if (!ContentHome.info.data._buildfire) {
-                            ContentHome.info.data._buildfire = {
-                                plugins: {
-                                    dataType: "pluginInstance",
-                                    data: []
-                                }
-                            };
-                        }
+                                    if (!ContentHome.info.data._buildfire) {
+                                        ContentHome.info.data._buildfire = {
+                                            plugins: {
+                                                dataType: "pluginInstance",
+                                                data: []
+                                            }
+                                        };
+                                    }
 
-                        if (!ContentHome.info.data.design) {
-                            ContentHome.info.data.design = {
-                                bgImage: null,
-                                selectedLayout: 1
-                            };
+                                    if (!ContentHome.info.data.design) {
+                                        ContentHome.info.data.design = {
+                                            bgImage: null,
+                                            selectedLayout: 1
+                                        };
+                                    }
+
+                                });
                         }
 
                     }
@@ -418,11 +420,13 @@
                         }
                     }
                     else {
-                        if (obj.instanceId == pluginDetailData.instanceId) {
+                        if (obj.instanceId == pluginDetailData.instanceId && (obj.title != pluginDetailData.title || obj.iconUrl != pluginDetailData.iconUrl)) {
                             console.log('??pluginDetailData', pluginDetailData);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
+                            /*saveData(ContentHome.info)
+                            $scope.$apply();*/
                             obj.found = 1;
                         } else {
                             if (!(obj.found && obj.found == 1)) {
@@ -438,7 +442,7 @@
                     }
                 }
 
-                function init() {
+                function init(cb) {
                     var success = function (data) {
                         if (data && data.data && data.id && (data.data.content || data.data.design)) {
                             updateMasterInfo(data);
@@ -452,6 +456,8 @@
                             ContentHome.editor.loadItems(ContentHome.info.data.content.images);
                             if (!$scope.$$phase)$scope.$digest();
                         }
+                        if(cb)
+                        cb();
                        // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
 
                     };
