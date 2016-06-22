@@ -322,6 +322,9 @@
                     if (result && result.data && !angular.equals({}, result.data)) {
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
+                        if(!ContentHome.info ){
+                                init();
+                        }
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
                         /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
@@ -338,8 +341,9 @@
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
                                     if (index == (pluginsDetailDataArray.length - 1))
                                         dltObj(ContentHome.info.data.content.entity);
-                                    $scope.$digest();
+
                                 })
+                                $scope.$digest();
                             }
                         }
                         ContentHome.restrictUpdate = false;
