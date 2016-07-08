@@ -22,7 +22,8 @@
                     },
                     design: {
                         itemListLayout: "list-layout1",
-                        bgImage: []
+                        bgImage: [],
+                        hideText : false
                     }
                 };
 

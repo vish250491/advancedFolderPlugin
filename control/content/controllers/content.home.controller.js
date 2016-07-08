@@ -23,7 +23,8 @@
                     },
                     design: {
                         itemListLayout: "list-layout1",
-                        bgImage: ""
+                        bgImage: "",
+                        hideText : false
                     }
                 };
                 // create a new instance of the buildfire carousel editor
