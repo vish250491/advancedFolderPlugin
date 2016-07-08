@@ -16,7 +16,7 @@
                             <img load-image="1x1" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 400, height: 400}) }}" ng-if="plugin.data.iconUrl">
                             <img src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName">                            
 							<div class="text-holder">
-                                <p class="item-text whiteTheme text-center" ng-show="WidgetHome.info.data.design.hideText">{{ plugin.data.title }}</p>
+                                <p class="item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText">{{ plugin.data.title }}</p>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                             <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                             <div class="text-holder">
-                                <p class="item-text whiteTheme text-center" ng-show="WidgetHome.info.data.design.hideText">{{ plugin.title }}</p>
+                                <p class="item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText">{{ plugin.title }}</p>
                             </div>
                         </div>
                     </div>
