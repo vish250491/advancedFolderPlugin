@@ -35,7 +35,7 @@
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : '../../../styles/media/holder-16x9.png', {width: 640, height: 360}) }}');"></div>
                             <img load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 640, height: 360}) }}" ng-if="plugin.data.iconUrl">
                             <img src="../../../styles/media/holder-16x9.png" ng-if="plugin.data.iconClassName">
-                            <p class="ellipsis item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText==">{{ plugin.data.title }}</p>
+                            <p class="ellipsis item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText">{{ plugin.data.title }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 							<img load-image="16x9" data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 640, height: 360}) }}" ng-if="plugin.fileUrl">
 	                       	<img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
 	                       	<img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
-                            <p class="ellipsis item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText=">{{ plugin.title }}</p>
+                            <p class="ellipsis item-text whiteTheme text-center" ng-show="!WidgetHome.info.data.design.hideText">{{ plugin.title }}</p>
                         </div>
                     </div>
                 </div>
