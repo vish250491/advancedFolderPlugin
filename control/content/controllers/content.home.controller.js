@@ -23,8 +23,7 @@
                     },
                     design: {
                         itemListLayout: "list-layout1",
-                        bgImage: "",
-                        hideText : false
+                        bgImage: ""
                     }
                 };
                 // create a new instance of the buildfire carousel editor
@@ -68,22 +67,22 @@
                 };
                 // this method will be called when you change the order of items
                 ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
-                  var items = ContentHome.info.data.content.images;
+                    var items = ContentHome.info.data.content.images;
 
-                  var tmp = items[oldIndex];
+                    var tmp = items[oldIndex];
 
-                  if (oldIndex < newIndex) {
-                    for (var i = oldIndex + 1; i <= newIndex; i++) {
-                      items[i - 1] = items[i];
+                    if (oldIndex < newIndex) {
+                        for (var i = oldIndex + 1; i <= newIndex; i++) {
+                            items[i - 1] = items[i];
+                        }
+                    } else {
+                        for (var i = oldIndex - 1; i >= newIndex; i--) {
+                            items[i + 1] = items[i];
+                        }
                     }
-                  } else {
-                    for (var i = oldIndex - 1; i >= newIndex; i--) {
-                      items[i + 1] = items[i];
-                    }
-                  }
-                  items[newIndex] = tmp;
+                    items[newIndex] = tmp;
 
-                  ContentHome.info.data.content.images = items;
+                    ContentHome.info.data.content.images = items;
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
@@ -220,10 +219,10 @@
                                 ContentHome.info.data._buildfire.plugins.data = ContentHome.info.data._buildfire.plugins.data.filter(function(x) { return pluginInstanceArray.indexOf(x) < 0 })
 
                                 /*nodeData.items.forEach(function (item) {
-                                    var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
-                                    ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
-                                })
-*/
+                                 var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
+                                 ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                                 })
+                                 */
                                 //ContentHome.info.data.content.entity.splice(ind, 1);
                                 obj.remove();
                             } else {
@@ -324,47 +323,45 @@
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
                         if(!ContentHome.info ){
-                                init(function(){
-                                    ContentHome.info.data = result.data;
-                                    ContentHome.info.id = result.id;
-                                    /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
-                                     ContentHome.editor.loadItems(ContentHome.info.data.content.images);
-                                     }*/
-                                    ContentHome.restrictUpdate = true;
-                                    if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
-                                        var pluginsDetailDataArray = [];
-                                        pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
-                                        //to do to display on content side icon and title of plugin
-                                        if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
+                            init();
+                        }
+                        ContentHome.info.data = result.data;
+                        ContentHome.info.id = result.id;
+                        /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
+                         ContentHome.editor.loadItems(ContentHome.info.data.content.images);
+                         }*/
+                        ContentHome.restrictUpdate = true;
+                        if (ContentHome.info.data._buildfire && ContentHome.info.data._buildfire.plugins && ContentHome.info.data._buildfire.plugins.result) {
+                            var pluginsDetailDataArray = [];
+                            pluginsDetailDataArray = Utility.getPluginDetails(ContentHome.info.data._buildfire.plugins.result, ContentHome.info.data._buildfire.plugins.data);
+                            //to do to display on content side icon and title of plugin
+                            if (pluginsDetailDataArray && pluginsDetailDataArray.length) {
 
-                                            pluginsDetailDataArray.forEach(function (pluginDetailDataObject, index) {
-                                                traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
-                                                if (index == (pluginsDetailDataArray.length - 1))
-                                                    dltObj(ContentHome.info.data.content.entity);
+                                pluginsDetailDataArray.forEach(function (pluginDetailDataObject, index) {
+                                    traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
+                                    if (index == (pluginsDetailDataArray.length - 1))
+                                        dltObj(ContentHome.info.data.content.entity);
 
-                                            })
-                                           // $scope.$digest();
-                                        }
-                                    }
-                                    ContentHome.restrictUpdate = false;
+                                })
+                                $scope.$digest();
+                            }
+                        }
+                        ContentHome.restrictUpdate = false;
 
-                                    if (!ContentHome.info.data._buildfire) {
-                                        ContentHome.info.data._buildfire = {
-                                            plugins: {
-                                                dataType: "pluginInstance",
-                                                data: []
-                                            }
-                                        };
-                                    }
+                        if (!ContentHome.info.data._buildfire) {
+                            ContentHome.info.data._buildfire = {
+                                plugins: {
+                                    dataType: "pluginInstance",
+                                    data: []
+                                }
+                            };
+                        }
 
-                                    if (!ContentHome.info.data.design) {
-                                        ContentHome.info.data.design = {
-                                            bgImage: null,
-                                            selectedLayout: 1
-                                        };
-                                    }
-
-                                });
+                        if (!ContentHome.info.data.design) {
+                            ContentHome.info.data.design = {
+                                bgImage: null,
+                                selectedLayout: 1
+                            };
                         }
 
                     }
@@ -421,13 +418,11 @@
                         }
                     }
                     else {
-                        if (obj.instanceId == pluginDetailData.instanceId && (obj.title != pluginDetailData.title || obj.iconUrl != pluginDetailData.iconUrl)) {
+                        if (obj.instanceId == pluginDetailData.instanceId) {
                             console.log('??pluginDetailData', pluginDetailData);
                             obj.title = pluginDetailData.title;
                             obj.iconUrl = pluginDetailData.iconUrl;
                             obj.pluginTypeName = pluginDetailData.pluginTypeName;
-                            /*saveData(ContentHome.info)
-                            $scope.$apply();*/
                             obj.found = 1;
                         } else {
                             if (!(obj.found && obj.found == 1)) {
@@ -443,7 +438,7 @@
                     }
                 }
 
-                function init(cb) {
+                function init() {
                     var success = function (data) {
                         if (data && data.data && data.id && (data.data.content || data.data.design)) {
                             updateMasterInfo(data);
@@ -457,9 +452,7 @@
                             ContentHome.editor.loadItems(ContentHome.info.data.content.images);
                             if (!$scope.$$phase)$scope.$digest();
                         }
-                        if(cb)
-                        cb();
-                       // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
+                        // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
 
                     };
                     var error = function (err) {
