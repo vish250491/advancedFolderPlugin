@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="padded text-left">
-                    <a class="text-primary">{{ plugin.data.title }}</a>
+                    <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText">{{ plugin.data.title }}</a>
                 </div>
                 </div>
                 <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="padded text-left">
-                        <a class="text-primary">{{ plugin.title }}</a>
+                        <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText'">{{ plugin.title }}</a>
                     </div>
                 </div>
             </div>

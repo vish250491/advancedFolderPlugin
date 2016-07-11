@@ -67,22 +67,22 @@
                 };
                 // this method will be called when you change the order of items
                 ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
-                  var items = ContentHome.info.data.content.images;
+                    var items = ContentHome.info.data.content.images;
 
-                  var tmp = items[oldIndex];
+                    var tmp = items[oldIndex];
 
-                  if (oldIndex < newIndex) {
-                    for (var i = oldIndex + 1; i <= newIndex; i++) {
-                      items[i - 1] = items[i];
+                    if (oldIndex < newIndex) {
+                        for (var i = oldIndex + 1; i <= newIndex; i++) {
+                            items[i - 1] = items[i];
+                        }
+                    } else {
+                        for (var i = oldIndex - 1; i >= newIndex; i--) {
+                            items[i + 1] = items[i];
+                        }
                     }
-                  } else {
-                    for (var i = oldIndex - 1; i >= newIndex; i--) {
-                      items[i + 1] = items[i];
-                    }
-                  }
-                  items[newIndex] = tmp;
+                    items[newIndex] = tmp;
 
-                  ContentHome.info.data.content.images = items;
+                    ContentHome.info.data.content.images = items;
                     if (!$scope.$$phase)$scope.$digest();
                 };
 
@@ -219,10 +219,10 @@
                                 ContentHome.info.data._buildfire.plugins.data = ContentHome.info.data._buildfire.plugins.data.filter(function(x) { return pluginInstanceArray.indexOf(x) < 0 })
 
                                 /*nodeData.items.forEach(function (item) {
-                                    var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
-                                    ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
-                                })
-*/
+                                 var index = ContentHome.info.data._buildfire.plugins.data.indexOf(item.instanceId);
+                                 ContentHome.info.data._buildfire.plugins.data.splice(index, 1);
+                                 })
+                                 */
                                 //ContentHome.info.data.content.entity.splice(ind, 1);
                                 obj.remove();
                             } else {
@@ -322,6 +322,9 @@
                     if (result && result.data && !angular.equals({}, result.data)) {
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
+                        if(!ContentHome.info ){
+                            init();
+                        }
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
                         /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
@@ -338,8 +341,9 @@
                                     traverse(ContentHome.info.data.content.entity, 1, pluginDetailDataObject);
                                     if (index == (pluginsDetailDataArray.length - 1))
                                         dltObj(ContentHome.info.data.content.entity);
-                                    $scope.$digest();
+
                                 })
+                                $scope.$digest();
                             }
                         }
                         ContentHome.restrictUpdate = false;
@@ -448,7 +452,7 @@
                             ContentHome.editor.loadItems(ContentHome.info.data.content.images);
                             if (!$scope.$$phase)$scope.$digest();
                         }
-                       // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
+                        // ContentHome.info.data.content.images.push.apply(ContentHome.info.data.content.images, items);
 
                     };
                     var error = function (err) {

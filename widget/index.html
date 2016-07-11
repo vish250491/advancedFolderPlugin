@@ -132,6 +132,11 @@
     .fullHeight{
         height:100%;
     }
+
+    .owl-dots{
+        visibility: hidden !important;
+    }
+
 </style>
 <div id="scrolledDiv" style="overflow-y: scroll; height: 100% !important;">
     <!--<div id="carousel" build-fire-carousel=""></div>-->
@@ -143,7 +148,7 @@
 <script>
     $(function () {
         setTimeout(function () {
-            $('#listDiv').show('slide', {direction: 'right'}, 120);
+            $('#owl-dots').hide();
         }, 750);
     });
 </script>

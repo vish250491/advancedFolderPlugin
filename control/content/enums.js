@@ -81,7 +81,8 @@
                             "i3x2": "",
                             "i4x3": "",
                             "i16x10": ""
-                        }
+                        },
+                        "hideText" : false
                     },
                     'default' : 'true'
 

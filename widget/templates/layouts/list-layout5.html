@@ -16,7 +16,7 @@
 								<img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName" />
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
-                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
+                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" ng-show="!WidgetHome.info.data.design.hideText">
                                     {{ plugin.data.title }}
                                 </p>
                             </div>
@@ -28,7 +28,7 @@
 		                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                             </div>
                             <div class="info-bar titleBarBackgroundTheme">
-                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons">
+                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" ng-show="!WidgetHome.info.data.design.hideText">
                                     {{ plugin.title }}
                                 </p>
                             </div>
