@@ -162,5 +162,15 @@
                 $scope.$watch(function () {
                     return DesignHome.info;
                 }, updateInfoData, true);
+
+                $scope.$watch(function () {
+                    return DesignHome.info.data.design.bgImage;
+                }, function(newValue, oldValue) {
+                    if ( newValue !== oldValue ) {
+                        saveData(DesignHome.info);
+                    }
+                }, true);
+
+
             }]);
 })(window.angular);
