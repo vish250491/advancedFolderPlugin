@@ -21,9 +21,14 @@
                         description: '',
                         entity:[]
                     },
-                    design: {
-                        itemListLayout: "list-layout1",
-                        bgImage: ""
+                    "design": {
+                        "itemListLayout": "list-layout1",
+                        "bgImage": {
+                            "i16x9": "",
+                            "i3x2": "",
+                            "i4x3": "",
+                            "i16x10": ""
+                        }
                     }
                 };
                 // create a new instance of the buildfire carousel editor
@@ -323,8 +328,10 @@
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
                         if(!ContentHome.info ){
+                            ContentHome.info =_data;
                             init();
                         }
+
                         ContentHome.info.data = result.data;
                         ContentHome.info.id = result.id;
                         /*   if (ContentHome.info.data.content && ContentHome.info.data.content.images) {
@@ -359,8 +366,13 @@
 
                         if (!ContentHome.info.data.design) {
                             ContentHome.info.data.design = {
-                                bgImage: null,
-                                selectedLayout: 1
+                                    itemListLayout: "list-layout1",
+                                    bgImage: {
+                                        i16x9: "",
+                                        i3x2: "",
+                                        i4x3: "",
+                                        i16x10: ""
+                                    }
                             };
                         }
 
@@ -439,6 +451,7 @@
                 }
 
                 function init() {
+
                     var success = function (data) {
                         if (data && data.data && data.id && (data.data.content || data.data.design)) {
                             updateMasterInfo(data);
