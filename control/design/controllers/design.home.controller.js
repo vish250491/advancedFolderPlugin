@@ -22,8 +22,13 @@
                     },
                     design: {
                         itemListLayout: "list-layout1",
-                        bgImage: [],
-                        hideText : false
+                        bgImage: {
+                            i16x9: "",
+                            i3x2: "",
+                            i4x3: "",
+                            i16x10: ""
+                        },
+                        hideText: false
                     }
                 };
 
@@ -162,5 +167,6 @@
                 $scope.$watch(function () {
                     return DesignHome.info;
                 }, updateInfoData, true);
+
             }]);
 })(window.angular);
