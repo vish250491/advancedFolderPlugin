@@ -127,7 +127,7 @@
                     var img = '';
                     if (value) {
                         img = $filter("cropImage")(value, $window.innerWidth, $window.innerHeight, true);
-                        element.attr("style", 'background:url(' + img + ') !important');
+                        element.attr("style", 'background:url(' + img + ') !important ;background-size: cover !important;');
                         element.css({
                             'background-size': 'cover'
                         });
