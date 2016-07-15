@@ -87,38 +87,43 @@
 
                 };
 
-                WidgetHome.advancedFolderInfo.get().then(function success(result) {
-                        console.log('>>result<<', result);
-                        if (result && result.data && result.id) {
-                            WidgetHome.info = result;
-                           var data= LocalStorage.get()
-                            ViewStack.init(data);
-                            $timeout(function () {
-                                loadData();
-                            }, 1000);
-                            if (WidgetHome.info.data && WidgetHome.info.data.design) {
-                                setBackgroundImage();
-                                oldLayoutName = WidgetHome.info.data.design.itemListLayout;
-                            }
-                            $timeout(function () {
-                                WidgetHome.initCarousel();
-                                oldCarousalArray = WidgetHome.info.data.content.images;
-                            }, 1500);
-                        }
-                        else {
-                            WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
-                            setBackgroundImage();
-                            $timeout(function () {
-                                WidgetHome.initCarousel();
-                            }, 1500);
-                        }
-                    },
-                    function fail() {
-                        WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
-                        setBackgroundImage()
-                    }
-                );
 
+                function init(){
+
+                    WidgetHome.advancedFolderInfo.get().then(function success(result) {
+                            console.log('>>result<<', result);
+                            if (result && result.data && result.id) {
+                                WidgetHome.info = result;
+                                var data= LocalStorage.get()
+                                ViewStack.init(data);
+                                $timeout(function () {
+                                    loadData();
+                                }, 1000);
+                                if (WidgetHome.info.data && WidgetHome.info.data.design) {
+                                    setBackgroundImage();
+                                    oldLayoutName = WidgetHome.info.data.design.itemListLayout;
+                                }
+                                $timeout(function () {
+                                    WidgetHome.initCarousel();
+                                    oldCarousalArray = WidgetHome.info.data.content.images;
+                                }, 1500);
+                            }
+                            else {
+                                WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                                setBackgroundImage();
+                                $timeout(function () {
+                                    WidgetHome.initCarousel();
+                                }, 1500);
+                            }
+                        },
+                        function fail() {
+                            WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
+                            setBackgroundImage()
+                        }
+                    );
+
+                }
+                init();
 
                 WidgetHome.cropImage = function (url, settings) {
                     var options = {};
@@ -330,7 +335,7 @@
                  * when a refresh is triggered get reload data
                  */
 
-                buildfire.datastore.onRefresh(loadData);
+                buildfire.datastore.onRefresh(init);
 
                 /**
                  * Buildfire.datastore.onUpdate method calls when Data is changed.
@@ -528,6 +533,7 @@
                         });
                     }
                 });
+
 
             }]);
 })(window.angular);

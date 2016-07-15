@@ -26,7 +26,7 @@
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder square-icon pull-left">
                             <img load-image="4x1"
-                                 data-final-src="{{ WidgetHome.cropImage(plugin.data.iconUrl, {width: 180, height: 180}) }}" ng-if="plugin.data.iconUrl">
+                                 data-final-src="{{ plugin.data.iconUrl }}" crop-width="180" crop-height="180" crop-type="crop" ng-if="plugin.data.iconUrl">
                             <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
@@ -36,7 +36,7 @@
                     <div ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-left overflow-hidden" ng-if="plugin.items">
                         <div class="list-media-holder square-icon pull-left">
                             <img ng-if="plugin.fileUrl" load-image="1x1"
-                                 data-final-src="{{ WidgetHome.cropImage(plugin.fileUrl, {width: 180, height: 180}) }}">
+                                 data-final-src="{{plugin.fileUrl}}" crop-width="180" crop-height="180" crop-type="crop">
                                 <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-open'"  ng-if="! plugin.fileUrl && plugin.items.length!=0"></span>
                                 <span class="main-icon" ng-class="plugin.iconUrl ? plugin.iconUrl : 'glyphicon glyphicon-folder-close'" ng-if="! plugin.fileUrl && plugin.items.length==0"></span>
 
