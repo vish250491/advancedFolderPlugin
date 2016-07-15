@@ -1,8 +1,9 @@
 {
   "author": "BuildFire",
   "pluginName": "Advanced Folder",
-  "pluginDescription": "Add plugins and categorize them with group.",
+  "pluginDescription": "Add plugins and categorize them with group.Home Folder",
   "supportEmail": "support@buildfire.com",
+  "supportSite":"http://support.appdocumentation.com/knowledge-base/advanced-folder-plugin/",
   "pluginIcon": "icon.png",
   "control": {
     "content": {
