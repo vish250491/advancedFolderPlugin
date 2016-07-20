@@ -121,7 +121,7 @@
                 }
             };
         })
-        .directive('backImg', ["$filter", "$rootScope", "$window" , function ($filter, $rootScope, $window) {
+        /*.directive('backImg', ["$filter", "$rootScope", "$window" , function ($filter, $rootScope, $window) {
             return function (scope, element, attrs) {
                 attrs.$observe('backImg', function (value) {
                     var img = '';
@@ -141,7 +141,7 @@
                     }
                 });
             };
-        }])
+        }])*/
         .directive("loadImage", function () {
             return {
                 restrict: 'A',
