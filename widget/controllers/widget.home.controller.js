@@ -115,10 +115,6 @@
                                     WidgetHome.initCarousel();
                                 }, 1500);
                             }
-                        },
-                        function fail() {
-                            WidgetHome.info = DEFAULT_DATA.ADVANCED_FOLDER_INFO;
-                            setBackgroundImage()
                         }
                     );
 
