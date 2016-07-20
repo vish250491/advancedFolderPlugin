@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, buildfire) {
     angular
         .module('advancedFolderPluginWidget')
         .directive("buildFireCarousel", ["$rootScope", '$timeout', function ($rootScope, $timeout) {
@@ -121,28 +121,7 @@
                 }
             };
         })
-        .directive('backImg', ["$filter", "$rootScope", "$window" , function ($filter, $rootScope, $window) {
-            return function (scope, element, attrs) {
-                attrs.$observe('backImg', function (value) {
-                    var img = '';
-                    if (value) {
-                        img = $filter("cropImage")(value, $window.innerWidth, $window.innerHeight, true);
-                        element.attr("style", 'background:url(' + img + ') !important ;background-size: cover !important;');
-                        element.css({
-                            'background-size': 'cover'
-                        });
-                    }
-                    else {
-                        img = "";
-                        element.attr("style", '');
-                        element.css({
-                            'background-size': 'cover'
-                        });
-                    }
-                });
-            };
-        }])
-        .directive("loadImage", ['Buildfire', function (Buildfire) {
+        .directive("loadImage", function () {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
@@ -150,7 +129,7 @@
 
                     var _img = attrs.finalSrc;
                     if (attrs.cropType == 'resize') {
-                        Buildfire.imageLib.local.resizeImage(_img, {
+                        buildfire.imageLib.local.resizeImage(_img, {
                             width: attrs.cropWidth,
                             height: attrs.cropHeight
                         }, function (err, imgUrl) {
@@ -158,7 +137,7 @@
                             replaceImg(_img);
                         });
                     } else {
-                        Buildfire.imageLib.local.cropImage(_img, {
+                        buildfire.imageLib.local.cropImage(_img, {
                             width: attrs.cropWidth,
                             height: attrs.cropHeight
                         }, function (err, imgUrl) {
@@ -177,7 +156,7 @@
                     }
                 }
             };
-        }])
+        })
         .directive('backImg', ["$rootScope", function ($rootScope) {
             return function (scope, element, attrs) {
                 attrs.$observe('backImg', function (value) {
@@ -189,14 +168,11 @@
                         }, function (err, imgUrl) {
                             if (imgUrl) {
                                 img = imgUrl;
-                                element.attr("style", 'background:url(' + img + ') !important');
+                                element.attr("style", 'background:url(' + img + ') !important ; background-size: cover !important;');
                             } else {
                                 img = '';
                                 element.attr("style", 'background-color:white');
                             }
-                            element.css({
-                                'background-size': 'cover'
-                            });
                         });
                         // img = $filter("cropImage")(value, $rootScope.deviceWidth, $rootScope.deviceHeight, true);
                     }
@@ -210,4 +186,4 @@
                 });
             };
         }]);
-})(window.angular);
+})(window.angular, window.buildfire);
