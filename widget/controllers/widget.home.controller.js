@@ -125,7 +125,7 @@
                 }
                 init();
 
-                WidgetHome.cropImage = function (url, settings) {
+                /*WidgetHome.cropImage = function (url, settings) {
                     var options = {};
                     if (!url) {
                         return "";
@@ -139,7 +139,7 @@
                         }
                         return buildfire.imageLib.cropImage(url, options);
                     }
-                };
+                };*/
 
                 WidgetHome.navigateToPlugin = function (plugin) {
 
@@ -205,15 +205,11 @@
 
                 function setBackgroundImage() {
                     var backgroundImages = WidgetHome.info.data.design.bgImage;
-                    var backgroundImage = undefined;
 
                     if (!backgroundImages) return;
 
                     if (typeof(WidgetHome.info.data.design.bgImage) === "string") {
-                        backgroundImage = WidgetHome.cropImage(WidgetHome.info.data.design.bgImage, {
-                            width: deviceWidth,
-                            height: deviceHeight
-                        });
+                        $scope.bgImage = WidgetHome.info.data.design.bgImage;
                     }
                     else {
                         if (!matchedBackgroundName) {
@@ -224,16 +220,8 @@
                             }
                         }
                         console.log('matchedBackgroundName: ', matchedBackgroundName);
-
-                        if (matchedBackgroundName) {
-                            backgroundImage = WidgetHome.cropImage(backgroundImages[matchedBackgroundName], {
-                                width: deviceWidth,
-                                height: deviceHeight
-                            });
-                        }
+                        $scope.bgImage = backgroundImages[matchedBackgroundName];
                     }
-
-                    $scope.bgImage = $rootScope.bgImage = backgroundImage;
                 }
 
 
