@@ -76,21 +76,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body ng-cloak class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome">
-<style>
-    body.gridLayout {
-        background-color: {{}} !important;
-        background-image: url({{bgImage}}) !important;
-        background-size:cover !important;
-    }
-</style>
-<!--<style ng-if="WidgetHome.firstTime">
-    body.gridLayout {
-    background-color: {{}} !important;
-    background-image: url("assets/images/sample_bg.jpg") !important;
-    background-size:cover !important;
-    }
-</style>-->
+<body ng-cloak class="infinite-scroll-parent gridLayout" ng-controller="WidgetHomeCtrl as WidgetHome" data-back-img="{{bgImage}}">
 <style>
     .layout-6 .list-item-media {
         background-color: transparent !important;

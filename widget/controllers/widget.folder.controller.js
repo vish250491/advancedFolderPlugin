@@ -61,7 +61,7 @@
                         info: WidgetHome.info});*/
                 };
 
-                WidgetHome.cropImage = function (url, settings) {
+                /*WidgetHome.cropImage = function (url, settings) {
                     var options = {};
                     if (!url) {
                         return "";
@@ -75,7 +75,7 @@
                         }
                         return buildfire.imageLib.cropImage(url, options);
                     }
-                };
+                };*/
 
                 WidgetHome.navigateToPlugin = function (plugin) {
                     $rootScope.$emit("CallHomeMethod", {method:'navigateToPlugin', data:plugin});
