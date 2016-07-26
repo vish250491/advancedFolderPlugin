@@ -7,14 +7,14 @@
             <p ng-if="WidgetHome.showDescription()" ng-bind-html="WidgetHome.info.data.content.description | safeHtml"></p>
         </div>
         <div class="padding-top-zero text-overlay">
-            <div class="list-layout layout-6">
+            <div class="list-layout layout-6" ng-class="WidgetHome.info.data.content.description?'':'margin-top-fifteen'">
                 <div class="clickable col-xs-6 pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder">
                             <img load-image="1x1" data-final-src="{{ plugin.data.iconUrl }}" ng-if="plugin.data.iconUrl" crop-width="200" crop-height="200" crop-type="crop"/>
 							<img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName" />
                         </div>
-                        <div class="list-item-copy text-center" style="min-height: 42px;">
+                        <div class="list-item-copy text-center" ng-class="!WidgetHome.info.data.design.hideText?'with-text':'without-text'">
                             <p class="ellipsis margin-zero text-primary">
                                 <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText">
                                     {{ plugin.data.title }}
@@ -29,7 +29,7 @@
                             <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
-                        <div class="list-item-copy text-center" style="min-height: 42px;">
+                        <div class="list-item-copy text-center" ng-class="!WidgetHome.info.data.design.hideText?'with-text':'without-text'">
                             <p class="ellipsis margin-zero text-primary">
                                 <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText">
                                     {{ plugin.title }}
