@@ -12,20 +12,20 @@
             'ui.tree',
             'advancedFolderModals'
         ])
-        .directive("loadImage", function () {
+        .directive("loadImage",['dynamicData' ,function (dynamicData) {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                   // element.attr("src", "../../../styles/media/holder-" + attrs.loadImage + ".gif");
+                   element.attr("src", JSON.parse(attrs.finalsrc).iconUrl);
 
                     var _img = JSON.parse(attrs.finalsrc).iconUrl;
                     var instanceId=JSON.parse(attrs.finalsrc).instanceId;
                    var widthIcon= parseInt(attrs.cropwidth);
                     var heightIcon =parseInt(attrs.cropheight);
 
-                    buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
+                  //  buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
                         //    console.log(result.data._buildfire.pluginsresult.result);
-                        result.data._buildfire.plugins.result.forEach(function(obj){
+                    dynamicData.getDynamicData().forEach(function(obj){
                             if(instanceId==obj.data.instanceId){
 
                                 _img= obj.data.iconUrl;
@@ -37,7 +37,7 @@
                               //  return Buildfire.imageLib.cropImage(obj.data.iconUrl, options);
                             }
                         })
-                    });
+                   // });
 
 
                     function replaceImg(finalSrc) {
@@ -50,26 +50,23 @@
                     }
                 }
             };
-        })
-        .directive("updateTitle", function () {
+        }])
+        .directive("updateTitle",['dynamicData', function (dynamicData) {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    // element.attr("src", "../../../styles/media/holder-" + attrs.loadImage + ".gif");
+                    element[0].textContent= JSON.parse(attrs.updateTitle).title;
 
                     console.log('updateTitle-------------------',scope,element,attrs);
                     var instanceId=attrs.updateTitle && JSON.parse(attrs.updateTitle).instanceId;
 
-                    buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
-                        result.data._buildfire.plugins.result.forEach(function(obj){
+
+                    dynamicData.getDynamicData().forEach(function(obj){
                             if(instanceId==obj.data.instanceId){
                              //   out=obj.data.title;
                                 replaceTitle(obj.data.title);
                             }
                         });
-
-                    });
-
 
                     function replaceTitle(finalSrc) {
 
@@ -77,7 +74,7 @@
                     }
                 }
             };
-        })
+        }])
         //injected ui.bootstrap for angular bootstrap component
         .config(['$httpProvider', function ($httpProvider) {
             var interceptor = ['$q', function ($q) {

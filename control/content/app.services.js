@@ -41,6 +41,16 @@
                 return returnPlugins;
             }
         })
+        .service('dynamicData',function(){
+            var obj={};
+            this.setDyamicData =function(dynamicObj){
+                obj=dynamicObj;
+            },
+                this.getDynamicData=function(){
+                    return obj;
+                }
+
+        })
         .factory("DB", ['Buildfire', '$q', 'MESSAGES', 'CODES', function (Buildfire, $q, MESSAGES, CODES) {
             function DB(tagName) {
                 this._tagName = tagName;
