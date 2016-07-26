@@ -151,12 +151,12 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)"
                  onclick="clickMe(event)">
-                <img ng-src="{{ContentHome.resizeImage(node.iconUrl,{width:50,height:50})}}">
+                <img load-image="1x1" data-finalSrc="{{node}}" cropWidth="50" cropHeight="50">
             </div>
             <div class="copy pull-left margin-left-ten">
                 <p class="ellipsis text-primary margin-zero">
                     <span class="text-primary" style="cursor: pointer" data-nodrag=""
-                          ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)">{{node.title}}</span>
+                          ng-click="ContentHome.openPluginInWidget(this)" onclick="clickMe(event)" update-title="{{node}}" ></span>
                 </p>
 
                 <p class="ellipsis margin-zero" data-nodrag><span>{{node.pluginTypeName}}</span></p>

@@ -12,6 +12,72 @@
             'ui.tree',
             'advancedFolderModals'
         ])
+        .directive("loadImage", function () {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                   // element.attr("src", "../../../styles/media/holder-" + attrs.loadImage + ".gif");
+
+                    var _img = JSON.parse(attrs.finalsrc).iconUrl;
+                    var instanceId=JSON.parse(attrs.finalsrc).instanceId;
+                   var widthIcon= parseInt(attrs.cropwidth);
+                    var heightIcon =parseInt(attrs.cropheight);
+
+                    buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
+                        //    console.log(result.data._buildfire.pluginsresult.result);
+                        result.data._buildfire.plugins.result.forEach(function(obj){
+                            if(instanceId==obj.data.instanceId){
+
+                                _img= obj.data.iconUrl;
+                                replaceImg (buildfire.imageLib.cropImage(_img, {
+                                    width: widthIcon,
+                                    height: heightIcon
+                                }));
+
+                              //  return Buildfire.imageLib.cropImage(obj.data.iconUrl, options);
+                            }
+                        })
+                    });
+
+
+                    function replaceImg(finalSrc) {
+                        var elem = $("<img>");
+                        elem[0].onload = function () {
+                            element.attr("src", finalSrc);
+                            elem.remove();
+                        };
+                        elem.attr("src", finalSrc);
+                    }
+                }
+            };
+        })
+        .directive("updateTitle", function () {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    // element.attr("src", "../../../styles/media/holder-" + attrs.loadImage + ".gif");
+
+                    console.log('updateTitle-------------------',scope,element,attrs);
+                    var instanceId=attrs.updateTitle && JSON.parse(attrs.updateTitle).instanceId;
+
+                    buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
+                        result.data._buildfire.plugins.result.forEach(function(obj){
+                            if(instanceId==obj.data.instanceId){
+                             //   out=obj.data.title;
+                                replaceTitle(obj.data.title);
+                            }
+                        });
+
+                    });
+
+
+                    function replaceTitle(finalSrc) {
+
+                        element[0].textContent=finalSrc;
+                    }
+                }
+            };
+        })
         //injected ui.bootstrap for angular bootstrap component
         .config(['$httpProvider', function ($httpProvider) {
             var interceptor = ['$q', function ($q) {
