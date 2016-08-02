@@ -8,7 +8,7 @@
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var deletePluginArray = [];
-
+                var tmpCarousalArray=[];
                 var _data={
                     _buildfire: {
                         plugins: {
@@ -54,6 +54,7 @@
 
                 // this method will be called when a new item added to the list
                 ContentHome.editor.onAddItems = function (items) {
+                    tmpCarousalArray=items;
                     console.log('Content info==========================', ContentHome.info);
                     if (ContentHome.info && ContentHome.info.data && ContentHome.info.data.content && !ContentHome.info.data.content.images)
                         ContentHome.info.data.content.images = [];
@@ -521,7 +522,10 @@
                     if (_info && _info.data && !isUnchanged(_info)) {
                         if(_info.data.default){
                             _info.data=_data;
+                            _info.data.content.images=tmpCarousalArray;
                             ContentHome.editor.loadItems([]);
+                            ContentHome.editor.loadItems(tmpCarousalArray);
+                          //  ContentHome.editor.loadItems([]);
                         }
                         timerDelay = $timeout(function () {
                             saveData(_info);
