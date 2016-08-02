@@ -3,12 +3,12 @@
 (function (angular) {
     angular
         .module('advancedFolderPluginContent')
-        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging', 'Utility',
-            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility) {
+        .controller('ContentHomeCtrl', ['$scope', '$timeout', 'DB', 'COLLECTIONS', 'Buildfire', 'DEFAULT_DATA', 'Modals', 'Messaging', 'Utility','dynamicData',
+            function ($scope, $timeout, DB, COLLECTIONS, Buildfire, DEFAULT_DATA, Modals, Messaging, Utility,dynamicData) {
                 console.log('ContentHomeCtrl Controller Loaded-------------------------------------');
                 var ContentHome = this;
                 var deletePluginArray = [];
-
+                var tmpCarousalArray=[];
                 var _data={
                     _buildfire: {
                         plugins: {
@@ -54,6 +54,7 @@
 
                 // this method will be called when a new item added to the list
                 ContentHome.editor.onAddItems = function (items) {
+                    tmpCarousalArray=items;
                     console.log('Content info==========================', ContentHome.info);
                     if (ContentHome.info && ContentHome.info.data && ContentHome.info.data.content && !ContentHome.info.data.content.images)
                         ContentHome.info.data.content.images = [];
@@ -327,6 +328,7 @@
                     if (result && result.data && !angular.equals({}, result.data)) {
                         console.log('>>pluginDetailData<<', result);
                         //updateMasterInfo(result);
+                        dynamicData.setDyamicData(result.data._buildfire.plugins.result);
                         if(!ContentHome.info ){
                             ContentHome.info =_data;
                             init();
@@ -520,7 +522,10 @@
                     if (_info && _info.data && !isUnchanged(_info)) {
                         if(_info.data.default){
                             _info.data=_data;
+                            _info.data.content.images=tmpCarousalArray;
                             ContentHome.editor.loadItems([]);
+                            ContentHome.editor.loadItems(tmpCarousalArray);
+                          //  ContentHome.editor.loadItems([]);
                         }
                         timerDelay = $timeout(function () {
                             saveData(_info);
