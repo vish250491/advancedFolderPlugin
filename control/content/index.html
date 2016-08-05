@@ -151,7 +151,8 @@
 
             <div class="media-holder pull-left" data-nodrag="" ng-click="ContentHome.openPluginInWidget(this)"
                  onclick="clickMe(event)">
-                <img load-image="1x1" data-finalSrc="{{node}}" cropWidth="50" cropHeight="50">
+                <img load-image="1x1" data-finalSrc="{{node}}" cropWidth="50" cropHeight="50" ng-if="!node.data.iconClassName">
+                <span class="main-icon {{ node.data.iconClassName }}" ng-if="node.data.iconClassName"></span>
             </div>
             <div class="copy pull-left margin-left-ten">
                 <p class="ellipsis text-primary margin-zero">

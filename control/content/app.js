@@ -23,22 +23,24 @@
                    var widthIcon= parseInt(attrs.cropwidth);
                     var heightIcon =parseInt(attrs.cropheight);
 
-                  //  buildfire.datastore.getWithDynamicData('advancedFolderInfo', function (err, result) {
-                        //    console.log(result.data._buildfire.pluginsresult.result);
-                    dynamicData.getDynamicData().forEach(function(obj){
+                  if(dynamicData && dynamicData.getDynamicData && dynamicData.getDynamicData() && dynamicData.getDynamicData().forEach){
+                        dynamicData.getDynamicData().forEach(function(obj){
                             if(instanceId==obj.data.instanceId){
 
                                 _img= obj.data.iconUrl;
-                                replaceImg (buildfire.imageLib.cropImage(_img, {
-                                    width: widthIcon,
-                                    height: heightIcon
-                                }));
+                                if(_img){
+                                    replaceImg (buildfire.imageLib.cropImage(_img, {
+                                        width: widthIcon,
+                                        height: heightIcon
+                                    }));
+                                }
 
-                              //  return Buildfire.imageLib.cropImage(obj.data.iconUrl, options);
+                                if(obj.data.iconClassName){
+                                    updateClassName(obj.data.iconClassName);
+                                }
                             }
                         })
-                   // });
-
+                    }
 
                     function replaceImg(finalSrc) {
                         var elem = $("<img>");
@@ -48,6 +50,14 @@
                         };
                         elem.attr("src", finalSrc);
                     }
+
+                    function updateClassName(className){
+                        var elem = angular.element("<span>");
+                        elem.attr("class","main-icon "+className);
+                        element.replaceWith(elem);
+                    }
+
+
                 }
             };
         }])
@@ -60,13 +70,14 @@
                     console.log('updateTitle-------------------',scope,element,attrs);
                     var instanceId=attrs.updateTitle && JSON.parse(attrs.updateTitle).instanceId;
 
-
-                    dynamicData.getDynamicData().forEach(function(obj){
+                    if(dynamicData && dynamicData.getDynamicData && dynamicData.getDynamicData() && dynamicData.getDynamicData().forEach){
+                        dynamicData.getDynamicData().forEach(function(obj){
                             if(instanceId==obj.data.instanceId){
-                             //   out=obj.data.title;
+                                //   out=obj.data.title;
                                 replaceTitle(obj.data.title);
                             }
                         });
+                    }
 
                     function replaceTitle(finalSrc) {
 
