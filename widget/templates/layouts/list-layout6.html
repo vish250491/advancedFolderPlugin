@@ -16,7 +16,10 @@
                         </div>
                         <div class="list-item-copy text-center" ng-class="!WidgetHome.info.data.design.hideText?'with-text':'without-text'">
                             <p class="ellipsis margin-zero text-primary">
-                                <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText">
+                                <a class="text-primary" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
+                                    {{ plugin.data.title }}
+                                </a>
+                                <a class="text-primary" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
                                     {{ plugin.data.title }}
                                 </a>
                             </p>
@@ -31,7 +34,10 @@
                         </div>
                         <div class="list-item-copy text-center" ng-class="!WidgetHome.info.data.design.hideText?'with-text':'without-text'">
                             <p class="ellipsis margin-zero text-primary">
-                                <a class="text-primary" ng-show="!WidgetHome.info.data.design.hideText">
+                                <a class="text-primary" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
+                                    {{ plugin.title }}
+                                </a>
+                                <a class="text-primary" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
                                     {{ plugin.title }}
                                 </a>
                             </p>

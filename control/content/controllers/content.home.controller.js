@@ -456,8 +456,8 @@
 
                     var success = function (data) {
                         if (data && data.data && data.id && (data.data.content || data.data.design)) {
-                            if(data.data.design && !data.data.design.hideText)
-                                data.data.design.hideText=Boolean(false);
+                           /* if(data.data.design && !data.data.design.hideText)
+                                data.data.design.hideText=Boolean(false);*/
                             updateMasterInfo(data);
                             ContentHome.info = data;
                         }
