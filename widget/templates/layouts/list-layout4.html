@@ -15,9 +15,12 @@
                         <img load-image="16x9" data-final-src="{{ plugin.data.iconUrl}}" crop-width="450" crop-height="254" crop-type="crop" ng-if="plugin.data.iconUrl" />
                         <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="plugin.data.iconClassName" />
                     </div>
-                    <div class="info-bar titleBarBackgroundTheme" ng-show="!WidgetHome.info.data.design.hideText">
+                    <div class="info-bar titleBarBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
                         <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" >{{ plugin.data.title }}</p>
                     </div>
+                       <div class="info-bar titleBarBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
+                           <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" >{{ plugin.data.title }}</p>
+                       </div>
                    </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" ng-if="plugin.items">
                             <div class="plugin-slide text-center">
@@ -25,7 +28,10 @@
 	                            <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 		                        <img load-image="16x9" data-final-src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                             </div>
-                            <div class="info-bar titleBarBackgroundTheme" ng-show="!WidgetHome.info.data.design.hideText">
+                            <div class="info-bar titleBarBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
+                                <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" >{{ plugin.title }}</p>
+                            </div>
+                            <div class="info-bar titleBarBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
                                 <p class="margin-bottom-zero col-md-12 ellipsis titleBarTextAndIcons" >{{ plugin.title }}</p>
                             </div>
                         </div>

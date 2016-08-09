@@ -18,7 +18,10 @@
                             <img load-image="239x1" data-final-src="{{ plugin.data.iconUrl }}"  crop-width="512" crop-height="210" crop-type="crop" ng-if="plugin.data.iconUrl">
                             <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="plugin.data.iconClassName" />
                         </div>
-                        <div class="info-bar blackBackgroundTheme" ng-show="!WidgetHome.info.data.design.hideText">
+                        <div class="info-bar blackBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
+                            <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.data.title }}</p>
+                        </div>
+                        <div class="info-bar blackBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme">{{ plugin.data.title }}</p>
                         </div>
                     </div>
@@ -32,7 +35,10 @@
                             <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 	                        <img load-image="239x1" data-final-src="../../../styles/media/holder-239x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                         </div>
-                        <div class="info-bar blackBackgroundTheme" ng-show="!WidgetHome.info.data.design.hideText">
+                        <div class="info-bar blackBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
+                            <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme" >{{ plugin.title }}</p>
+                        </div>
+                        <div class="info-bar blackBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">
                             <p class="margin-bottom-zero col-md-12 ellipsis whiteTheme" >{{ plugin.title }}</p>
                         </div>
                     </div>
