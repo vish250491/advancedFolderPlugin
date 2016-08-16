@@ -25,7 +25,7 @@
                 <div class="clickable list-item" ng-repeat="plugin in WidgetHome.info.data.content.entity" >
                     <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-left overflow-hidden" ng-if="plugin.data">
                         <div class="list-media-holder square-icon pull-left">
-                            <img load-image="4x1"
+                            <img load-image="1x1"
                                  data-final-src="{{ plugin.data.iconUrl }}" crop-width="180" crop-height="180" crop-type="crop" ng-if="plugin.data.iconUrl">
                             <span class="main-icon {{ plugin.data.iconClassName }}" ng-if="plugin.data.iconClassName"></span>
                         </div>
