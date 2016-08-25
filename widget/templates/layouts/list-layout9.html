@@ -33,7 +33,7 @@
                         <div class="plugin-slide text-center">
                             <div class="blackLayer"></div>
                             <div class="backgroundLayer" style="background:url('{{ WidgetHome.cropImage(plugin.data.iconUrl? plugin.data.iconUrl : '../../../styles/media/holder-16x9.png', {width: 640, height: 360}) }}');"></div>
-                            <img load-image="16x9" data-final-src="{{ plugin.data.iconUrl }}" ng-if="plugin.data.iconUrl" crop-width="640" crop-height="360" crop-type="crop">
+                            <img load-image="16x9" data-final-src="{{ plugin.data.iconUrl }}" ng-if="plugin.data.iconUrl" crop-width="640" crop-height="360" crop-type="crop" ng-style="{'min-height': (9 * deviceWidth / 16)-12 + 'px' }">
                             <img src="../../../styles/media/holder-16x9.png" ng-if="plugin.data.iconClassName">
                             <p class="ellipsis item-text whiteTheme text-center" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">{{ plugin.data.title }}</p>
                             <p class="ellipsis item-text whiteTheme text-center" ng-if="WidgetHome.info.data.design.hideText===undefined ? true : false ">{{ plugin.data.title }}</p>
@@ -46,7 +46,7 @@
                         <div class="plugin-slide text-center">
                             <div class="blackLayer"></div>
                             <div class="backgroundLayer" style="background:url('{{ cropImage(plugin.iconUrl? plugin.iconUrl : '../../../styles/media/holder-16x9.png', {width: 640, height: 360}) }}');"></div>
-							<img load-image="16x9" data-final-src="{{ plugin.fileUrl }}" crop-width="640" crop-height="360" crop-type="crop" ng-if="plugin.fileUrl">
+							<img load-image="16x9" data-final-src="{{ plugin.fileUrl }}" crop-width="640" crop-height="360" crop-type="crop" ng-if="plugin.fileUrl" ng-style="{'min-height': (9 * deviceWidth / 16)-12 + 'px' }">
 	                       	<img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length!=0">
 	                       	<img src="../../../styles/media/holder-16x9.png" ng-if="! plugin.fileUrl && plugin.items.length==0">
                             <p class="ellipsis item-text whiteTheme text-center"  ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">{{ plugin.title }}</p>

@@ -12,7 +12,7 @@
                     <div  class="list-item col-xs-6 padding-zero has-info-bar pull-left" ng-repeat="plugin in WidgetHome.info.data.content.entity">
                         <div ng-click="WidgetHome.navigateToPlugin(plugin.data)" class="list-item-media text-center" ng-if="plugin.data">
                             <div class="list-media-holder">
-                                <img load-image="1x1" data-final-src="{{plugin.data.iconUrl}}" ng-if="plugin.data.iconUrl" crop-width="320" crop-height="320" crop-type="crop" />
+                                <img load-image="1x1" data-final-src="{{plugin.data.iconUrl}}" ng-if="plugin.data.iconUrl" crop-width="320" crop-height="320" crop-type="crop" ng-style="{'min-height': ((1 * deviceWidth / 1)/2)-12 + 'px' }"/>
 								<img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="plugin.data.iconClassName" />
                             </div>
                             <div class="info-bar titleBarBackgroundTheme" ng-if="WidgetHome.info.data.design.hideText!==undefined? !WidgetHome.info.data.design.hideText : '' ">
@@ -28,7 +28,7 @@
                         </div>
                         <div  ng-click="WidgetHome.goToFolder(plugin)" class="list-item-media text-center" ng-if="plugin.items">
                             <div class="list-media-holder" style=" height: 171px; ">
-                                <img  ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{plugin.fileUrl}}" crop-width="320" crop-height="320" crop-type="crop">
+                                <img  ng-if="plugin.fileUrl" load-image="1x1" data-final-src="{{plugin.fileUrl}}" crop-width="320" crop-height="320" crop-type="crop" ng-style="{'min-height': ((1 * deviceWidth / 1)/2)-12 + 'px' }">
 	                            <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length!=0" />
 		                        <img load-image="1x1" data-final-src="../../../styles/media/holder-1x1.png" ng-if="! plugin.fileUrl && plugin.items.length==0" />	                       
                             </div>
