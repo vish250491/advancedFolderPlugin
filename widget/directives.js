@@ -11,8 +11,8 @@
                 }
             };
         }])
-        .directive("viewSwitcher", ["ViewStack", "$rootScope", '$compile', "$templateCache",
-            function (ViewStack, $rootScope, $compile, $templateCache) {
+        .directive("viewSwitcher", ["ViewStack", "$rootScope", '$compile', "$templateCache","PluginType",
+            function (ViewStack, $rootScope, $compile, $templateCache,PluginType) {
                 return {
                     restrict: 'AE',
                     link: function (scope, elem, attrs) {
@@ -49,7 +49,7 @@
                                     _elToRemove.remove();
 
                                 });
-                                if(views==0)
+                                if(views==0 && PluginType.isHomePlugin())
                                     buildfire.appearance.titlebar.hide();
 
                                 //$(elem).find('#' + view.template).remove();
