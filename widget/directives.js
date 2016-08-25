@@ -49,7 +49,7 @@
                                     _elToRemove.remove();
 
                                 });
-                                if(view==0)
+                                if(views==0)
                                     buildfire.appearance.titlebar.hide();
 
                                 //$(elem).find('#' + view.template).remove();
