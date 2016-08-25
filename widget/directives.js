@@ -49,6 +49,8 @@
                                     _elToRemove.remove();
 
                                 });
+                                if(view==0)
+                                    buildfire.appearance.titlebar.hide();
 
                                 //$(elem).find('#' + view.template).remove();
                             }
