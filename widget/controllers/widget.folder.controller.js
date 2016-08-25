@@ -12,6 +12,8 @@
                 WidgetHome.noCarouselBody = true;
 
                 var vs = ViewStack.getCurrentView();
+                Buildfire.appearance.titlebar.show();
+
                 console.log('vs>>>>', vs);
                 if (vs) {
                     console.log('got folder', vs.info);

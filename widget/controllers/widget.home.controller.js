@@ -52,7 +52,6 @@
                     }
                 ]
 
-                Buildfire.appearance.titlebar.show();
                 /*declare the device width heights*/
                 $rootScope.deviceHeight = window.innerHeight;
                 $rootScope.deviceWidth = window.innerWidth;
