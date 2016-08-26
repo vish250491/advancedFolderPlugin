@@ -49,7 +49,7 @@
                                     _elToRemove.remove();
 
                                 });
-                                if(views==0 && PluginType.isHomePlugin())
+                                if(views<=0 && PluginType.isHomePlugin())
                                     buildfire.appearance.titlebar.hide();
 
                                 //$(elem).find('#' + view.template).remove();
